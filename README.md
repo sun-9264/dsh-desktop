@@ -24,11 +24,6 @@
 - 主程序（单文件）：`DeepSeek Harness.exe`（发布在 Releases 附件，下载即用）
 - 桌面快捷方式 / 开始菜单：DeepSeek Harness
 
-## 分享给朋友（无个人信息/API/会话）
-- **只需分享 `DeepSeek Harness.exe` 这一个文件**。
-- 应用包内（app.asar）只含：`main.js`（窗口+启动+环境检测）、`setup-guide.html`（安装引导页）、`icon.ico`（鲸娘图标）、`theme/`（蓝色主题）、`package.json`。
-- **不含**你的个人配置、API Key、任何会话数据。每个使用者的配置存在各自机器的 `~/.dsh`。
-
 ## 项目结构（源码，位于 dsh-desktop）
 ```
 dsh-desktop/
