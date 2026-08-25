@@ -1,0 +1,213 @@
+window.__ModuleLoader__.load({
+  id: "dsh-deepseek-balance",
+  factory: (require) => {
+    var module = { exports: {} };
+    var exports = module.exports;
+    Object.defineProperty(exports, Symbol.toStringTag, { value: "Module" });
+    var react = require("react");
+
+    var POLL_MS = 15000;
+    var ENDPOINT = "/api/deepseek-balance";
+
+    /**
+     * Official DeepSeek pricing (CNY per 1M tokens), as of 2026-08-17.
+     * Array index: 0 = off-peak (空闲时段), 1 = peak (高峰时段).
+     * Peak hours (Beijing time): 09:00-12:00, 14:00-18:00.
+     * Cache-write tokens are billed at the cache-miss input price (the
+     * official table only lists hit / miss; a write means the tokens were
+     * not cached before).
+     */
+    var PRICES = {
+      "deepseek-v4-flash": { hit: [0.05, 0.10], miss: [1.5, 3.0], out: [4.5, 9.0] },
+      "deepseek-v4-pro": { hit: [0.15, 0.30], miss: [4.5, 9.0], out: [13.5, 27.0] },
+    };
+
+    function isPeakNow() {
+      var hour;
+      try {
+        hour = Number(new Intl.DateTimeFormat("en-US", { hour: "numeric", hour12: false, timeZone: "Asia/Shanghai" }).format(new Date()));
+      } catch (e) {
+        hour = new Date().getHours();
+      }
+      if (hour === 24) hour = 0;
+      return (hour >= 9 && hour < 12) || (hour >= 14 && hour < 18);
+    }
+
+    /**
+     * Only official DeepSeek models carry the DeepSeek price table. Any other
+     * model (e.g. a provider's own "…-pro" like mimo-v2.5-pro) must NOT be
+     * priced against it — a naive "contains 'pro'" match would multiply the
+     * cost by 3 for unrelated models. Exact-prefix match on the deepseek-v4
+     * family; anything else is null (no cost shown).
+     */
+    function priceKeyFor(model) {
+      var m = String(model || "").toLowerCase();
+      if (m.indexOf("deepseek-v4-pro") === 0) return "deepseek-v4-pro";
+      if (m.indexOf("deepseek-v4-flash") === 0) return "deepseek-v4-flash";
+      return null;
+    }
+
+    /**
+     * Total session cost in CNY across per-model usage entries
+     * [{ model, input, output, cacheRead, cacheWrite }]. Models outside the
+     * DeepSeek price table are skipped. Returns null when no entry is priced.
+     */
+    function totalCost(usageList) {
+      if (!Array.isArray(usageList) || usageList.length === 0) return null;
+      var peak = isPeakNow() ? 1 : 0;
+      var total = 0;
+      var priced = 0;
+      usageList.forEach(function (u) {
+        var key = priceKeyFor(u.model);
+        if (!key) return;
+        var p = PRICES[key];
+        var missTokens = (u.input || 0) + (u.cacheWrite || 0);
+        total += missTokens * p.miss[peak] / 1e6;
+        total += (u.cacheRead || 0) * p.hit[peak] / 1e6;
+        total += (u.output || 0) * p.out[peak] / 1e6;
+        priced++;
+      });
+      return priced > 0 ? total : null;
+    }
+
+    function fmtCost(cost) {
+      return cost < 0.01 ? cost.toFixed(4) : cost.toFixed(2);
+    }
+
+    function fmtTokens(n) {
+      return String(n).replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+    }
+
+    function loadBalance(sessionId) {
+      var url = ENDPOINT;
+      if (sessionId) url += "?session=" + encodeURIComponent(sessionId);
+      return fetch(url, { headers: { accept: "application/json" } })
+        .then(function (r) {
+          if (!r.ok) return { status: "error", message: "余额接口 HTTP " + r.status, at: Date.now() };
+          return r.json().then(function (res) {
+            if (res && res.ok) {
+              return {
+                status: "ok",
+                data: res.data,
+                usage: Array.isArray(res.usage) ? res.usage : [],
+                at: res.at || Date.now(),
+              };
+            }
+            return { status: "error", message: (res && res.error) || "未知错误", at: Date.now() };
+          }).catch(function () {
+            return { status: "error", message: "余额接口响应不是有效 JSON", at: Date.now() };
+          });
+        })
+        .catch(function (err) {
+          return { status: "error", message: (err && err.message) || String(err), at: Date.now() };
+        });
+    }
+
+    function DockView(props) {
+      var sessionId = props && props.sessionId;
+      var pair = react.useState({ status: "loading", usage: [] });
+      var state = pair[0];
+      var setState = pair[1];
+
+      react.useEffect(function () {
+        var alive = true;
+        function tick() {
+          loadBalance(sessionId).then(function (next) {
+            if (alive) setState(next);
+          });
+        }
+        tick();
+        var timer = setInterval(tick, POLL_MS);
+        return function () {
+          alive = false;
+          clearInterval(timer);
+        };
+      }, [sessionId]);
+
+      var dotColor = state.status === "error" ? "#f87171" : state.status === "loading" ? "#fbbf24" : "#34d399";
+      var text;
+      var title;
+      var cost = totalCost(state.usage);
+      var peak = isPeakNow() ? "高峰时段" : "空闲时段";
+
+      if (state.status === "error") {
+        text = "DeepSeek 余额获取失败";
+        title = state.message || "";
+      } else if (state.status === "loading" || !state.data) {
+        text = "DeepSeek 余额加载中…";
+        title = "";
+      } else {
+        var infos = Array.isArray(state.data.balance_infos) ? state.data.balance_infos : [];
+        if (infos.length === 0) {
+          text = "DeepSeek 余额：无数据";
+          title = "";
+        } else {
+          var balanceText = infos.map(function (b) {
+            return (b.currency || "?") + " " + (b.total_balance != null ? b.total_balance : "?");
+          }).join(" / ");
+          text = "DeepSeek 余额 " + balanceText;
+          if (cost !== null) {
+            text += " ｜ 本会话 ¥" + fmtCost(cost);
+          }
+          var lines = infos.map(function (b) {
+            return (b.currency || "?") +
+              "：总额 " + (b.total_balance != null ? b.total_balance : "?") +
+              "，赠送 " + (b.granted_balance != null ? b.granted_balance : "?") +
+              "，充值 " + (b.topped_up_balance != null ? b.topped_up_balance : "?") +
+              "，账户可用 " + (state.data.is_available === true ? "是" : state.data.is_available === false ? "否" : "?");
+          });
+          if (Array.isArray(state.usage) && state.usage.length > 0) {
+            lines.push("本次会话按模型用量：");
+            state.usage.forEach(function (u) {
+              var totalIn = (u.input || 0) + (u.cacheRead || 0) + (u.cacheWrite || 0);
+              lines.push("  " + (u.model || "?") + "：输入 " + fmtTokens(totalIn) +
+                "（未命中 " + fmtTokens(u.input || 0) + "，命中 " + fmtTokens(u.cacheRead || 0) + "，写入 " + fmtTokens(u.cacheWrite || 0) + "），输出 " + fmtTokens(u.output || 0));
+            });
+            lines.push("计价：" + peak + "，缓存写入按未命中输入价");
+            if (cost === null) {
+              lines.push("无 DeepSeek 定价表内模型（仅 deepseek-v4-flash / deepseek-v4-pro），无法估算消费");
+            } else {
+              lines.push("本次会话消费：¥" + fmtCost(cost));
+            }
+          }
+          title = lines.join("\n");
+        }
+      }
+
+      return react.createElement("div", {
+        style: {
+          display: "flex",
+          alignItems: "center",
+          gap: 8,
+          fontSize: 12,
+          lineHeight: 1,
+          padding: "2px 0", height: 16, minHeight: 16,
+          opacity: 0.85,
+        },
+        title: title || undefined,
+      },
+        react.createElement("span", { style: { width: 8, height: 8, borderRadius: "50%", background: dotColor, flex: "none" } }),
+        react.createElement("span", null, text),
+      );
+    }
+
+    function apply(ctx) {
+      ctx.slots.inject("conversation.composer.dock", function () {
+        return ctx.slots.register(
+          { name: "conversation.composer.dock", id: "deepseek-balance", order: 1 },
+          function (props) {
+            return react.createElement(DockView, {
+              sessionId: props && props.sessionId,
+              useProjection: props && props.useProjection,
+            });
+          },
+        );
+      });
+    }
+
+    exports.name = "dsh-deepseek-balance";
+    exports.inject = ["slots"];
+    exports.apply = apply;
+    return module.exports;
+  }
+});
