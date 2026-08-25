@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="zh-CN"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>设置</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Segoe UI','Microsoft YaHei',sans-serif;background:linear-gradient(135deg,#4d6bfe 0%,#2e43b8 55%,#1b2a66 100%);color:#fff;min-height:100vh;padding:24px}
+.card{background:rgba(255,255,255,0.09);backdrop-filter:blur(14px);border:1px solid rgba(255,255,255,0.22);border-radius:20px;padding:28px 32px;max-width:480px;margin:0 auto;box-shadow:0 20px 60px rgba(0,0,0,0.35)}
+.logo{display:flex;align-items:center;gap:10px;margin-bottom:18px}.logo .whale{font-size:28px}.logo h1{font-size:20px;font-weight:700}
+.opt{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 0;border-bottom:1px solid rgba(255,255,255,0.14)}
+.opt:last-of-type{border-bottom:none}
+.opt .txt b{display:block;font-size:15px;font-weight:600;margin-bottom:3px}
+.opt .txt span{font-size:12px;color:#c4d0e6;line-height:1.5}
+.switch{position:relative;width:46px;height:26px;flex:none}
+.switch input{opacity:0;width:0;height:0}
+.switch .track{position:absolute;inset:0;background:rgba(255,255,255,0.25);border-radius:13px;transition:.2s;cursor:pointer}
+.switch .thumb{position:absolute;top:3px;left:3px;width:20px;height:20px;background:#fff;border-radius:50%;transition:.2s}
+.switch input:checked+.track{background:#7aa2ff}
+.switch input:checked~.thumb{transform:translateX(20px)}
+.note{font-size:11px;color:#a9b6cc;line-height:1.6;margin-top:16px;text-align:center}
+.status{font-size:12px;color:#cfe0ff;margin-top:14px;text-align:center;min-height:18px}
+</style></head><body>
+<div class="card">
+  <div class="logo"><span class="whale">🐋</span><h1>DSH 桌面版 · 设置</h1></div>
+
+  <div class="opt">
+    <div class="txt"><b>开机自启</b><span>登录 Windows 后自动启动桌面版</span></div>
+    <label class="switch"><input type="checkbox" id="autoLaunch" onchange="save('autoLaunch',this.checked)"><span class="track"></span><span class="thumb"></span></label>
+  </div>
+
+  <div class="opt">
+    <div class="txt"><b>记住窗口大小</b><span>下次打开恢复你调整过的窗口尺寸</span></div>
+    <label class="switch"><input type="checkbox" id="rememberSize" onchange="save('rememberSize',this.checked)"><span class="track"></span><span class="thumb"></span></label>
+  </div>
+
+  <div class="opt">
+    <div class="txt"><b>窗口位置</b><span>每次打开默认显示在<b style="color:#cfe0ff">主屏幕正中间</b>（自动检测多屏）</span></div>
+    <div style="font-size:12px;color:#8f9cbd">已启用 ✓</div>
+  </div>
+
+  <div class="status" id="status"></div>
+  <div class="note">社区自制 · 非官方 · 与 DeepSeek 官方无关</div>
+</div>
+<script>
+function save(key, val){ window.settingsApi.set(key, val); document.getElementById('status').textContent='已保存 ' + key; }
+window.addEventListener('DOMContentLoaded', function(){
+  var s = window.settingsApi.get();
+  document.getElementById('autoLaunch').checked = !!s.autoLaunch;
+  document.getElementById('rememberSize').checked = !!s.rememberSize;
+});
+</script>
+</body></html>
