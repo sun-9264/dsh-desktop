@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>安装说明</title>
+<style>
+  * { margin:0; padding:0; box-sizing:border-box; }
+  body {
+    font-family:'Segoe UI','Microsoft YaHei',sans-serif;
+    background:linear-gradient(135deg,#4d6bfe 0%,#2e43b8 55%,#1b2a66 100%);
+    color:#fff; min-height:100vh; display:flex; align-items:center; justify-content:center; padding:24px;
+  }
+  .card {
+    background:rgba(255,255,255,0.09); backdrop-filter:blur(14px);
+    border:1px solid rgba(255,255,255,0.22); border-radius:20px;
+    padding:36px 40px; max-width:560px; width:100%;
+    box-shadow:0 20px 60px rgba(0,0,0,0.35);
+  }
+  .logo { display:flex; align-items:center; gap:12px; margin-bottom:18px; }
+  .logo .whale { font-size:34px; }
+  .logo h1 { font-size:22px; font-weight:700; letter-spacing:.5px; }
+  h2 { font-size:18px; margin:14px 0 8px; color:#cfe0ff; }
+  p { font-size:14px; line-height:1.75; color:#e6ecff; margin-bottom:10px; }
+  .step { display:flex; align-items:flex-start; gap:10px; margin:10px 0; background:rgba(255,255,255,0.08); border-radius:12px; padding:12px 14px; }
+  .step .n { flex:none; width:24px; height:24px; border-radius:50%; background:#fff; color:#2e43b8; display:flex; align-items:center; justify-content:center; font-weight:700; font-size:13px; margin-top:2px; }
+  .step .t { font-size:13.5px; line-height:1.6; color:#eef2ff; }
+  .step .t b { color:#fff; }
+  code { background:rgba(0,0,0,0.3); padding:1px 6px; border-radius:5px; font-family:Consolas,monospace; font-size:12.5px; color:#cfe0ff; }
+  .btnrow { display:flex; gap:12px; margin-top:22px; flex-wrap:wrap; }
+  .btn { flex:1; min-width:150px; border:none; border-radius:12px; padding:13px 18px; font-size:14px; font-weight:600; cursor:pointer; transition:transform .12s, box-shadow .12s; font-family:inherit; }
+  .btn:hover { transform:translateY(-1px); }
+  .btn-primary { background:#fff; color:#2e43b8; box-shadow:0 6px 18px rgba(0,0,0,0.2); }
+  .btn-primary:hover { box-shadow:0 10px 24px rgba(0,0,0,0.25); }
+  .btn-ghost { background:transparent; color:#e0e8ff; border:1px solid rgba(255,255,255,0.4); }
+  .btn-ghost:hover { background:rgba(255,255,255,0.12); }
+  .tip { margin-top:16px; font-size:12px; color:#aebccf; text-align:center; }
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo"><span class="whale">🐋</span><h1>DSH 桌面版</h1></div>
+  <h2>😊 还需要一步就能开始使用</h2>
+  <p>DeepSeek Harness 需要一个轻量的运行环境（Node.js），你的电脑上还没检测到它。请在有网络的情况下按以下步骤安装：</p>
+
+  <div class="step"><div class="n">1</div><div class="t">点击下方 <b>打开 Node.js 官网下载页</b>，下载 <b>Windows 64 位</b> 的 <code>LTS</code> 版本（长期支持版）。</div></div>
+  <div class="step"><div class="n">2</div><div class="t">双击下载的 <code>.msi</code> 文件安装，一路点"下一步"即可，保持默认选项不动。</div></div>
+  <div class="step"><div class="n">3</div><div class="t">安装完成后，点击下方 <b>我已安装，重新检查</b> 按钮，即可自动启动。</div></div>
+
+  <div class="btnrow">
+    <button class="btn btn-primary" id="downloadBtn">🌐 打开 Node.js 官网下载页</button>
+    <button class="btn btn-ghost" id="retryBtn">🔁 我已安装，重新检查</button>
+  </div>
+
+  <div class="tip">* 安装 Node.js 是官方免费、安全的，大小为几十 MB。安装后只需联网几秒即可完成 DeepSeek Harness 的首次启动。</div>
+</div>
+<script>
+  document.getElementById('downloadBtn').onclick = () => { if (window.installApi) window.installApi.openDownload(); };
+  document.getElementById('retryBtn').onclick = () => { if (window.installApi) window.installApi.retry(); };
+</script>
+
+  <div style="margin-top:16px;padding-top:12px;border-top:1px solid rgba(255,255,255,0.18);font-size:11px;color:#a9b6cc;line-height:1.6;text-align:center;">
+    社区自制 · 非官方 · 与 DeepSeek 官方及其母公司无关。<br>DeepSeek 为各自所有者的商标，本程序仅作兼容描述。
+  </div>
+</body>
+</html>
