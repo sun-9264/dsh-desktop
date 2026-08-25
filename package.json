@@ -1,0 +1,46 @@
+{
+  "name": "dsh-desktop",
+  "version": "1.0.0",
+  "description": "DSH 桌面版 — 社区自制、非官方的 DeepSeek Harness 桌面启动器（与 DeepSeek 官方无关）",
+  "main": "main.js",
+  "author": "simple_sun 和 胖🐋",
+  "license": "MIT",
+  "scripts": {
+    "start": "electron .",
+    "dist:portable": "electron-builder --win portable"
+  },
+  "devDependencies": {
+    "electron": "31.7.7",
+    "electron-builder": "^24.13.3"
+  },
+  "build": {
+    "appId": "com.deepseek.harness",
+    "productName": "DSH Desktop",
+    "files": [
+      "main.js",
+      "icon.ico",
+      "setup-guide.html",
+      "theme/**/*",
+      "plugins/**/*",
+      "THIRD-PARTY-NOTICES.md",
+      "setup-preload.js",
+      "settings.html",
+      "settings-preload.js",
+      "desktop-preload.js"
+    ],
+    "directories": {
+      "output": "release"
+    },
+    "win": {
+      "target": [
+        "portable"
+      ],
+      "icon": "icon.ico",
+      "artifactName": "DeepSeek Harness.exe"
+    },
+    "portable": {
+      "artifactName": "DeepSeek Harness.exe"
+    },
+    "copyright": "Copyright © 2026 simple_sun 和 胖🐋"
+  }
+}
