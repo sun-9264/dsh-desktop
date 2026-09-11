@@ -3,11 +3,14 @@ window.__ModuleLoader__.load({
   factory: (require) => {
     var module = { exports: {} };
     var exports = module.exports;
+    var previousRequire = globalThis.__dshRequire;
+    globalThis.__dshRequire = require;
+    try {
+"use strict";
 var __defProp = Object.defineProperty;
 var __getOwnPropDesc = Object.getOwnPropertyDescriptor;
 var __getOwnPropNames = Object.getOwnPropertyNames;
 var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, { enumerable: true, configurable: true, writable: true, value }) : obj[key] = value;
 var __export = (target, all) => {
   for (var name in all)
     __defProp(target, name, { get: all[name], enumerable: true });
@@ -21,7 +24,6 @@ var __copyProps = (to, from, except, desc) => {
   return to;
 };
 var __toCommonJS = (mod) => __copyProps(__defProp({}, "__esModule", { value: true }), mod);
-var __publicField = (obj, key, value) => __defNormalProp(obj, typeof key !== "symbol" ? key + "" : key, value);
 
 // src/client/index.ts
 var index_exports = {};
@@ -31,10 +33,57 @@ __export(index_exports, {
 });
 module.exports = __toCommonJS(index_exports);
 
-// src/client/MineradioPluginCard.tsx
-var import_dsh_client_ui_primitives = require("@deepseek-ai/dsh-client-ui-primitives");
+// src/client/icons.tsx
+var import_jsx_runtime = require("react/jsx-runtime");
+var REACT_MEMO_TYPE = typeof Symbol === "function" ? Symbol.for("react.memo") : void 0;
+var REACT_FORWARD_REF_TYPE = typeof Symbol === "function" ? Symbol.for("react.forward_ref") : void 0;
+function isComponentType(value) {
+  if (typeof value === "function") return true;
+  if (value === null || typeof value !== "object") return false;
+  const marker = value.$$typeof;
+  return marker === REACT_MEMO_TYPE || marker === REACT_FORWARD_REF_TYPE;
+}
+function resolveHostIcon() {
+  try {
+    const hostRequire = globalThis.__dshRequire;
+    if (typeof hostRequire !== "function") return void 0;
+    const mod = hostRequire("@deepseek-ai/dsh-client-ui-primitives");
+    if (mod === void 0 || mod === null) return void 0;
+    const candidate = mod.IconCheckOutline16;
+    return isComponentType(candidate) ? candidate : void 0;
+  } catch {
+    return void 0;
+  }
+}
+var hostIcon = resolveHostIcon();
+function IconCheckOutline16(props) {
+  const Host = hostIcon;
+  if (Host !== void 0) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Host, { ...props });
+  const size = typeof props.size === "number" && Number.isFinite(props.size) ? props.size : 16;
+  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+    "svg",
+    {
+      className: props.className,
+      style: props.style,
+      width: size,
+      height: size,
+      viewBox: "0 0 16 16",
+      fill: "none",
+      xmlns: "http://www.w3.org/2000/svg",
+      "aria-hidden": "true",
+      focusable: "false",
+      children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(
+        "path",
+        {
+          d: "M15.0498 3.92579L8.49512 12.3818C8.25774 12.6881 8.04517 12.9645 7.84668 13.1689C7.63957 13.3823 7.38732 13.5841 7.04492 13.6719C6.86373 13.7183 6.6757 13.7346 6.48926 13.7197C6.13666 13.6915 5.8528 13.5355 5.6123 13.3604C5.38201 13.1926 5.12573 12.9567 4.83984 12.6953L1.03125 9.21289L1.96875 8.1875L5.77734 11.6699C6.08684 11.9529 6.27773 12.1249 6.43066 12.2363C6.50183 12.2882 6.54699 12.3135 6.57324 12.3252C6.58525 12.3305 6.59269 12.3322 6.5957 12.333C6.59802 12.3336 6.59961 12.334 6.59961 12.334C6.63317 12.3367 6.66758 12.3335 6.7002 12.3252C6.7002 12.3252 6.70211 12.3251 6.7041 12.3242C6.70698 12.3229 6.71348 12.319 6.72461 12.3115C6.74849 12.2956 6.78843 12.2642 6.84961 12.2012C6.98138 12.0654 7.13957 11.8628 7.39648 11.5313L13.9502 3.07422L15.0498 3.92579Z",
+          fill: "currentColor"
+        }
+      )
+    }
+  );
+}
 
-// dshcss:Mineradio-DSH-Theme\src\client\MineradioPluginCard.module.css
+// dshcss:<pkg>\src\client\MineradioPluginCard.module.css
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify("dsh-theme-mineradio/src/client/MineradioPluginCard.module.css?v=cc6e6e9b") + "]") === null) {
   const tag = document.createElement("style");
   tag.dataset.plugin = "dsh-theme-mineradio";
@@ -45,16 +94,16 @@ if (typeof document !== "undefined" && document.querySelector("style[data-plugin
 var MineradioPluginCard_default = { "card": "MineradioPluginCard_card", "head": "MineradioPluginCard_head", "text": "MineradioPluginCard_text", "title": "MineradioPluginCard_title", "description": "MineradioPluginCard_description", "toggle": "MineradioPluginCard_toggle", "check": "MineradioPluginCard_check" };
 
 // src/client/MineradioPluginCard.tsx
-var import_jsx_runtime = require("react/jsx-runtime");
+var import_jsx_runtime2 = require("react/jsx-runtime");
 function MineradioPluginCard(props) {
   const { t, setEnabled, useStore } = props;
   const enabled = useStore((s) => s.enabled);
-  return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", { className: MineradioPluginCard_default.card, children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: MineradioPluginCard_default.head, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", { className: MineradioPluginCard_default.text, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: MineradioPluginCard_default.title, children: t("mineradio.title") }),
-      /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { className: MineradioPluginCard_default.description, children: t("mineradio.description") })
+  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("li", { className: MineradioPluginCard_default.card, children: /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: MineradioPluginCard_default.head, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: MineradioPluginCard_default.text, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: MineradioPluginCard_default.title, children: t("mineradio.title") }),
+      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: MineradioPluginCard_default.description, children: t("mineradio.description") })
     ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(
+    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)(
       "button",
       {
         type: "button",
@@ -64,7 +113,7 @@ function MineradioPluginCard(props) {
           setEnabled(!enabled);
         },
         children: [
-          /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", { className: MineradioPluginCard_default.check, children: enabled && /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_dsh_client_ui_primitives.IconCheckOutline16, {}) }),
+          /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: MineradioPluginCard_default.check, children: enabled && /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(IconCheckOutline16, {}) }),
           enabled ? t("mineradio.enable") : t("mineradio.disable")
         ]
       }
@@ -74,20 +123,19 @@ function MineradioPluginCard(props) {
 
 // src/client/MineradioAppearanceRow.tsx
 var import_react2 = require("react");
-var import_dsh_client_ui_primitives2 = require("@deepseek-ai/dsh-client-ui-primitives");
 
 // src/client/MineradioControls.tsx
 var import_react = require("react");
 
-// dshcss:Mineradio-DSH-Theme\src\client\MineradioAppearanceRow.module.css
+// dshcss:<pkg>\src\client\MineradioAppearanceRow.module.css
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify("dsh-theme-mineradio/src/client/MineradioAppearanceRow.module.css?v=4b8b809b") + "]") === null) {
   const tag = document.createElement("style");
   tag.dataset.plugin = "dsh-theme-mineradio";
   tag.dataset.pluginCss = "dsh-theme-mineradio/src/client/MineradioAppearanceRow.module.css?v=4b8b809b";
-  tag.textContent = ".MineradioAppearanceRow_group{display:flex;flex-direction:column;gap:14px;padding:8px 0 16px;border-bottom:1px solid var(--dsw-alias-border-l2);}.MineradioAppearanceRow_subGroup{display:flex;flex-direction:column;gap:8px;}.MineradioAppearanceRow_subTitle{font-size:13px;line-height:20px;font-weight:600;color:var(--dsw-alias-label-primary);}.MineradioAppearanceRow_controls{display:flex;flex-direction:column;gap:10px;}.MineradioAppearanceRow_row{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_rowLabel{flex:none;width:92px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_inlineLabel{flex:none;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_rowHint{margin-top:-4px;margin-left:102px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_groupHint{margin-top:-4px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_knobHint{margin-top:-4px;margin-left:102px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_toggle,.MineradioAppearanceRow_toggleOn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 6px;border:1px solid var(--dsw-alias-border-l2);border-radius:14px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);cursor:pointer;}.MineradioAppearanceRow_toggle:hover{background:var(--dsw-alias-interactive-bg-hover);}.MineradioAppearanceRow_toggleOn{border-color:transparent;background:var(--dsw-alias-state-business-tertiary);color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_check{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;}.MineradioAppearanceRow_knob{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_knobLabel{flex:none;width:92px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_slider{flex:1;min-width:0;accent-color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_numberWrap{flex:none;display:inline-flex;align-items:center;gap:4px;}.MineradioAppearanceRow_number{width:56px;height:26px;padding:0 6px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:var(--dsw-alias-bg-layer-2);font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);text-align:right;}.MineradioAppearanceRow_number::-webkit-outer-spin-button,.MineradioAppearanceRow_number::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}.MineradioAppearanceRow_unit{flex:none;width:18px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_segmented{display:inline-flex;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;overflow:hidden;}.MineradioAppearanceRow_seg,.MineradioAppearanceRow_segActive{height:26px;padding:0 12px;border:none;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);cursor:pointer;}.MineradioAppearanceRow_seg + .MineradioAppearanceRow_seg,.MineradioAppearanceRow_segActive + .MineradioAppearanceRow_seg,.MineradioAppearanceRow_seg + .MineradioAppearanceRow_segActive{border-left:1px solid var(--dsw-alias-border-l2);}.MineradioAppearanceRow_segActive{background:var(--dsw-alias-state-business-tertiary);color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_hueStripRow{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_hueStrip{position:relative;flex:1;min-width:0;height:16px;border-radius:8px;border:1px solid var(--dsw-alias-border-l2);background:linear-gradient( to right,hsl(0,85%,55%),hsl(60,85%,55%),hsl(120,85%,55%),hsl(180,85%,55%),hsl(240,85%,55%),hsl(300,85%,55%),hsl(360,85%,55%) );cursor:pointer;touch-action:none;}.MineradioAppearanceRow_hueStrip:focus-visible{outline:2px solid var(--dsw-alias-state-business-primary);outline-offset:2px;}.MineradioAppearanceRow_hueStripThumb{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--dsw-alias-border-l2),0 1px 3px rgba(0,0,0,0.35);transform:translate(-50%,-50%);pointer-events:none;}.MineradioAppearanceRow_hueStripValue{flex:none;width:40px;font-size:12px;line-height:18px;text-align:right;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_wallpaperPick{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_fileInput{display:none;}.MineradioAppearanceRow_pickButton{height:26px;padding:0 12px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);cursor:pointer;}.MineradioAppearanceRow_pickButton:hover{background:var(--dsw-alias-interactive-bg-hover);}.MineradioAppearanceRow_deleteButton{height:26px;padding:0 12px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-error);cursor:pointer;}.MineradioAppearanceRow_deleteButton:hover{background:var(--dsw-alias-interactive-bg-hover);}";
+  tag.textContent = ".MineradioAppearanceRow_group{display:flex;flex-direction:column;gap:14px;padding:8px 0 16px;border-bottom:1px solid var(--dsw-alias-border-l2);}.MineradioAppearanceRow_subGroup{display:flex;flex-direction:column;gap:8px;}.MineradioAppearanceRow_subTitle{font-size:13px;line-height:20px;font-weight:600;color:var(--dsw-alias-label-primary);}.MineradioAppearanceRow_fold{display:flex;flex-direction:column;gap:8px;}.MineradioAppearanceRow_foldHead{display:flex;align-items:center;justify-content:space-between;width:100%;margin:0;padding:0;border:none;background:transparent;cursor:pointer;color:inherit;font:inherit;text-align:left;}.MineradioAppearanceRow_foldTitle{font-size:13px;line-height:20px;font-weight:600;color:var(--dsw-alias-label-primary);}.MineradioAppearanceRow_foldChevron{flex:none;width:14px;height:14px;color:var(--dsw-alias-label-tertiary);transform:rotate(-90deg);}.MineradioAppearanceRow_foldChevronOpen{transform:rotate(0deg);}.MineradioAppearanceRow_foldBody{display:flex;flex-direction:column;gap:12px;}.MineradioAppearanceRow_controls{display:flex;flex-direction:column;gap:10px;}.MineradioAppearanceRow_row{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_rowLabel{flex:none;width:92px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_inlineLabel{flex:none;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_rowHint{margin-top:-4px;margin-left:102px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_groupHint{margin-top:-4px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_knobHint{margin-top:-4px;margin-left:102px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_toggle,.MineradioAppearanceRow_toggleOn{display:inline-flex;align-items:center;gap:6px;height:28px;padding:0 10px 0 6px;border:1px solid var(--dsw-alias-border-l2);border-radius:14px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);cursor:pointer;}.MineradioAppearanceRow_toggle:hover{background:var(--dsw-alias-interactive-bg-hover);}.MineradioAppearanceRow_toggleOn{border-color:transparent;background:var(--dsw-alias-state-business-tertiary);color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_check{display:inline-flex;align-items:center;justify-content:center;width:16px;height:16px;}.MineradioAppearanceRow_knob{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_knobLabel{flex:none;width:92px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);}.MineradioAppearanceRow_slider{flex:1;min-width:0;accent-color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_numberWrap{flex:none;display:inline-flex;align-items:center;gap:4px;}.MineradioAppearanceRow_number{width:56px;height:26px;padding:0 6px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:var(--dsw-alias-bg-layer-2);font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);text-align:right;}.MineradioAppearanceRow_number::-webkit-outer-spin-button,.MineradioAppearanceRow_number::-webkit-inner-spin-button{-webkit-appearance:none;margin:0;}.MineradioAppearanceRow_unit{flex:none;width:18px;font-size:12px;line-height:18px;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_segmented{display:inline-flex;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;overflow:hidden;}.MineradioAppearanceRow_seg,.MineradioAppearanceRow_segActive{height:26px;padding:0 12px;border:none;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-secondary);cursor:pointer;}.MineradioAppearanceRow_seg + .MineradioAppearanceRow_seg,.MineradioAppearanceRow_segActive + .MineradioAppearanceRow_seg,.MineradioAppearanceRow_seg + .MineradioAppearanceRow_segActive{border-left:1px solid var(--dsw-alias-border-l2);}.MineradioAppearanceRow_segActive{background:var(--dsw-alias-state-business-tertiary);color:var(--dsw-alias-state-business-primary);}.MineradioAppearanceRow_hueStripRow{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_hueStrip{position:relative;flex:1;min-width:0;height:16px;border-radius:8px;border:1px solid var(--dsw-alias-border-l2);background:linear-gradient( to right,hsl(0,85%,55%),hsl(60,85%,55%),hsl(120,85%,55%),hsl(180,85%,55%),hsl(240,85%,55%),hsl(300,85%,55%),hsl(360,85%,55%) );cursor:pointer;touch-action:none;}.MineradioAppearanceRow_hueStrip:focus-visible{outline:2px solid var(--dsw-alias-state-business-primary);outline-offset:2px;}.MineradioAppearanceRow_hueStripThumb{position:absolute;top:50%;width:18px;height:18px;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 1px var(--dsw-alias-border-l2),0 1px 3px rgba(0,0,0,0.35);transform:translate(-50%,-50%);pointer-events:none;}.MineradioAppearanceRow_hueStripValue{flex:none;width:40px;font-size:12px;line-height:18px;text-align:right;color:var(--dsw-alias-label-tertiary);}.MineradioAppearanceRow_wallpaperPick{display:flex;align-items:center;gap:10px;}.MineradioAppearanceRow_fileInput{display:none;}.MineradioAppearanceRow_pickButton{height:26px;padding:0 12px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-primary);cursor:pointer;}.MineradioAppearanceRow_pickButton:hover{background:var(--dsw-alias-interactive-bg-hover);}.MineradioAppearanceRow_deleteButton{height:26px;padding:0 12px;border:1px solid var(--dsw-alias-border-l2);border-radius:8px;background:transparent;font-size:12px;line-height:18px;color:var(--dsw-alias-label-error);cursor:pointer;}.MineradioAppearanceRow_deleteButton:hover{background:var(--dsw-alias-interactive-bg-hover);}";
   document.head.appendChild(tag);
 }
-var MineradioAppearanceRow_default = { "group": "MineradioAppearanceRow_group", "subGroup": "MineradioAppearanceRow_subGroup", "subTitle": "MineradioAppearanceRow_subTitle", "controls": "MineradioAppearanceRow_controls", "row": "MineradioAppearanceRow_row", "rowLabel": "MineradioAppearanceRow_rowLabel", "inlineLabel": "MineradioAppearanceRow_inlineLabel", "rowHint": "MineradioAppearanceRow_rowHint", "groupHint": "MineradioAppearanceRow_groupHint", "knobHint": "MineradioAppearanceRow_knobHint", "toggle": "MineradioAppearanceRow_toggle", "toggleOn": "MineradioAppearanceRow_toggleOn", "check": "MineradioAppearanceRow_check", "knob": "MineradioAppearanceRow_knob", "knobLabel": "MineradioAppearanceRow_knobLabel", "slider": "MineradioAppearanceRow_slider", "numberWrap": "MineradioAppearanceRow_numberWrap", "number": "MineradioAppearanceRow_number", "unit": "MineradioAppearanceRow_unit", "segmented": "MineradioAppearanceRow_segmented", "seg": "MineradioAppearanceRow_seg", "segActive": "MineradioAppearanceRow_segActive", "hueStripRow": "MineradioAppearanceRow_hueStripRow", "hueStrip": "MineradioAppearanceRow_hueStrip", "hueStripThumb": "MineradioAppearanceRow_hueStripThumb", "hueStripValue": "MineradioAppearanceRow_hueStripValue", "wallpaperPick": "MineradioAppearanceRow_wallpaperPick", "fileInput": "MineradioAppearanceRow_fileInput", "pickButton": "MineradioAppearanceRow_pickButton", "deleteButton": "MineradioAppearanceRow_deleteButton" };
+var MineradioAppearanceRow_default = { "group": "MineradioAppearanceRow_group", "subGroup": "MineradioAppearanceRow_subGroup", "subTitle": "MineradioAppearanceRow_subTitle", "fold": "MineradioAppearanceRow_fold", "foldHead": "MineradioAppearanceRow_foldHead", "foldTitle": "MineradioAppearanceRow_foldTitle", "foldChevron": "MineradioAppearanceRow_foldChevron", "foldChevronOpen": "MineradioAppearanceRow_foldChevronOpen", "foldBody": "MineradioAppearanceRow_foldBody", "controls": "MineradioAppearanceRow_controls", "row": "MineradioAppearanceRow_row", "rowLabel": "MineradioAppearanceRow_rowLabel", "inlineLabel": "MineradioAppearanceRow_inlineLabel", "rowHint": "MineradioAppearanceRow_rowHint", "groupHint": "MineradioAppearanceRow_groupHint", "knobHint": "MineradioAppearanceRow_knobHint", "toggle": "MineradioAppearanceRow_toggle", "toggleOn": "MineradioAppearanceRow_toggleOn", "check": "MineradioAppearanceRow_check", "knob": "MineradioAppearanceRow_knob", "knobLabel": "MineradioAppearanceRow_knobLabel", "slider": "MineradioAppearanceRow_slider", "numberWrap": "MineradioAppearanceRow_numberWrap", "number": "MineradioAppearanceRow_number", "unit": "MineradioAppearanceRow_unit", "segmented": "MineradioAppearanceRow_segmented", "seg": "MineradioAppearanceRow_seg", "segActive": "MineradioAppearanceRow_segActive", "hueStripRow": "MineradioAppearanceRow_hueStripRow", "hueStrip": "MineradioAppearanceRow_hueStrip", "hueStripThumb": "MineradioAppearanceRow_hueStripThumb", "hueStripValue": "MineradioAppearanceRow_hueStripValue", "wallpaperPick": "MineradioAppearanceRow_wallpaperPick", "fileInput": "MineradioAppearanceRow_fileInput", "pickButton": "MineradioAppearanceRow_pickButton", "deleteButton": "MineradioAppearanceRow_deleteButton" };
 
 // src/client/fluid-tones.ts
 function hsl(h, s, l) {
@@ -143,12 +191,12 @@ function fluidHueSwatch(hue) {
 }
 
 // src/client/MineradioControls.tsx
-var import_jsx_runtime2 = require("react/jsx-runtime");
+var import_jsx_runtime3 = require("react/jsx-runtime");
 function Knob({ label, value, min, max, step, unit, onChange }) {
   const clamp = (n) => Math.min(max, Math.max(min, Number.isFinite(n) ? n : min));
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("label", { className: MineradioAppearanceRow_default.knob, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: MineradioAppearanceRow_default.knobLabel, children: label }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("label", { className: MineradioAppearanceRow_default.knob, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.knobLabel, children: label }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "input",
       {
         type: "range",
@@ -162,8 +210,8 @@ function Knob({ label, value, min, max, step, unit, onChange }) {
         }
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: MineradioAppearanceRow_default.numberWrap, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: MineradioAppearanceRow_default.numberWrap, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
         "input",
         {
           type: "number",
@@ -177,12 +225,12 @@ function Knob({ label, value, min, max, step, unit, onChange }) {
           }
         }
       ),
-      /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: MineradioAppearanceRow_default.unit, children: unit })
+      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.unit, children: unit })
     ] })
   ] });
 }
 function Segmented({ label, value, options, onSelect }) {
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("div", { className: MineradioAppearanceRow_default.segmented, role: "group", "aria-label": label, children: options.map((option) => /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.segmented, role: "group", "aria-label": label, children: options.map((option) => /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
     "button",
     {
       type: "button",
@@ -207,9 +255,9 @@ function HueStrip({ label, value, onChange }) {
     return Math.round(ratio * 360) % 360;
   };
   const hue = (Math.round(value) % 360 + 360) % 360;
-  return /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("div", { className: MineradioAppearanceRow_default.hueStripRow, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)("span", { className: MineradioAppearanceRow_default.knobLabel, children: label }),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.hueStripRow, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.knobLabel, children: label }),
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
       "div",
       {
         ref: stripRef,
@@ -241,7 +289,7 @@ function HueStrip({ label, value, onChange }) {
           const step = e.shiftKey ? 30 : 5;
           onChange((hue + (e.key === "ArrowLeft" ? -step : step) + 360) % 360);
         },
-        children: /* @__PURE__ */ (0, import_jsx_runtime2.jsx)(
+        children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
           "span",
           {
             className: MineradioAppearanceRow_default.hueStripThumb,
@@ -250,7 +298,7 @@ function HueStrip({ label, value, onChange }) {
         )
       }
     ),
-    /* @__PURE__ */ (0, import_jsx_runtime2.jsxs)("span", { className: MineradioAppearanceRow_default.hueStripValue, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("span", { className: MineradioAppearanceRow_default.hueStripValue, children: [
       hue,
       "\xB0"
     ] })
@@ -401,594 +449,6 @@ async function loadVideoHandle() {
     return null;
   }
 }
-
-// src/client/MineradioAppearanceRow.tsx
-var import_jsx_runtime3 = require("react/jsx-runtime");
-function MineradioAppearanceRow(props) {
-  const {
-    t,
-    setMode,
-    setTextStyle,
-    setBlur,
-    setFrost,
-    setFluidHue,
-    setFluidDepth,
-    setDispersionHue,
-    setDispersionRefract,
-    setBgBrightness,
-    setBackground,
-    setWallpaper,
-    setAutoTint,
-    setWhale,
-    setCritters,
-    setMesh,
-    setStarDensity,
-    setSpotlight,
-    setPress,
-    setAudioReact,
-    setWallpaperBlur,
-    setWallpaperFrost,
-    setWallpaperMask,
-    setWallpaperMaskBlur,
-    setWallpaperMaskOpacity,
-    setVideoBlur,
-    setVideoBrightness,
-    authorizeVideo,
-    useStore
-  } = props;
-  const enabled = useStore((s) => s.enabled);
-  const mode = useStore((s) => s.mode);
-  const textStyle = useStore((s) => s.textStyle);
-  const blur = useStore((s) => s.blur);
-  const frost = useStore((s) => s.frost);
-  const fluidHue = useStore((s) => s.fluidHue);
-  const fluidDepth = useStore((s) => s.fluidDepth);
-  const dispersionHue = useStore((s) => s.dispersionHue);
-  const dispersionRefract = useStore((s) => s.dispersionRefract);
-  const bgBrightness = useStore((s) => s.bgBrightness);
-  const dark = useStore((s) => s.dark);
-  const background = useStore((s) => s.background);
-  const whale = useStore((s) => s.whale);
-  const critters = useStore((s) => s.critters);
-  const mesh = useStore((s) => s.mesh);
-  const starDensity = useStore((s) => s.starDensity);
-  const spotlight = useStore((s) => s.spotlight);
-  const press = useStore((s) => s.press);
-  const audioReact = useStore((s) => s.audioReact);
-  const wallpaper = useStore((s) => s.wallpaper);
-  const autoTint = useStore((s) => s.autoTint);
-  const wallpaperBlur = useStore((s) => s.wallpaperBlur);
-  const wallpaperFrost = useStore((s) => s.wallpaperFrost);
-  const wallpaperMask = useStore((s) => s.wallpaperMask);
-  const wallpaperMaskBlur = useStore((s) => s.wallpaperMaskBlur);
-  const wallpaperMaskOpacity = useStore((s) => s.wallpaperMaskOpacity);
-  const videoBlur = useStore((s) => s.videoBlur);
-  const videoBrightness = useStore((s) => s.videoBrightness);
-  const fileRef = (0, import_react2.useRef)(null);
-  const videoRef = (0, import_react2.useRef)(null);
-  const isVideoWallpaper = wallpaper.startsWith("data:video/") || wallpaper.startsWith("idb:") || wallpaper.startsWith("fsa:");
-  const pickVideo = () => {
-    if (window.showOpenFilePicker !== void 0) {
-      void (async () => {
-        try {
-          const [handle] = await window.showOpenFilePicker({
-            multiple: false,
-            types: [{ description: "Video", accept: { "video/*": [".mp4", ".webm", ".ogg", ".mov", ".m4v", ".mkv"] } }]
-          });
-          if (handle === void 0) return;
-          setBackground("wallpaper");
-          if (await saveVideoHandle(handle)) {
-            setWallpaper(`fsa:${handle.name}`);
-          } else {
-            const file = await handle.getFile();
-            void saveVideoBlob(file).then((id) => {
-              if (id !== "") setWallpaper(id);
-              else void fileToDataUrl(file).then(setWallpaper);
-            });
-          }
-        } catch {
-        }
-      })();
-    } else {
-      videoRef.current?.click();
-    }
-  };
-  const onChooseVideo = () => {
-    if (wallpaper.startsWith("fsa:")) {
-      void (async () => {
-        const handle = await loadVideoHandle();
-        if (handle !== null) {
-          try {
-            const permission = await handle.queryPermission({ mode: "read" });
-            if (permission === "granted") {
-              authorizeVideo();
-              return;
-            }
-            if (permission === "prompt") {
-              const next = await handle.requestPermission({ mode: "read" });
-              if (next === "granted") {
-                authorizeVideo();
-                return;
-              }
-            }
-          } catch {
-          }
-        }
-        pickVideo();
-      })();
-    } else {
-      pickVideo();
-    }
-  };
-  const bgMin = dark ? 0 : 50;
-  const bgMax = dark ? 50 : 100;
-  const bgDisplay = Math.min(bgMax, Math.max(bgMin, bgBrightness));
-  if (!enabled) return null;
-  return /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.group, children: [
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.mode") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        Segmented,
-        {
-          label: t("mineradio.mode"),
-          value: mode,
-          options: [
-            { id: "mica", label: t("mineradio.modeMica") },
-            { id: "compat", label: t("mineradio.modeCompat") }
-          ],
-          onSelect: setMode
-        }
-      ) }) })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.textColor") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-        Segmented,
-        {
-          label: t("mineradio.textColor"),
-          value: textStyle,
-          options: [
-            { id: "champagne", label: t("mineradio.textColorChampagne") },
-            { id: "neutral", label: t("mineradio.textColorNeutral") },
-            { id: "mint", label: t("mineradio.textColorMint") },
-            { id: "rose", label: t("mineradio.textColorRose") }
-          ],
-          onSelect: setTextStyle
-        }
-      ) }) })
-    ] }),
-    mode === "mica" && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.materialGroup") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.blur"), value: blur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setBlur }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.frost"), value: frost, min: 0, max: 100, step: 1, unit: "%", onChange: setFrost })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.background") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-          Segmented,
-          {
-            label: t("mineradio.background"),
-            value: background,
-            options: [
-              { id: "fluid", label: t("mineradio.backgroundFluid") },
-              { id: "wallpaper", label: t("mineradio.backgroundWallpaper") }
-            ],
-            onSelect: setBackground
-          }
-        ) }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(HueStrip, { label: t("mineradio.dispersionHue"), value: dispersionHue, onChange: setDispersionHue }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.dispersionRefract"), value: dispersionRefract, min: 0, max: 100, step: 1, unit: "%", onChange: setDispersionRefract }),
-        background === "fluid" && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(HueStrip, { label: t("mineradio.fluidHue"), value: fluidHue, onChange: setFluidHue }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.fluidDepth"), value: fluidDepth, min: 0, max: 100, step: 1, unit: "%", onChange: setFluidDepth })
-        ] }),
-        background === "wallpaper" && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.wallpaper") }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.wallpaperPick, children: [
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "input",
-                {
-                  ref: fileRef,
-                  type: "file",
-                  accept: "image/*",
-                  className: MineradioAppearanceRow_default.fileInput,
-                  onChange: (e) => {
-                    const file = e.target.files?.[0];
-                    if (file !== void 0) {
-                      setBackground("wallpaper");
-                      void fileToDataUrl(file).then(setWallpaper);
-                    }
-                    e.target.value = "";
-                  }
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(
-                "input",
-                {
-                  ref: videoRef,
-                  type: "file",
-                  accept: "video/mp4,video/webm,video/ogg,video/quicktime",
-                  className: MineradioAppearanceRow_default.fileInput,
-                  onChange: (e) => {
-                    const file = e.target.files?.[0];
-                    if (file !== void 0) {
-                      setBackground("wallpaper");
-                      void saveVideoBlob(file).then((id) => {
-                        if (id !== "") {
-                          setWallpaper(id);
-                        } else {
-                          void fileToDataUrl(file).then(setWallpaper);
-                        }
-                      });
-                    }
-                    e.target.value = "";
-                  }
-                }
-              ),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.pickButton, onClick: () => {
-                fileRef.current?.click();
-              }, children: t("mineradio.chooseImage") }),
-              /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.pickButton, onClick: onChooseVideo, children: t("mineradio.chooseVideo") }),
-              wallpaper !== "" && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.deleteButton, onClick: () => {
-                setWallpaper("");
-              }, children: t("mineradio.deleteWallpaper") })
-            ] })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.autoTint") }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-              "button",
-              {
-                type: "button",
-                className: autoTint ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-                "aria-pressed": autoTint,
-                onClick: () => {
-                  setAutoTint(!autoTint);
-                },
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: autoTint && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                  autoTint ? t("mineradio.enable") : t("mineradio.disable")
-                ]
-              }
-            )
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.wallpaperMask") }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-              "button",
-              {
-                type: "button",
-                className: wallpaperMask ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-                "aria-pressed": wallpaperMask,
-                onClick: () => {
-                  setWallpaperMask(!wallpaperMask);
-                },
-                children: [
-                  /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: wallpaperMask && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                  wallpaperMask ? t("mineradio.enable") : t("mineradio.disable")
-                ]
-              }
-            )
-          ] }),
-          wallpaperMask && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.wallpaperMaskBlur"), value: wallpaperMaskBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setWallpaperMaskBlur }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.wallpaperMaskOpacity"), value: wallpaperMaskOpacity, min: 0, max: 100, step: 1, unit: "%", onChange: setWallpaperMaskOpacity })
-          ] }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t("mineradio.wallpaperHint") }),
-          !isVideoWallpaper && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.wallpaperBlur"), value: wallpaperBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setWallpaperBlur }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.wallpaperFrost"), value: wallpaperFrost, min: 0, max: 100, step: 1, unit: "%", onChange: setWallpaperFrost })
-          ] }),
-          isVideoWallpaper && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(import_jsx_runtime3.Fragment, { children: [
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.videoBlur"), value: videoBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setVideoBlur }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.videoBrightness"), value: videoBrightness, min: 0, max: 100, step: 1, unit: "%", onChange: setVideoBrightness }),
-            /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t("mineradio.videoHint") })
-          ] })
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.bgBrightness"), value: bgDisplay, min: bgMin, max: bgMax, step: 1, unit: "%", onChange: setBgBrightness }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t(dark ? "mineradio.bgBrightnessHintDark" : "mineradio.bgBrightnessHintLight") })
-      ] })
-    ] }),
-    /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.decorAmbient") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.whale") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: whale ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": whale,
-              onClick: () => {
-                setWhale(!whale);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: whale && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                whale ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.critters") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: critters ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": critters,
-              onClick: () => {
-                setCritters(!critters);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: critters && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                critters ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.mesh") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: mesh ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": mesh,
-              onClick: () => {
-                setMesh(!mesh);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: mesh && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                mesh ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.audioReact") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: audioReact ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": audioReact,
-              onClick: () => {
-                setAudioReact(!audioReact);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: audioReact && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                audioReact ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(Knob, { label: t("mineradio.starDensity"), value: starDensity, min: 0, max: 100, step: 1, unit: "%", onChange: setStarDensity })
-      ] })
-    ] }),
-    mode === "mica" && /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.decorHover") }),
-      /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.spotlight") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: spotlight ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": spotlight,
-              onClick: () => {
-                setSpotlight(!spotlight);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: spotlight && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                spotlight ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] }),
-        /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.press") }),
-          /* @__PURE__ */ (0, import_jsx_runtime3.jsxs)(
-            "button",
-            {
-              type: "button",
-              className: press ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
-              "aria-pressed": press,
-              onClick: () => {
-                setPress(!press);
-              },
-              children: [
-                /* @__PURE__ */ (0, import_jsx_runtime3.jsx)("span", { className: MineradioAppearanceRow_default.check, children: press && /* @__PURE__ */ (0, import_jsx_runtime3.jsx)(import_dsh_client_ui_primitives2.IconCheckOutline16, {}) }),
-                press ? t("mineradio.enable") : t("mineradio.disable")
-              ]
-            }
-          )
-        ] })
-      ] })
-    ] })
-  ] });
-}
-
-// src/client/settings-store.ts
-var import_client = require("@deepseek-ai/dsh-client-runtime/client");
-function createMineradioRowStore() {
-  return (0, import_client.defineStore)({
-    init: () => ({
-      enabled: true,
-      mode: "mica",
-      textStyle: "champagne",
-      blur: 24,
-      frost: 14,
-      fluidHue: 232,
-      fluidDepth: 22,
-      dispersionHue: 44,
-      dispersionRefract: 60,
-      bgBrightness: 50,
-      dark: false,
-      background: "fluid",
-      wallpaper: "",
-      autoTint: true,
-      whale: true,
-      critters: true,
-      mesh: true,
-      starDensity: 60,
-      spotlight: true,
-      press: true,
-      audioReact: false,
-      wallpaperBlur: 0,
-      wallpaperFrost: 0,
-      wallpaperMask: false,
-      wallpaperMaskBlur: 24,
-      wallpaperMaskOpacity: 62,
-      videoBlur: 6,
-      videoBrightness: 48,
-      revision: -1
-    }),
-    actions: {
-      sync: (d, next, revision) => {
-        if (revision <= d.revision) return;
-        d.enabled = next.enabled;
-        d.mode = next.mode;
-        d.textStyle = next.textStyle;
-        d.blur = next.blur;
-        d.frost = next.frost;
-        d.fluidHue = next.fluidHue;
-        d.fluidDepth = next.fluidDepth;
-        d.dispersionHue = next.dispersionHue;
-        d.dispersionRefract = next.dispersionRefract;
-        d.bgBrightness = next.bgBrightness;
-        d.dark = next.dark;
-        d.background = next.background;
-        d.wallpaper = next.wallpaper;
-        d.autoTint = next.autoTint;
-        d.whale = next.whale;
-        d.critters = next.critters;
-        d.mesh = next.mesh;
-        d.starDensity = next.starDensity;
-        d.spotlight = next.spotlight;
-        d.press = next.press;
-        d.audioReact = next.audioReact;
-        d.wallpaperBlur = next.wallpaperBlur;
-        d.wallpaperFrost = next.wallpaperFrost;
-        d.wallpaperMask = next.wallpaperMask;
-        d.wallpaperMaskBlur = next.wallpaperMaskBlur;
-        d.wallpaperMaskOpacity = next.wallpaperMaskOpacity;
-        d.videoBlur = next.videoBlur;
-        d.videoBrightness = next.videoBrightness;
-        d.revision = revision;
-      }
-    }
-  });
-}
-
-// src/client/locales.ts
-var NS = "settings.mineradio";
-var zh = {
-  "mineradio.title": "Mineradio \u4E3B\u9898",
-  "mineradio.description": "\u5F71\u9662\u7EA7\u79C1\u4EBA\u89C6\u89C9\u7535\u53F0\u73BB\u7483\u4E3B\u9898\u2014\u2014\u9999\u69DF\u91D1\u8F89\u5149\uFF0C\u6D41\u4F53/\u58C1\u7EB8\u53CC\u80CC\u666F\uFF0C\u6A21\u7CCA\u5EA6\u3001\u78E8\u7802\u5EA6\u3001\u8272\u8C03\u4E0E\u8F89\u5149\u90FD\u53EF\u81EA\u7531\u8C03\u8282",
-  "mineradio.enable": "\u5F00\u542F",
-  "mineradio.disable": "\u5173\u95ED",
-  "mineradio.mode": "\u6A21\u5F0F",
-  "mineradio.modeMica": "\u4E91\u6BCD\u6548\u679C",
-  "mineradio.modeCompat": "\u517C\u5BB9\u6A21\u5F0F",
-  "mineradio.textColor": "\u6587\u5B57\u989C\u8272",
-  "mineradio.textColorChampagne": "\u9999\u69DF\u91D1",
-  "mineradio.textColorNeutral": "\u4E2D\u6027",
-  "mineradio.textColorMint": "\u8584\u8377",
-  "mineradio.textColorRose": "\u73AB\u7470",
-  "mineradio.materialGroup": "\u73BB\u7483\u6750\u8D28",
-  "mineradio.decorAmbient": "\u73AF\u5883\u88C5\u9970",
-  "mineradio.decorHover": "\u60AC\u505C\u6548\u679C",
-  "mineradio.whale": "\u7C92\u5B50\u91D1\u9CB8",
-  "mineradio.critters": "\u661F\u5C18\u7C92\u5B50",
-  "mineradio.mesh": "\u7F51\u72B6\u4EA4\u4E92",
-  "mineradio.starDensity": "\u7C92\u5B50\u5BC6\u5EA6",
-  "mineradio.spotlight": "\u9999\u69DF\u8F89\u5149",
-  "mineradio.press": "\u60AC\u505C\u4E0B\u538B",
-  "mineradio.audioReact": "\u97F3\u9891\u54CD\u5E94",
-  "mineradio.blur": "\u73BB\u7483\u6A21\u7CCA\u5EA6",
-  "mineradio.frost": "\u78E8\u7802\u5EA6",
-  "mineradio.fluidHue": "\u8272\u8C03",
-  "mineradio.fluidDepth": "\u989C\u8272\u6DF1\u6D45",
-  "mineradio.dispersionHue": "\u8272\u6563\u989C\u8272",
-  "mineradio.dispersionRefract": "\u6298\u5C04\u5F3A\u5EA6",
-  "mineradio.bgBrightness": "\u80CC\u666F\u4EAE\u5EA6",
-  "mineradio.bgBrightnessHintDark": "\u6DF1\u8272\u6A21\u5F0F\uFF1A0 \u538B\u6697\u81F3\u7EAF\u9ED1\uFF0C50 \u539F\u6837",
-  "mineradio.bgBrightnessHintLight": "\u6D45\u8272\u6A21\u5F0F\uFF1A50 \u539F\u6837\uFF0C100 \u63D0\u4EAE\u81F3\u7EAF\u767D",
-  "mineradio.background": "\u80CC\u666F",
-  "mineradio.backgroundFluid": "\u6D41\u4F53",
-  "mineradio.backgroundWallpaper": "\u58C1\u7EB8",
-  "mineradio.wallpaper": "\u58C1\u7EB8",
-  "mineradio.autoTint": "\u81EA\u52A8\u53D6\u8272",
-  "mineradio.wallpaperHint": "\u6D45\u8272\u58C1\u7EB8\u7528\u6D45\u8272\u6A21\u5F0F\uFF0C\u6DF1\u8272\u58C1\u7EB8\u7528\u6DF1\u8272\u6A21\u5F0F\u26A0\uFE0F",
-  "mineradio.chooseImage": "\u9009\u62E9\u56FE\u7247",
-  "mineradio.chooseVideo": "\u9009\u62E9\u89C6\u9891",
-  "mineradio.deleteWallpaper": "\u5220\u9664",
-  "mineradio.wallpaperBlur": "\u58C1\u7EB8\u6A21\u7CCA\u5EA6",
-  "mineradio.wallpaperFrost": "\u58C1\u7EB8\u78E8\u7802\u5EA6",
-  "mineradio.wallpaperMask": "\u78E8\u7802\u906E\u7F69",
-  "mineradio.wallpaperMaskBlur": "\u906E\u7F69\u6A21\u7CCA\u5EA6",
-  "mineradio.wallpaperMaskOpacity": "\u906E\u7F69\u900F\u660E\u5EA6",
-  "mineradio.videoBlur": "\u89C6\u9891\u6A21\u7CCA\u5EA6",
-  "mineradio.videoBrightness": "\u89C6\u9891\u4EAE\u5EA6",
-  "mineradio.videoHint": '\u26A0\uFE0F\u89C6\u9891\u4F1A\u81EA\u52A8\u538B\u6697\u4EE5\u4FDD\u8BC1\u6587\u5B57\u6E05\u6670\uFF0C\u53EF\u7528\u6A21\u7CCA\u5EA6\u548C\u4EAE\u5EA6\u8C03\u8282\uFF1B\u5237\u65B0\u540E\u672A\u81EA\u52A8\u64AD\u653E\u65F6\u70B9\u4E00\u4E0B"\u9009\u62E9\u89C6\u9891"\u5373\u53EF\u6062\u590D'
-};
-var en = {
-  "mineradio.title": "Mineradio theme",
-  "mineradio.description": "A cinematic private-visual-radio glass theme \u2014 champagne glow, fluid/wallpaper backdrop, blur, frost, hue, and glow all adjustable",
-  "mineradio.enable": "On",
-  "mineradio.disable": "Off",
-  "mineradio.mode": "Mode",
-  "mineradio.modeMica": "Mica",
-  "mineradio.modeCompat": "Compatibility",
-  "mineradio.textColor": "Text color",
-  "mineradio.textColorChampagne": "Champagne",
-  "mineradio.textColorNeutral": "Neutral",
-  "mineradio.textColorMint": "Mint",
-  "mineradio.textColorRose": "Rose",
-  "mineradio.materialGroup": "Glass material",
-  "mineradio.decorAmbient": "Ambient",
-  "mineradio.decorHover": "Hover effects",
-  "mineradio.whale": "Particle whale",
-  "mineradio.critters": "Star particles",
-  "mineradio.mesh": "Interactive mesh",
-  "mineradio.starDensity": "Particle density",
-  "mineradio.spotlight": "Champagne glow",
-  "mineradio.press": "Hover tilt",
-  "mineradio.audioReact": "Audio reactive",
-  "mineradio.blur": "Glass blur",
-  "mineradio.frost": "Frost",
-  "mineradio.fluidHue": "Hue",
-  "mineradio.fluidDepth": "Color depth",
-  "mineradio.dispersionHue": "Dispersion color",
-  "mineradio.dispersionRefract": "Refraction",
-  "mineradio.bgBrightness": "Background brightness",
-  "mineradio.bgBrightnessHintDark": "Dark mode: 0 fades to pure black, 50 is unchanged",
-  "mineradio.bgBrightnessHintLight": "Light mode: 50 is unchanged, 100 brightens to pure white",
-  "mineradio.background": "Backdrop",
-  "mineradio.backgroundFluid": "Fluid",
-  "mineradio.backgroundWallpaper": "Wallpaper",
-  "mineradio.wallpaper": "Wallpaper",
-  "mineradio.autoTint": "Auto color",
-  "mineradio.wallpaperHint": "Use light mode for light wallpapers, dark mode for dark wallpapers \u26A0\uFE0F",
-  "mineradio.chooseImage": "Choose image",
-  "mineradio.chooseVideo": "Choose video",
-  "mineradio.deleteWallpaper": "Delete",
-  "mineradio.wallpaperBlur": "Wallpaper blur",
-  "mineradio.wallpaperFrost": "Wallpaper frost",
-  "mineradio.wallpaperMask": "Frost mask",
-  "mineradio.wallpaperMaskBlur": "Mask blur",
-  "mineradio.wallpaperMaskOpacity": "Mask opacity",
-  "mineradio.videoBlur": "Video blur",
-  "mineradio.videoBrightness": "Video brightness",
-  "mineradio.videoHint": '\u26A0\uFE0F The video is dimmed automatically to keep text readable \u2014 adjust blur and brightness here; if it does not play after a reload, click "Choose video" once to restore access'
-};
 
 // src/client/critters.ts
 var FISH_PATH = "M22.9168 1.43018C22.6713 1.31018 22.5658 1.53918 22.4223 1.65519C22.3733 1.69269 22.3318 1.74169 22.2903 1.78669C21.9317 2.1697 21.5127 2.42121 20.9657 2.39121C20.1657 2.34621 19.4827 2.59771 18.8787 3.20973C18.7502 2.45521 18.3236 2.0047 17.6746 1.71569C17.3351 1.56568 16.9916 1.41518 16.7536 1.08867C16.5876 0.856163 16.5421 0.597155 16.4591 0.341647C16.4061 0.187643 16.3536 0.0301382 16.1761 0.00363739C15.9836 -0.0263635 15.9081 0.135141 15.8326 0.270145C15.5306 0.822162 15.4136 1.43018 15.4251 2.0462C15.4516 3.43174 16.0366 4.53527 17.1991 5.3203C17.3311 5.4103 17.3651 5.5003 17.3236 5.63181C17.2441 5.90231 17.1501 6.16482 17.0671 6.43533C17.0141 6.60784 16.9351 6.64584 16.7501 6.57033C16.1121 6.30383 15.5611 5.90931 15.074 5.4328C14.2475 4.63328 13.5 3.75075 12.568 3.05973C12.349 2.89822 12.13 2.74822 11.9034 2.60522C10.9524 1.68169 12.028 0.923165 12.277 0.833162C12.5375 0.739159 12.3675 0.41615 11.5259 0.42015C10.6844 0.42365 9.91439 0.705658 8.93286 1.08117C8.78935 1.13767 8.63835 1.17867 8.48384 1.21267C7.59332 1.04367 6.66829 1.00617 5.70226 1.11517C3.88321 1.31768 2.43016 2.1777 1.36213 3.64575C0.0790928 5.4103 -0.222916 7.41536 0.146595 9.50642C0.535106 11.7105 1.66014 13.535 3.38869 14.9616C5.18125 16.4406 7.24581 17.1657 9.60138 17.0266C11.0319 16.9441 12.6245 16.7526 14.421 15.2321C14.874 15.4576 15.3496 15.5476 16.1381 15.6151C16.7456 15.6716 17.3306 15.5851 17.7836 15.4911C18.4931 15.3411 18.4441 14.6841 18.1876 14.5636C16.1081 13.595 16.5646 13.9891 16.1496 13.67C17.2061 12.42 18.8202 10.1979 19.3182 7.17235C19.3672 6.83834 19.4297 6.36783 19.4222 6.09732C19.4182 5.93231 19.4562 5.86831 19.6447 5.84931C20.1657 5.78931 20.6712 5.64681 21.1357 5.3913C22.4833 4.65528 23.0268 3.44624 23.1548 1.9972C23.1738 1.77569 23.1508 1.54668 22.9168 1.43018ZM11.1749 14.4736C9.15936 12.889 8.18184 12.3675 7.77832 12.39C7.40081 12.4125 7.46881 12.8445 7.55182 13.126C7.63882 13.404 7.75182 13.5955 7.91033 13.8396C8.01983 14.0011 8.09533 14.2411 7.80083 14.4216C7.15181 14.8231 6.02327 14.2866 5.97027 14.2601C4.65673 13.4865 3.5587 12.4655 2.78467 11.069C2.03715 9.72493 1.60314 8.28289 1.53164 6.74384C1.51264 6.37233 1.62214 6.24082 1.99215 6.17332C2.47916 6.08332 2.98118 6.06432 3.46769 6.13582C5.52476 6.43633 7.27581 7.35586 8.74385 8.8129C9.58188 9.64243 10.2159 10.634 10.8689 11.6025C11.5634 12.631 12.3105 13.611 13.262 14.4146C13.598 14.6961 13.866 14.9101 14.1225 15.0681C13.349 15.1546 12.058 15.1731 11.1749 14.4746L11.1749 14.4736ZM12.141 8.25988C12.141 8.09488 12.273 7.96338 12.439 7.96338C12.4765 7.96338 12.5105 7.97088 12.541 7.98188C12.5825 7.99688 12.6205 8.01938 12.6505 8.05338C12.7035 8.10588 12.7335 8.18088 12.7335 8.25988C12.7335 8.42489 12.6015 8.55639 12.4355 8.55639C12.2695 8.55639 12.141 8.42489 12.141 8.25988ZM15.1415 9.79893C14.949 9.87793 14.7565 9.94544 14.5715 9.95294C14.2845 9.96794 13.9715 9.85143 13.8015 9.70893C13.5375 9.48742 13.3485 9.36342 13.2695 8.97691C13.2355 8.8119 13.2545 8.55639 13.2845 8.40989C13.3525 8.09438 13.277 7.89187 13.0545 7.70787C12.8735 7.55786 12.643 7.51636 12.39 7.51636C12.2955 7.51636 12.209 7.47486 12.1445 7.44136C12.039 7.38886 11.9519 7.25735 12.035 7.09585C12.0615 7.04335 12.19 6.91584 12.22 6.89334C12.5635 6.69784 12.9595 6.76184 13.326 6.90834C13.6655 7.04735 13.9225 7.30236 14.292 7.66287C14.6695 8.09838 14.7375 8.21838 14.9525 8.54539C15.1225 8.8009 15.277 9.06341 15.3831 9.36392C15.4471 9.55142 15.3641 9.70493 15.1415 9.79893Z";
@@ -1239,6 +699,8 @@ function attachFluidShader(canvas, params) {
       },
       setAudioLow: () => {
       },
+      setRunning: () => {
+      },
       dispose: () => {
       }
     };
@@ -1278,6 +740,8 @@ function attachFluidShader(canvas, params) {
       stir: () => {
       },
       setAudioLow: () => {
+      },
+      setRunning: () => {
       },
       dispose: () => {
       }
@@ -1467,6 +931,18 @@ function attachFluidShader(canvas, params) {
     setAudioLow: (level) => {
       audioLow = Math.max(0, Math.min(1, level));
     },
+    setRunning: (on) => {
+      if (on) {
+        if (running) return;
+        running = true;
+        previous = 0;
+        raf = requestAnimationFrame(frame);
+        return;
+      }
+      if (!running) return;
+      running = false;
+      cancelAnimationFrame(raf);
+    },
     dispose: () => {
       cancelAnimationFrame(raf);
       window.removeEventListener("mousemove", onMouseMove);
@@ -1599,6 +1075,15 @@ function stamp(seam) {
 }
 function stampAll() {
   for (const seam of SEAMS) stamp(seam);
+  stampOnAir();
+}
+function stampOnAir() {
+  const bar = document.querySelector("[data-dsh-inputbar]");
+  if (bar === null) return;
+  const live = bar.querySelector(
+    'button[aria-label="\u505C\u6B62\u751F\u6210"], button[aria-label="Stop generating"]'
+  ) !== null;
+  bar.toggleAttribute("data-dsh-on-air", live);
 }
 function startSeamStamper() {
   stampAll();
@@ -1608,6 +1093,156 @@ function startSeamStamper() {
   observer.observe(document.documentElement, { childList: true, subtree: true });
   return () => {
     observer.disconnect();
+  };
+}
+
+// src/client/station-dial.ts
+var STORAGE_KEY = "dsh.ui-mineradio.stations";
+var TUNER_SELECTOR = "[data-dsh-wordmark]";
+var TUNER_ATTR = "data-dsh-station-tuner";
+var TUNING_ATTR = "data-dsh-tuning";
+var DIAL_STOPS = [0, 24, -36, -62, 122, 150];
+var BASE_HUE = 44;
+var TUNE_MS = 2200;
+function hashName(name) {
+  let h = 2166136261;
+  for (let i = 0; i < name.length; i++) {
+    h ^= name.charCodeAt(i);
+    h = Math.imul(h, 16777619);
+  }
+  return h >>> 0;
+}
+function readStored() {
+  try {
+    const raw = window.localStorage.getItem(STORAGE_KEY);
+    if (raw === null) return {};
+    const parsed = JSON.parse(raw);
+    if (parsed === null || typeof parsed !== "object") return {};
+    const out = {};
+    for (const [k, v] of Object.entries(parsed)) {
+      if (typeof v === "number" && Number.isFinite(v)) out[k] = v;
+    }
+    return out;
+  } catch {
+    return {};
+  }
+}
+function writeStored(stored) {
+  try {
+    window.localStorage.setItem(STORAGE_KEY, JSON.stringify(stored));
+  } catch {
+  }
+}
+function offsetFor(name) {
+  const stored = readStored();
+  const known = stored[name];
+  if (typeof known === "number") return known;
+  const next = DIAL_STOPS[hashName(name) % DIAL_STOPS.length];
+  stored[name] = next;
+  writeStored(stored);
+  return next;
+}
+function resolveStationName() {
+  const rows = Array.from(document.querySelectorAll("[role='treeitem']"));
+  const selIdx = rows.findIndex((r) => r.getAttribute("aria-selected") === "true");
+  if (selIdx < 0) return null;
+  for (let i = selIdx; i >= 0; i--) {
+    const row = rows[i];
+    if (!/projectRow/.test(String(row.className))) continue;
+    const text = row.querySelector("[class*='projectText']")?.textContent?.trim();
+    return text !== void 0 && text !== "" ? text : null;
+  }
+  return null;
+}
+function freqLabel(offset) {
+  const freq = ((BASE_HUE + offset) % 360 + 360) % 360;
+  return `FM ${String(Math.round(freq)).padStart(3, "0")}`;
+}
+var easeInOutCubic = (t) => t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function startStationDial(onOffset) {
+  let current = 0;
+  let station = null;
+  let primed = false;
+  let raf = 0;
+  const tuner = () => document.querySelector(TUNER_SELECTOR);
+  const paintTuner = (label, tuning) => {
+    const host = tuner();
+    if (host === null) return;
+    let el = host.querySelector(`[${TUNER_ATTR}]`);
+    if (el === null) {
+      el = document.createElement("span");
+      el.setAttribute(TUNER_ATTR, "");
+      el.setAttribute("aria-hidden", "true");
+      host.appendChild(el);
+    }
+    if (el.textContent !== label) el.textContent = label;
+    el.toggleAttribute(TUNING_ATTR, tuning);
+  };
+  const settle = (offset) => {
+    current = offset;
+    onOffset(offset);
+  };
+  const retune = (name) => {
+    const target = offsetFor(name);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced) {
+      paintTuner(freqLabel(target), false);
+      settle(target);
+      return;
+    }
+    cancelAnimationFrame(raf);
+    const from = current;
+    const delta = target - from;
+    if (delta === 0) {
+      paintTuner(freqLabel(target), false);
+      return;
+    }
+    const wrapped = delta > 180 ? delta - 360 : delta < -180 ? delta + 360 : delta;
+    let start = 0;
+    paintTuner(freqLabel(from), true);
+    const tick = (now) => {
+      raf = requestAnimationFrame(tick);
+      if (start === 0) {
+        start = now;
+        return;
+      }
+      const t = Math.min(1, (now - start) / TUNE_MS);
+      const k = easeInOutCubic(t);
+      const next = from + wrapped * k;
+      paintTuner(freqLabel(next), true);
+      settle(next);
+      if (t >= 1) {
+        cancelAnimationFrame(raf);
+        raf = 0;
+        paintTuner(freqLabel(target), false);
+        settle(target);
+      }
+    };
+    raf = requestAnimationFrame(tick);
+  };
+  const scan = () => {
+    paintTuner(freqLabel(current), false);
+    const name = resolveStationName();
+    if (name === null || name === station) return;
+    station = name;
+    if (!primed) {
+      primed = true;
+      paintTuner(freqLabel(offsetFor(name)), false);
+      settle(offsetFor(name));
+      return;
+    }
+    retune(name);
+  };
+  scan();
+  const observer = new MutationObserver(() => {
+    scan();
+  });
+  observer.observe(document.documentElement, { childList: true, subtree: true });
+  return () => {
+    observer.disconnect();
+    cancelAnimationFrame(raf);
+    raf = 0;
+    document.querySelector(`[${TUNER_ATTR}]`)?.remove();
   };
 }
 
@@ -1791,12 +1426,12 @@ function mountWhale(host, dark) {
       const vLight = SHADE_MIN + SHADE_MAX * lit * lit;
       const dist = Math.sqrt(px * px + py * py);
       const glow = smoothstep(8, 0, dist) * 0.3 * assembly;
-      const baseAlpha = 0.45 + 0.3 * assembly;
+      const baseAlpha = (darkMode ? 0.45 : 0.62) + 0.3 * assembly;
       const shimmer = Math.sin(time * 1.5 + px * 5 + py * 3) * 0.1 + 0.9;
       const alpha = p.opacity * (baseAlpha + glow) * shimmer * Math.min(vLight, 1);
-      const br = darkMode ? 0.75 : 0.42;
-      const bg = darkMode ? 0.8 : 0.44;
-      const bb = darkMode ? 0.9 : 0.47;
+      const br = darkMode ? 0.85 : 0.68;
+      const bg = darkMode ? 0.66 : 0.5;
+      const bb = darkMode ? 0.26 : 0.16;
       const r = Math.min(255, Math.round((br * assembly + glow * 0.2) * vLight * 255));
       const g = Math.min(255, Math.round((bg * assembly + glow * 0.3) * vLight * 255));
       const b = Math.min(255, Math.round((bb * assembly + glow * 0.5) * vLight * 255));
@@ -2414,7 +2049,7 @@ function mountStarRiver(ambient, options) {
     // cool blue
     bakeSprite(168, 140, 255),
     // violet
-    bakeSprite(77, 107, 254),
+    bakeSprite(244, 210, 138),
     // champagne
     bakeSprite(238, 246, 255)
     // near-white
@@ -3139,9 +2774,9 @@ var MINERADIO_ENABLED_KEY = "dsh.ui-mineradio.enabled";
 var DEFAULT_ENABLED = true;
 var OVERRIDE_SOURCE = "dsh-theme-mineradio";
 var FONT_STACK = "'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', 'Helvetica Neue', Helvetica, Arial, sans-serif";
-var CHAMPAGNE = "#4d6bfe";
-var CHAMPAGNE_DEEP = "#2e43b8";
-var INK = "#07090f";
+var CHAMPAGNE = "#f4d28a";
+var CHAMPAGNE_DEEP = "#9a6f2c";
+var INK = "#08090B";
 var both = (value) => ({ light: value, dark: value });
 var MINERADIO_TOKEN_OVERRIDES = {
   // Typography: Inter + Noto Sans SC, CJK keeps the system stack.
@@ -3149,105 +2784,105 @@ var MINERADIO_TOKEN_OVERRIDES = {
   // Backgrounds. The base stays opaque (the fallback behind the fluid); every
   // LAYERED surface is translucent so the fluid/wallpaper shows through the
   // controls, dropdowns and cards — no solid black slabs anywhere.
-  "--dsw-alias-bg-base": { light: "#eef1fb", dark: INK },
-  "--dsw-alias-bg-layer-1": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(14 16 20) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-base": { light: "#F7F3EA", dark: INK },
+  "--dsw-alias-bg-layer-1": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(14 16 20) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-bg-layer-2": { light: "rgba(240, 234, 224, 0.50)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-bg-layer-3": { light: "rgba(233, 226, 214, 0.45)", dark: "color-mix(in srgb, rgb(28 31 37) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-overlay": { light: "rgba(227, 219, 203, 0.60)", dark: "color-mix(in srgb, rgb(35 38 45) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-module-platform": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(14 16 20) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-multi-select": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-skeleton": { light: "rgba(46, 67, 184, 0.10)", dark: "rgba(77, 107, 254, 0.12)" },
+  "--dsw-alias-bg-overlay": { light: "rgba(227, 219, 203, 0.60)", dark: "color-mix(in srgb, rgb(35 38 45) 88%, transparent)" },
+  "--dsw-alias-bg-module-platform": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(14 16 20) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-multi-select": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-skeleton": { light: "rgba(154, 111, 44, 0.10)", dark: "rgba(244, 210, 138, 0.12)" },
   "--dsw-alias-bg-mask-1": { light: "rgba(24, 22, 18, 0.30)", dark: "rgba(4, 5, 6, 0.55)" },
   "--dsw-alias-bg-mask-2": { light: "rgba(24, 22, 18, 0.12)", dark: "rgba(4, 5, 6, 0.25)" },
   "--dsw-alias-bg-mask-3": { light: "rgba(24, 22, 18, 0.30)", dark: "rgba(4, 5, 6, 0.50)" },
   "--dsw-alias-bg-mask-drop": { light: "rgba(247, 243, 234, 0.72)", dark: "rgba(8, 9, 11, 0.70)" },
   // Hairlines and strokes.
-  "--dsw-alias-border-l1": { light: "rgba(46, 67, 184, 0.12)", dark: "rgba(77, 107, 254, 0.09)" },
-  "--dsw-alias-border-l2": { light: "rgba(46, 67, 184, 0.18)", dark: "rgba(77, 107, 254, 0.16)" },
-  "--dsw-alias-border-l2-darkmode-thin": { light: "rgba(46, 67, 184, 0.12)", dark: "rgba(77, 107, 254, 0.10)" },
-  "--dsw-alias-border-l3": { light: "rgba(46, 67, 184, 0.26)", dark: "rgba(77, 107, 254, 0.26)" },
-  "--dsw-alias-border-l4": { light: "rgba(46, 67, 184, 0.36)", dark: "rgba(77, 107, 254, 0.36)" },
-  "--dsw-alias-border-inverted": { light: "rgba(46, 67, 184, 0.08)", dark: "rgba(77, 107, 254, 0.12)" },
-  "--dsw-alias-border-inverted2": { light: "rgba(46, 67, 184, 0.10)", dark: "rgba(77, 107, 254, 0.08)" },
+  "--dsw-alias-border-l1": { light: "rgba(122, 86, 28, 0.20)", dark: "rgba(244, 210, 138, 0.09)" },
+  "--dsw-alias-border-l2": { light: "rgba(122, 86, 28, 0.28)", dark: "rgba(244, 210, 138, 0.16)" },
+  "--dsw-alias-border-l2-darkmode-thin": { light: "rgba(122, 86, 28, 0.20)", dark: "rgba(244, 210, 138, 0.10)" },
+  "--dsw-alias-border-l3": { light: "rgba(122, 86, 28, 0.38)", dark: "rgba(244, 210, 138, 0.26)" },
+  "--dsw-alias-border-l4": { light: "rgba(122, 86, 28, 0.50)", dark: "rgba(244, 210, 138, 0.36)" },
+  "--dsw-alias-border-inverted": { light: "rgba(122, 86, 28, 0.16)", dark: "rgba(244, 210, 138, 0.12)" },
+  "--dsw-alias-border-inverted2": { light: "rgba(122, 86, 28, 0.18)", dark: "rgba(244, 210, 138, 0.08)" },
   // Text ink.
-  "--dsw-alias-label-primary": { light: "#1c2334", dark: "#eceff7" },
-  "--dsw-alias-label-secondary": { light: "#2b3a63", dark: "#b9c2dd" },
-  "--dsw-alias-label-tertiary": { light: "#3f4f7e", dark: "#8b97bd" },
-  "--dsw-alias-label-caption": { light: "#3f4f7e", dark: "#6f7ca3" },
-  "--dsw-alias-label-dimmed": { light: "#67769f", dark: "#4a5678" },
-  "--dsw-alias-label-primary-bluish": { light: "#4d6bfe", dark: "#8a9bff" },
-  "--dsw-alias-label-primary-dimmed": { light: "#2e43b8", dark: "#a3b0d4" },
-  "--dsw-alias-label-primary-inverted": { light: "#FFFFFF", dark: "#0f1420" },
-  "--dsw-alias-label-primary-foreground": { light: "#FFFFFF", dark: "#FFFFFF" },
+  "--dsw-alias-label-primary": { light: "#1F1A14", dark: "#F2F0EA" },
+  "--dsw-alias-label-secondary": { light: "#4A4030", dark: "#CBC4B8" },
+  "--dsw-alias-label-tertiary": { light: "#675A45", dark: "#98917F" },
+  "--dsw-alias-label-caption": { light: "#7A6C54", dark: "#7A7468" },
+  "--dsw-alias-label-dimmed": { light: "#A89880", dark: "#5A564C" },
+  "--dsw-alias-label-primary-bluish": { light: "#A97A2A", dark: "#E8CEA0" },
+  "--dsw-alias-label-primary-dimmed": { light: "#4A3A1E", dark: "#EADFC6" },
+  "--dsw-alias-label-primary-inverted": { light: "#FFFFFF", dark: "#15171C" },
+  "--dsw-alias-label-primary-foreground": { light: "#FFFFFF", dark: "#15171C" },
   // Brand (wordmark ink stays scheme ink; accents go champagne gold).
-  "--dsw-alias-brand-primary": { light: "#1c2334", dark: "#eceff7" },
-  "--dsw-alias-brand-text": { light: "#1c2334", dark: "#eceff7" },
+  "--dsw-alias-brand-primary": { light: "#1F1A14", dark: "#F2F0EA" },
+  "--dsw-alias-brand-text": { light: "#1F1A14", dark: "#F2F0EA" },
   "--dsw-alias-brand-primary-invert": { light: "#FFFFFF", dark: INK },
   "--dsw-alias-brand-primary-new-colorprimary-new-color": { light: CHAMPAGNE_DEEP, dark: CHAMPAGNE },
   // States.
   "--dsw-alias-state-business-primary": { light: CHAMPAGNE_DEEP, dark: CHAMPAGNE },
-  "--dsw-alias-state-business-tertiary": { light: "rgba(77, 107, 254, 0.22)", dark: "rgba(77, 107, 254, 0.16)" },
+  "--dsw-alias-state-business-tertiary": { light: "rgba(244, 210, 138, 0.22)", dark: "rgba(244, 210, 138, 0.16)" },
   "--dsw-alias-state-success-tertiary": { light: "rgba(122, 215, 194, 0.22)", dark: "rgba(122, 215, 194, 0.14)" },
   "--dsw-alias-state-warn-tertiary": { light: "rgba(255, 83, 103, 0.18)", dark: "rgba(255, 83, 103, 0.14)" },
   // Buttons: the primary action becomes champagne gold with dark ink.
   "--dsw-alias-button-primary-fill": { light: CHAMPAGNE_DEEP, dark: CHAMPAGNE },
-  "--dsw-alias-button-primary-hover": { light: "#3b55d6", dark: "#8a9bff" },
-  "--dsw-alias-button-primary-dimmed": { light: "rgba(77, 107, 254, 0.24)", dark: "rgba(77, 107, 254, 0.16)" },
+  "--dsw-alias-button-primary-hover": { light: "#B68A38", dark: "#F7DDA2" },
+  "--dsw-alias-button-primary-dimmed": { light: "rgba(244, 210, 138, 0.24)", dark: "rgba(244, 210, 138, 0.16)" },
   "--dsw-alias-button-info-fill": { light: CHAMPAGNE_DEEP, dark: CHAMPAGNE },
-  "--dsw-alias-button-info-hover": { light: "#3b55d6", dark: "#8a9bff" },
+  "--dsw-alias-button-info-hover": { light: "#B68A38", dark: "#F7DDA2" },
   "--dsw-alias-button-elevated-fill": { light: "#FFFFFF", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-button-floating-fill": { light: "#FFFFFF", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-button-floating-hover": { light: "#e6ebf8", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-button-contrast-fill": { light: "#1c2334", dark: "#eceff7" },
-  "--dsw-alias-button-ghost-active-fill": { light: "rgba(77, 107, 254, 0.16)", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-button-ghost-active-hover": { light: "rgba(77, 107, 254, 0.22)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-button-ghost-active-border": { light: CHAMPAGNE_DEEP, dark: "#4d6bfe" },
+  "--dsw-alias-button-floating-hover": { light: "#F2EAE0", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-button-contrast-fill": { light: "#1F1A14", dark: "#F2F0EA" },
+  "--dsw-alias-button-ghost-active-fill": { light: "rgba(244, 210, 138, 0.16)", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-button-ghost-active-hover": { light: "rgba(244, 210, 138, 0.22)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-button-ghost-active-border": { light: CHAMPAGNE_DEEP, dark: "#BF9E5B" },
   // Interaction fills.
-  "--dsw-alias-interactive-bg-hover": { light: "rgba(46, 67, 184, 0.10)", dark: "rgba(77, 107, 254, 0.10)" },
-  "--dsw-alias-interactive-bg-hover-accent": { light: "rgba(46, 67, 184, 0.16)", dark: "rgba(77, 107, 254, 0.20)" },
-  "--dsw-alias-interactive-bg-active": { light: "rgba(46, 67, 184, 0.22)", dark: "rgba(77, 107, 254, 0.26)" },
+  "--dsw-alias-interactive-bg-hover": { light: "rgba(154, 111, 44, 0.10)", dark: "rgba(244, 210, 138, 0.10)" },
+  "--dsw-alias-interactive-bg-hover-accent": { light: "rgba(154, 111, 44, 0.16)", dark: "rgba(244, 210, 138, 0.20)" },
+  "--dsw-alias-interactive-bg-active": { light: "rgba(154, 111, 44, 0.22)", dark: "rgba(244, 210, 138, 0.26)" },
   "--dsw-alias-interactive-bg-hover-danger": { light: "rgba(255, 83, 103, 0.06)", dark: "rgba(255, 83, 103, 0.14)" },
-  "--dsw-alias-interactive-bg-hover-solid": { light: "#e6ebf8", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-interactive-bg-hover-solid": { light: "#F2EAE0", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   // Markdown / code surfaces — translucent so code blocks read as glass.
-  "--dsw-alias-markdown-code-block": { light: "#e6ebf8", dark: "color-mix(in srgb, rgb(13 14 17) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-code-block-banner": { light: "#e7edf9", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-inline-code": { light: "rgba(77, 107, 254, 0.20)", dark: "rgba(77, 107, 254, 0.10)" },
-  "--dsw-alias-markdown-citation": { light: "#e3e9f7", dark: "color-mix(in srgb, rgb(25 27 32) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-tag": { light: "rgba(77, 107, 254, 0.18)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-placeholder": { light: "#e3e9f7", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-code-block": { light: "#F2EAE0", dark: "color-mix(in srgb, rgb(13 14 17) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-code-block-banner": { light: "#F5EEE4", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-inline-code": { light: "rgba(244, 210, 138, 0.20)", dark: "rgba(244, 210, 138, 0.10)" },
+  "--dsw-alias-markdown-citation": { light: "#F0E9DC", dark: "color-mix(in srgb, rgb(25 27 32) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-tag": { light: "rgba(244, 210, 138, 0.18)", dark: "color-mix(in srgb, rgb(21 23 28) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-placeholder": { light: "#F0E9DC", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-markdown-code-segment-selected": { light: "#FFFFFF", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-code-segment-unselected": { light: "#e6ebf8", dark: "color-mix(in srgb, rgb(14 16 19) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-code-segment-unselected": { light: "#F2EAE0", dark: "color-mix(in srgb, rgb(14 16 19) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   // Scrollbars.
-  "--dsw-alias-scrollbar-bg-l1": { light: "rgba(46, 67, 184, 0.28)", dark: "rgba(77, 107, 254, 0.28)" },
-  "--dsw-alias-scrollbar-bg-l2": { light: "rgba(46, 67, 184, 0.40)", dark: "rgba(77, 107, 254, 0.36)" },
-  "--dsw-alias-scrollbar-hover-l1": { light: "rgba(46, 67, 184, 0.50)", dark: "rgba(77, 107, 254, 0.44)" },
-  "--dsw-alias-scrollbar-hover-l2": { light: "rgba(46, 67, 184, 0.60)", dark: "rgba(77, 107, 254, 0.52)" },
+  "--dsw-alias-scrollbar-bg-l1": { light: "rgba(154, 111, 44, 0.28)", dark: "rgba(244, 210, 138, 0.28)" },
+  "--dsw-alias-scrollbar-bg-l2": { light: "rgba(154, 111, 44, 0.40)", dark: "rgba(244, 210, 138, 0.36)" },
+  "--dsw-alias-scrollbar-hover-l1": { light: "rgba(154, 111, 44, 0.50)", dark: "rgba(244, 210, 138, 0.44)" },
+  "--dsw-alias-scrollbar-hover-l2": { light: "rgba(154, 111, 44, 0.60)", dark: "rgba(244, 210, 138, 0.52)" },
   // Specific surfaces. The sidebar root fill goes transparent — the glass
   // panel styling lives on the column itself, so no double tint. The small
   // surfaces (nav item, menu, selector, bubble, tip, toast, tooltip) are
   // translucent so the fluid reads through them instead of solid slabs.
   "--dsw-specific-sidebar-fill": { light: "transparent", dark: "transparent" },
-  "--dsw-specific-sidebar-nav-item-active": { light: "rgba(77, 107, 254, 0.18)", dark: "rgba(26, 29, 34, 0.55)" },
-  "--dsw-specific-sidebar-nav-item-hover": { light: "rgba(77, 107, 254, 0.12)", dark: "rgba(21, 23, 28, 0.55)" },
+  "--dsw-specific-sidebar-nav-item-active": { light: "rgba(244, 210, 138, 0.18)", dark: "rgba(26, 29, 34, 0.55)" },
+  "--dsw-specific-sidebar-nav-item-hover": { light: "rgba(244, 210, 138, 0.12)", dark: "rgba(21, 23, 28, 0.55)" },
   "--dsw-specific-sidebar-nav-item-active-accent": { light: CHAMPAGNE_DEEP, dark: CHAMPAGNE },
   "--dsw-specific-input-major": { light: "#FFFFFF", dark: "color-mix(in srgb, rgb(16 18 22) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-login-input": { light: "#e6ebf8", dark: "color-mix(in srgb, rgb(13 14 17) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-menu": { light: "#e3e9f7", dark: "color-mix(in srgb, rgb(21 23 28) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-selector": { light: "#e3e9f7", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-bubble": { light: "#e5ebf8", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-bubble-highlight": { light: "rgba(77, 107, 254, 0.24)", dark: "color-mix(in srgb, rgb(26 29 34) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-tip": { light: "#e3e9f7", dark: "color-mix(in srgb, rgb(18 20 24) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-toast-bg": { light: "#2e43b8", dark: "color-mix(in srgb, rgb(28 31 37) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-tooltip-bg": { light: "#1c2334", dark: "color-mix(in srgb, rgb(21 23 28) calc(72% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-login-input": { light: "#F2EAE0", dark: "color-mix(in srgb, rgb(13 14 17) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-menu": { light: "#F0E9DC", dark: "color-mix(in srgb, rgb(21 23 28) 92%, transparent)" },
+  "--dsw-specific-selector": { light: "#F0E9DC", dark: "color-mix(in srgb, rgb(28 31 37) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-bubble": { light: "#F4EEE2", dark: "color-mix(in srgb, rgb(18 20 24) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-bubble-highlight": { light: "rgba(244, 210, 138, 0.24)", dark: "color-mix(in srgb, rgb(26 29 34) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-tip": { light: "#F0E9DC", dark: "color-mix(in srgb, rgb(18 20 24) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-toast-bg": { light: "#4A3A1E", dark: "color-mix(in srgb, rgb(28 31 37) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-tooltip-bg": { light: "#2A241A", dark: "color-mix(in srgb, rgb(21 23 28) calc(72% * var(--dsh-aqua-frost, 1)), transparent)" },
   // Elevation shadows (warm-tinted depth with a champagne bloom).
-  "--dsw-shadow-lv1": { light: "0 2px 4px rgba(30, 45, 110, 0.08)", dark: "0 2px 4px rgba(0, 0, 0, 0.5)" },
-  "--dsw-shadow-lv1-blur": { light: "0 4px 12px rgba(30, 45, 110, 0.06)", dark: "0 4px 12px rgba(0, 0, 0, 0.4)" },
+  "--dsw-shadow-lv1": { light: "0 2px 4px rgba(60, 43, 17, 0.08)", dark: "0 2px 4px rgba(0, 0, 0, 0.5)" },
+  "--dsw-shadow-lv1-blur": { light: "0 4px 12px rgba(60, 43, 17, 0.06)", dark: "0 4px 12px rgba(0, 0, 0, 0.4)" },
   "--dsw-shadow-lv2": {
-    light: "0 4px 12px rgba(30, 45, 110, 0.07), 0 2px 8px rgba(30, 45, 110, 0.08)",
+    light: "0 4px 12px rgba(60, 43, 17, 0.07), 0 2px 8px rgba(60, 43, 17, 0.08)",
     dark: "0 4px 12px rgba(0, 0, 0, 0.4), 0 2px 8px rgba(0, 0, 0, 0.35)"
   },
   "--dsw-shadow-lv3": {
-    light: "0 0 1px rgba(30, 45, 110, 0.10), 0 12px 32px rgba(30, 45, 110, 0.12)",
+    light: "0 0 1px rgba(60, 43, 17, 0.10), 0 12px 32px rgba(60, 43, 17, 0.12)",
     dark: "0 0 1px rgba(0, 0, 0, 0.6), 0 12px 32px rgba(0, 0, 0, 0.55)"
   }
 };
@@ -3281,21 +2916,21 @@ function hslHex(h, s, l) {
 function textInkPalette(style) {
   if (style === "champagne") {
     return {
-      light: { primary: "#12182b", secondary: "#2b3a63", tertiary: "#3f4f7e", caption: "#3f4f7e", dimmed: "#67769f", bluish: "#2e43b8", primaryDimmed: "#2e43b8" },
-      dark: { primary: "#eceff7", secondary: "#b9c2dd", tertiary: "#8b97bd", caption: "#6f7ca3", dimmed: "#4a5678", bluish: "#8a9bff", primaryDimmed: "#a3b0d4" }
+      light: { primary: "#1F1A14", secondary: "#4A4030", tertiary: "#675A45", caption: "#7A6C54", dimmed: "#A89880", bluish: "#8A6420", primaryDimmed: "#3A2E18" },
+      dark: { primary: "#F2F0EA", secondary: "#CBC4B8", tertiary: "#98917F", caption: "#7A7468", dimmed: "#5A564C", bluish: "#E8CEA0", primaryDimmed: "#EADFC6" }
     };
   }
   const h = style === "mint" ? 166 : style === "rose" ? 352 : 0;
   const s = style === "mint" ? 0.18 : style === "rose" ? 0.15 : 0;
   return {
     light: {
-      primary: hslHex(h, s, 0.13),
-      secondary: hslHex(h, s, 0.32),
-      tertiary: hslHex(h, s, 0.46),
-      caption: hslHex(h, s, 0.53),
-      dimmed: hslHex(h, s, 0.75),
-      bluish: hslHex(h, Math.min(1, s + 0.12), 0.34),
-      primaryDimmed: hslHex(h, s, 0.22)
+      primary: hslHex(h, s, 0.11),
+      secondary: hslHex(h, s, 0.26),
+      tertiary: hslHex(h, s, 0.38),
+      caption: hslHex(h, s, 0.46),
+      dimmed: hslHex(h, s, 0.62),
+      bluish: hslHex(h, Math.min(1, s + 0.12), 0.28),
+      primaryDimmed: hslHex(h, s, 0.18)
     },
     dark: {
       primary: hslHex(h, s, 0.95),
@@ -3309,25 +2944,25 @@ function textInkPalette(style) {
   };
 }
 var COMPAT_SURFACE_OVERRIDES = {
-  "--dsw-alias-bg-layer-1": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(17 26 39) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-layer-2": { light: "rgba(236, 242, 250, 0.80)", dark: "color-mix(in srgb, rgb(22 33 48) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-layer-3": { light: "rgba(226, 235, 247, 0.78)", dark: "color-mix(in srgb, rgb(28 42 61) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-overlay": { light: "rgba(220, 231, 244, 0.88)", dark: "color-mix(in srgb, rgb(34 51 74) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-module-platform": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(17 26 39) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-bg-multi-select": { light: "rgba(255, 255, 255, 0.82)", dark: "color-mix(in srgb, rgb(22 33 48) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-menu": { light: "rgba(234, 241, 249, 0.88)", dark: "color-mix(in srgb, rgb(22 33 48) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-selector": { light: "rgba(234, 241, 249, 0.85)", dark: "color-mix(in srgb, rgb(28 42 61) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-bubble": { light: "rgba(240, 245, 252, 0.85)", dark: "color-mix(in srgb, rgb(18 28 42) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-bubble-highlight": { light: "rgba(220, 233, 251, 0.85)", dark: "color-mix(in srgb, rgb(26 40 58) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-tip": { light: "rgba(234, 241, 249, 0.88)", dark: "color-mix(in srgb, rgb(19 29 43) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-input-major": { light: "rgba(255, 255, 255, 0.80)", dark: "color-mix(in srgb, rgb(16 25 39) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-specific-login-input": { light: "rgba(240, 245, 251, 0.80)", dark: "color-mix(in srgb, rgb(13 20 31) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-code-block": { light: "rgba(240, 245, 251, 0.80)", dark: "color-mix(in srgb, rgb(13 20 31) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-code-block-banner": { light: "rgba(245, 248, 253, 0.85)", dark: "color-mix(in srgb, rgb(18 27 41) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-inline-code": { light: "rgba(228, 237, 248, 0.80)", dark: "rgba(23, 35, 52, 0.5)" },
-  "--dsw-alias-markdown-citation": { light: "rgba(234, 241, 249, 0.85)", dark: "color-mix(in srgb, rgb(26 37 52) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-tag": { light: "rgba(228, 237, 248, 0.80)", dark: "color-mix(in srgb, rgb(22 33 48) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
-  "--dsw-alias-markdown-placeholder": { light: "rgba(234, 241, 249, 0.85)", dark: "color-mix(in srgb, rgb(19 29 43) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-layer-1": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(17 26 39) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-layer-2": { light: "rgba(236, 242, 250, 0.5)", dark: "color-mix(in srgb, rgb(22 33 48) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-layer-3": { light: "rgba(226, 235, 247, 0.45)", dark: "color-mix(in srgb, rgb(28 42 61) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-overlay": { light: "rgba(220, 231, 244, 0.6)", dark: "color-mix(in srgb, rgb(34 51 74) 88%, transparent)" },
+  "--dsw-alias-bg-module-platform": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(17 26 39) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-bg-multi-select": { light: "rgba(255, 255, 255, 0.55)", dark: "color-mix(in srgb, rgb(22 33 48) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-menu": { light: "rgba(234, 241, 249, 0.6)", dark: "color-mix(in srgb, rgb(22 33 48) 92%, transparent)" },
+  "--dsw-specific-selector": { light: "rgba(234, 241, 249, 0.55)", dark: "color-mix(in srgb, rgb(28 42 61) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-bubble": { light: "rgba(240, 245, 252, 0.55)", dark: "color-mix(in srgb, rgb(18 28 42) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-bubble-highlight": { light: "rgba(220, 233, 251, 0.55)", dark: "color-mix(in srgb, rgb(26 40 58) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-tip": { light: "rgba(234, 241, 249, 0.6)", dark: "color-mix(in srgb, rgb(19 29 43) calc(60% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-input-major": { light: "rgba(255, 255, 255, 0.5)", dark: "color-mix(in srgb, rgb(16 25 39) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-specific-login-input": { light: "rgba(240, 245, 251, 0.5)", dark: "color-mix(in srgb, rgb(13 20 31) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-code-block": { light: "rgba(240, 245, 251, 0.5)", dark: "color-mix(in srgb, rgb(13 20 31) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-code-block-banner": { light: "rgba(245, 248, 253, 0.55)", dark: "color-mix(in srgb, rgb(18 27 41) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-inline-code": { light: "rgba(228, 237, 248, 0.5)", dark: "rgba(23, 35, 52, 0.5)" },
+  "--dsw-alias-markdown-citation": { light: "rgba(234, 241, 249, 0.55)", dark: "color-mix(in srgb, rgb(26 37 52) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-tag": { light: "rgba(228, 237, 248, 0.5)", dark: "color-mix(in srgb, rgb(22 33 48) calc(50% * var(--dsh-aqua-frost, 1)), transparent)" },
+  "--dsw-alias-markdown-placeholder": { light: "rgba(234, 241, 249, 0.55)", dark: "color-mix(in srgb, rgb(19 29 43) calc(55% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-toast-bg": { light: "rgba(27, 50, 86, 0.85)", dark: "color-mix(in srgb, rgb(28 42 61) calc(85% * var(--dsh-aqua-frost, 1)), transparent)" },
   "--dsw-alias-tooltip-bg": { light: "rgba(19, 36, 62, 0.88)", dark: "color-mix(in srgb, rgb(22 33 48) calc(88% * var(--dsh-aqua-frost, 1)), transparent)" }
 };
@@ -3346,10 +2981,94 @@ function writeEnabled(value) {
   } catch {
   }
 }
+var SCENE_BUNDLES = {
+  studio: {
+    textStyle: "champagne",
+    blur: 22,
+    frost: 50,
+    fluidHue: 44,
+    fluidDepth: 22,
+    dispersionHue: 44,
+    dispersionRefract: 60,
+    starDensity: 60,
+    spotlight: true,
+    press: true,
+    audioReact: false,
+    background: "fluid",
+    rainbow: false
+  },
+  deepsea: {
+    textStyle: "mint",
+    blur: 24,
+    frost: 48,
+    fluidHue: 166,
+    fluidDepth: 28,
+    dispersionHue: 166,
+    dispersionRefract: 55,
+    starDensity: 70,
+    spotlight: true,
+    press: true,
+    audioReact: false,
+    background: "fluid",
+    rainbow: false
+  },
+  midnight: {
+    textStyle: "rose",
+    blur: 22,
+    frost: 52,
+    fluidHue: 352,
+    fluidDepth: 26,
+    dispersionHue: 352,
+    dispersionRefract: 55,
+    starDensity: 55,
+    spotlight: true,
+    press: true,
+    audioReact: false,
+    background: "fluid",
+    rainbow: false
+  },
+  mist: {
+    textStyle: "neutral",
+    blur: 26,
+    frost: 78,
+    fluidHue: 44,
+    fluidDepth: 18,
+    dispersionHue: 44,
+    dispersionRefract: 30,
+    starDensity: 20,
+    spotlight: false,
+    press: false,
+    audioReact: false,
+    background: "fluid",
+    rainbow: false
+  },
+  rainbow: {
+    textStyle: "neutral",
+    blur: 22,
+    frost: 48,
+    fluidHue: 44,
+    fluidDepth: 24,
+    dispersionHue: 44,
+    dispersionRefract: 0,
+    starDensity: 50,
+    spotlight: true,
+    press: true,
+    audioReact: false,
+    background: "fluid",
+    rainbow: true
+  }
+};
+function matchScenePreset(settings) {
+  for (const id of Object.keys(SCENE_BUNDLES)) {
+    const bundle = SCENE_BUNDLES[id];
+    if (settings.textStyle === bundle.textStyle && settings.blur === bundle.blur && settings.frost === bundle.frost && settings.fluidHue === bundle.fluidHue && settings.fluidDepth === bundle.fluidDepth && settings.dispersionHue === bundle.dispersionHue && settings.dispersionRefract === bundle.dispersionRefract && settings.starDensity === bundle.starDensity && settings.spotlight === bundle.spotlight && settings.press === bundle.press && settings.audioReact === bundle.audioReact && settings.background === bundle.background && settings.rainbow === bundle.rainbow) return id;
+  }
+  return null;
+}
 var SETTINGS_DEFAULTS = {
   mode: "mica",
   textStyle: "champagne",
-  blur: 6,
+  blur: 22,
   frost: 50,
   bgBrightness: 50,
   background: "fluid",
@@ -3362,7 +3081,7 @@ var SETTINGS_DEFAULTS = {
   spotlight: true,
   press: true,
   audioReact: false,
-  fluidHue: 232,
+  fluidHue: 44,
   fluidDepth: 22,
   dispersionHue: 44,
   dispersionRefract: 60,
@@ -3372,7 +3091,9 @@ var SETTINGS_DEFAULTS = {
   wallpaperMaskBlur: 24,
   wallpaperMaskOpacity: 62,
   videoBlur: 6,
-  videoBrightness: 45
+  videoBrightness: 45,
+  perf: "balanced",
+  rainbow: false
 };
 var NUMERIC_KEYS = {
   blur: "dsh.ui-mineradio.blur",
@@ -3402,6 +3123,35 @@ var MESH_KEY = "dsh.ui-mineradio.mesh";
 var SPOTLIGHT_KEY = "dsh.ui-mineradio.spotlight";
 var PRESS_KEY = "dsh.ui-mineradio.press";
 var AUDIO_REACT_KEY = "dsh.ui-mineradio.audioReact";
+var PERF_KEY = "dsh.ui-mineradio.perf";
+var RAINBOW_KEY = "dsh.ui-mineradio.rainbow";
+function readPerf() {
+  try {
+    const stored = localStorage.getItem(PERF_KEY);
+    return stored === "performance" || stored === "vivid" ? stored : "balanced";
+  } catch {
+    return "balanced";
+  }
+}
+function writePerf(value) {
+  try {
+    localStorage.setItem(PERF_KEY, value);
+  } catch {
+  }
+}
+function readRainbow() {
+  try {
+    return localStorage.getItem(RAINBOW_KEY) === "true";
+  } catch {
+    return false;
+  }
+}
+function writeRainbow(value) {
+  try {
+    localStorage.setItem(RAINBOW_KEY, String(value));
+  } catch {
+  }
+}
 function clampSetting(key, value) {
   const max = key === "blur" || key === "wallpaperBlur" || key === "wallpaperMaskBlur" || key === "videoBlur" ? 40 : key === "frost" || key === "wallpaperFrost" || key === "wallpaperMaskOpacity" || key === "starDensity" || key === "bgBrightness" || key === "videoBrightness" || key === "dispersionRefract" ? 100 : 360;
   return Number.isFinite(value) ? Math.min(max, Math.max(0, value)) : SETTINGS_DEFAULTS[key];
@@ -3506,9 +3256,9 @@ function writeWallpaperMask(value) {
 function readWhale() {
   try {
     const raw = localStorage.getItem(WHALE_KEY);
-    return raw === null ? false : raw === "true";
+    return raw === null ? true : raw === "true";
   } catch {
-    return false;
+    return true;
   }
 }
 function writeWhale(value) {
@@ -3596,32 +3346,15 @@ var MineradioLayer = class {
    * @param ctx - owning client context.
    */
   constructor(ctx) {
-    __publicField(this, "enabled", false);
-    __publicField(this, "settings", { ...SETTINGS_DEFAULTS });
+    this.enabled = false;
+    this.settings = { ...SETTINGS_DEFAULTS };
     /** Resolved palette scheme: dark = the brightness knob darkens, light = it brightens. */
-    __publicField(this, "dark", false);
-    __publicField(this, "tokenDisposer");
-    __publicField(this, "mainFluid");
-    __publicField(this, "interactionDisposer");
-    __publicField(this, "themeListener");
-    __publicField(this, "seamDisposer");
-    __publicField(this, "spotlightDisposer");
-    __publicField(this, "whaleHandle");
-    __publicField(this, "meshHandle");
-    __publicField(this, "starRiverHandle");
-    __publicField(this, "audioHandle");
-    __publicField(this, "cinemaDrift");
-    __publicField(this, "dispersion");
-    __publicField(this, "specularParallaxDisposer");
-    /** Object URL of the current large-video wallpaper (revoked on replace). */
-    __publicField(this, "videoObjectUrl");
-    /** IndexedDB id backing the current object URL (guards against reloads). */
-    __publicField(this, "videoBlobId");
-    /** Extracted accent hue from the wallpaper (undefined until read). */
-    __publicField(this, "extractedHue");
-    /** Wallpaper source the extracted hue was computed from (guards re-reads). */
-    __publicField(this, "extractedWallpaper");
-    __publicField(this, "ctx");
+    this.dark = false;
+    /** Live rainbow hue, only while the rainbow scene is on. Not persisted. */
+    this.rainbowHue = 0;
+    this.rainbowRaf = 0;
+    /** Station dial: per-workspace hue offset, glided by station-dial.ts. */
+    this.stationOffset = 0;
     this.ctx = ctx;
     ctx.effect(() => {
       const onStorage = (event) => {
@@ -3723,8 +3456,59 @@ var MineradioLayer = class {
       wallpaperMaskBlur: readSetting("wallpaperMaskBlur"),
       wallpaperMaskOpacity: readSetting("wallpaperMaskOpacity"),
       videoBlur: readSetting("videoBlur"),
-      videoBrightness: readSetting("videoBrightness")
+      videoBrightness: readSetting("videoBrightness"),
+      perf: readPerf(),
+      rainbow: readRainbow()
     };
+  }
+  /** Set the performance gate (does not rewrite scene knobs). */
+  setPerf(value) {
+    if (value === this.settings.perf) return;
+    this.settings.perf = value;
+    writePerf(value);
+    if (!this.enabled) return;
+    this.applySettings();
+    this.syncMotionLayers();
+  }
+  /** Apply one named scene. Wallpaper / video files stay as they are. */
+  applyScene(preset) {
+    const bundle = SCENE_BUNDLES[preset];
+    this.settings.textStyle = bundle.textStyle;
+    this.settings.blur = bundle.blur;
+    this.settings.frost = bundle.frost;
+    this.settings.fluidHue = bundle.fluidHue;
+    this.settings.fluidDepth = bundle.fluidDepth;
+    this.settings.dispersionHue = bundle.dispersionHue;
+    this.settings.dispersionRefract = bundle.dispersionRefract;
+    this.settings.starDensity = bundle.starDensity;
+    this.settings.spotlight = bundle.spotlight;
+    this.settings.press = bundle.press;
+    this.settings.audioReact = bundle.audioReact;
+    this.settings.background = bundle.background;
+    this.settings.rainbow = bundle.rainbow;
+    writeTextStyle(bundle.textStyle);
+    writeSetting("blur", bundle.blur);
+    writeSetting("frost", bundle.frost);
+    writeSetting("fluidHue", bundle.fluidHue);
+    writeSetting("fluidDepth", bundle.fluidDepth);
+    writeSetting("dispersionHue", bundle.dispersionHue);
+    writeSetting("dispersionRefract", bundle.dispersionRefract);
+    writeSetting("starDensity", bundle.starDensity);
+    writeSpotlight(bundle.spotlight);
+    writePress(bundle.press);
+    writeAudioReact(bundle.audioReact);
+    writeBackground(bundle.background);
+    writeRainbow(bundle.rainbow);
+    if (!this.enabled) return;
+    this.applySettings();
+    this.applyTokens();
+    this.applyFluidPalettes();
+    this.dispersion?.setTint(this.dispersionTintHue());
+    this.dispersion?.setRefraction(bundle.dispersionRefract);
+    this.starRiverHandle?.setDensity(bundle.starDensity);
+    this.syncAudioReact();
+    this.syncMotionLayers();
+    this.syncRainbowDrift();
   }
   /** Flip the layer: persist, then apply or retract every owned effect. */
   setEnabled(value) {
@@ -3978,11 +3762,11 @@ var MineradioLayer = class {
     const compat = this.settings.mode === "compat";
     document.documentElement.toggleAttribute("data-dsh-float", !compat);
     document.documentElement.toggleAttribute("data-dsh-compat", compat);
-    document.documentElement.toggleAttribute(SPOTLIGHT_ATTRIBUTE, !compat && this.settings.spotlight);
-    document.documentElement.toggleAttribute(PRESS_ATTRIBUTE, !compat && this.settings.press);
+    document.documentElement.toggleAttribute(SPOTLIGHT_ATTRIBUTE, !compat && this.settings.spotlight && this.allowHoverFx());
+    document.documentElement.toggleAttribute(PRESS_ATTRIBUTE, !compat && this.settings.press && this.allowHoverFx());
     const ambient = document.querySelector("[data-dsh-aqua-ambient]");
     if (ambient !== null) ambient.dataset.background = this.settings.background;
-    if (ambient !== null) ambient.dataset.critters = this.settings.critters ? "on" : "off";
+    if (ambient !== null) ambient.dataset.critters = this.settings.critters && this.allowDecor() ? "on" : "off";
     const wallpaper = this.settings.wallpaper;
     const isVideo = wallpaper.startsWith("data:video/") || wallpaper.startsWith("idb:") || wallpaper.startsWith("fsa:");
     const wallpaperLayer = document.querySelector("[data-dsh-aqua-wallpaper-layer]");
@@ -4075,14 +3859,14 @@ var MineradioLayer = class {
     if (this.settings.autoTint && this.settings.background === "wallpaper" && this.settings.wallpaper !== "" && this.extractedHue !== void 0) {
       return this.extractedHue;
     }
-    return ((this.settings.fluidHue + HUE_BASE) % 360 + 360) % 360;
+    return ((this.settings.fluidHue + HUE_BASE + this.stationOffset) % 360 + 360) % 360;
   }
   /** The dispersion edge-tint hue (auto-extracted, or the user's knob). */
   dispersionTintHue() {
     if (this.settings.autoTint && this.settings.background === "wallpaper" && this.settings.wallpaper !== "" && this.extractedHue !== void 0) {
       return this.extractedHue;
     }
-    return this.settings.dispersionHue;
+    return ((this.settings.dispersionHue + this.stationOffset) % 360 + 360) % 360;
   }
   /** Write the hue-driven accent vars (spotlight glow + bloom + dispersion). */
   applyAccentTint() {
@@ -4169,54 +3953,99 @@ var MineradioLayer = class {
     document.documentElement.setAttribute(MINERADIO_ATTRIBUTE, "");
     ensureAmbientScene();
     ensurePageFades();
-    this.syncStarRiver();
-    this.startCinemaDrift();
-    this.startGlassDispersion();
-    this.startSpecularParallax();
     this.applySettings();
     this.applyTokens();
     this.mountFluid();
     this.startSeamStamper();
     this.startSpotlightFeed();
+    if (this.stationDisposer === void 0) {
+      this.stationDisposer = startStationDial((offset) => {
+        this.stationOffset = offset;
+        this.applyFluidPalettes();
+        this.applyAccentTint();
+      });
+    }
+    this.syncMotionLayers();
+    this.syncRainbowDrift();
+  }
+  /** Performance / balanced keep the last fluid frame; vivid runs the loop. */
+  allowFluidLoop() {
+    return this.settings.perf === "vivid";
+  }
+  /** Balanced + vivid keep stars / drift / dispersion / specular. */
+  allowMotionFx() {
+    return this.settings.perf !== "performance";
+  }
+  /** Only vivid mounts the optional extras (whale / mesh / audio). */
+  allowDecor() {
+    return this.settings.perf === "vivid";
+  }
+  /** Hover glow / tilt stay off in the performance gate. */
+  allowHoverFx() {
+    return this.settings.perf !== "performance";
+  }
+  /** Mount or drop motion layers to match the performance gate. */
+  syncMotionLayers() {
+    this.syncStarRiver();
+    this.syncCinemaDrift();
+    this.syncGlassDispersion();
+    this.syncSpecularParallax();
     this.syncWhale();
     this.syncMesh();
     this.syncAudioReact();
+    this.mainFluid?.setRunning(this.allowFluidLoop());
   }
-  /** Mount the Mineradio star-river particle stage (always on with the layer:
-   *  it is the skin's signature motion, like the player's backdrop). */
+  /** Mount the Mineradio star-river particle stage when the gate allows it. */
   syncStarRiver() {
-    if (!this.enabled) return;
-    if (this.starRiverHandle !== void 0) return;
-    const ambient = document.querySelector("[data-dsh-aqua-ambient]");
-    if (ambient === null) return;
-    this.starRiverHandle = mountStarRiver(ambient, { dark: this.dark, density: this.settings.starDensity });
+    if (this.enabled && this.allowMotionFx()) {
+      if (this.starRiverHandle !== void 0) return;
+      const ambient = document.querySelector("[data-dsh-aqua-ambient]");
+      if (ambient === null) return;
+      this.starRiverHandle = mountStarRiver(ambient, { dark: this.dark, density: this.settings.starDensity });
+      return;
+    }
+    this.starRiverHandle?.dispose();
+    this.starRiverHandle = void 0;
   }
-  /** Start the cinematic camera drift over the fluid + star-river layers
-   *  (idempotent per mount; the subtle parallax "breathe" of the backdrop). */
-  startCinemaDrift() {
-    if (!this.enabled) return;
-    if (this.cinemaDrift !== void 0) return;
-    const ambient = document.querySelector("[data-dsh-aqua-ambient]");
-    if (ambient === null) return;
-    this.cinemaDrift = startCinemaDrift(ambient);
+  /** Start or stop the cinematic camera drift. */
+  syncCinemaDrift() {
+    if (this.enabled && this.allowMotionFx()) {
+      if (this.cinemaDrift !== void 0) return;
+      const ambient = document.querySelector("[data-dsh-aqua-ambient]");
+      if (ambient === null) return;
+      this.cinemaDrift = startCinemaDrift(ambient);
+      return;
+    }
+    this.cinemaDrift?.dispose();
+    this.cinemaDrift = void 0;
   }
-  /** Start the glass chromatic-dispersion filter (idempotent per mount). */
-  startGlassDispersion() {
-    if (!this.enabled) return;
-    if (this.dispersion !== void 0) return;
-    this.dispersion = startGlassDispersion();
-    this.dispersion.setTint(this.dispersionTintHue());
-    this.dispersion.setRefraction(this.settings.dispersionRefract);
+  /** Start or stop the glass chromatic-dispersion filter. */
+  syncGlassDispersion() {
+    if (this.enabled && this.allowMotionFx()) {
+      if (this.dispersion !== void 0) return;
+      this.dispersion = startGlassDispersion();
+      this.dispersion.setTint(this.dispersionTintHue());
+      this.dispersion.setRefraction(this.settings.dispersionRefract);
+      return;
+    }
+    this.dispersion?.dispose();
+    this.dispersion = void 0;
   }
-  /** Start the specular-highlight cursor parallax (idempotent per mount). */
-  startSpecularParallax() {
-    if (!this.enabled) return;
-    if (this.specularParallaxDisposer !== void 0) return;
-    this.specularParallaxDisposer = startSpecularParallax();
+  /** Start or stop the specular-highlight cursor parallax. */
+  syncSpecularParallax() {
+    if (this.enabled && this.allowHoverFx()) {
+      if (this.specularParallaxDisposer !== void 0) return;
+      this.specularParallaxDisposer = startSpecularParallax();
+      return;
+    }
+    this.specularParallaxDisposer?.();
+    this.specularParallaxDisposer = void 0;
   }
-  /** Mount or drop the particle whale to match enabled + the whale flag. */
+  /** Mount or drop the particle whale to match enabled + the whale flag.
+   *  Gated on allowMotionFx (balanced and vivid), not the vivid-only
+   *  allowDecor, so the golden whale rides along on the default tier. */
   syncWhale() {
-    if (this.enabled && this.settings.whale) {
+    if (this.enabled && this.settings.whale && this.allowMotionFx()) {
       if (this.whaleHandle !== void 0) return;
       const ambient = document.querySelector("[data-dsh-aqua-ambient]");
       if (ambient === null) return;
@@ -4228,7 +4057,7 @@ var MineradioLayer = class {
   }
   /** Mount or drop the interactive mesh to match enabled + the mesh flag. */
   syncMesh() {
-    if (this.enabled && this.settings.mesh) {
+    if (this.enabled && this.settings.mesh && this.allowDecor()) {
       if (this.meshHandle !== void 0) return;
       const ambient = document.querySelector("[data-dsh-aqua-ambient]");
       if (ambient === null) return;
@@ -4244,7 +4073,7 @@ var MineradioLayer = class {
   syncAudioReact() {
     const root = document.documentElement;
     const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-    const shouldRun = this.enabled && this.settings.audioReact && !reducedMotion;
+    const shouldRun = this.enabled && this.settings.audioReact && this.allowDecor() && !reducedMotion;
     if (shouldRun) {
       if (this.audioHandle !== void 0) return;
       root.dataset.dshAquaAudioStatus = "starting";
@@ -4294,6 +4123,10 @@ var MineradioLayer = class {
     this.meshHandle = void 0;
     this.audioHandle?.dispose();
     this.audioHandle = void 0;
+    this.stationDisposer?.();
+    this.stationDisposer = void 0;
+    this.stationOffset = 0;
+    this.stopRainbowDrift();
     document.documentElement.style.removeProperty("--dsh-aqua-audio-glow");
     delete document.documentElement.dataset.dshAquaAudioEnv;
     delete document.documentElement.dataset.dshAquaAudioStatus;
@@ -4333,7 +4166,38 @@ var MineradioLayer = class {
     this.mainFluid = void 0;
   }
   fluidParams() {
-    return { ...SITE_FLUID_PARAMS, ...fluidToneColors(this.dark, this.settings.fluidHue, this.settings.fluidDepth) };
+    const hue = (((this.settings.rainbow ? this.rainbowHue : this.settings.fluidHue) + this.stationOffset) % 360 + 360) % 360;
+    const depth = this.settings.rainbow ? Math.max(this.settings.fluidDepth, 22) : this.settings.fluidDepth;
+    const tones = fluidToneColors(this.dark, hue, depth);
+    if (!this.settings.rainbow) return { ...SITE_FLUID_PARAMS, ...tones };
+    const mid = fluidToneColors(this.dark, hue + 120, depth);
+    const far = fluidToneColors(this.dark, hue + 240, depth);
+    return { ...SITE_FLUID_PARAMS, color1: tones.color1, color2: mid.color2, color3: far.color3 };
+  }
+  /** Slow hue walk for the rainbow scene. Does not rewrite the stored knob. */
+  syncRainbowDrift() {
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    const should = this.enabled && this.settings.rainbow && this.settings.background === "fluid" && !reduced;
+    if (!should) {
+      this.stopRainbowDrift();
+      return;
+    }
+    if (this.rainbowRaf !== 0) return;
+    this.rainbowHue = this.settings.fluidHue;
+    let last = 0;
+    const tick = (now) => {
+      this.rainbowRaf = requestAnimationFrame(tick);
+      if (now - last < 80) return;
+      last = now;
+      this.rainbowHue = (this.rainbowHue + 0.35) % 360;
+      this.applyFluidPalettes();
+    };
+    this.rainbowRaf = requestAnimationFrame(tick);
+  }
+  stopRainbowDrift() {
+    if (this.rainbowRaf === 0) return;
+    cancelAnimationFrame(this.rainbowRaf);
+    this.rainbowRaf = 0;
   }
   applyFluidPalettes() {
     this.mainFluid?.setParams(this.fluidParams());
@@ -4350,16 +4214,776 @@ var MineradioLayer = class {
   }
 };
 
-// dshcss:Mineradio-DSH-Theme\src\client\mineradio.module.css
+// src/client/MineradioAppearanceRow.tsx
+var import_jsx_runtime4 = require("react/jsx-runtime");
+function Fold({
+  title,
+  open,
+  onToggle,
+  children
+}) {
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.fold, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+      "button",
+      {
+        type: "button",
+        className: MineradioAppearanceRow_default.foldHead,
+        "aria-expanded": open,
+        onClick: onToggle,
+        children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.foldTitle, children: title }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("svg", { className: open ? MineradioAppearanceRow_default.foldChevronOpen : MineradioAppearanceRow_default.foldChevron, width: "14", height: "14", viewBox: "0 0 14 14", fill: "none", "aria-hidden": "true", children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("path", { d: "M2.15 8.5L2.58 8.08L5.30 5.35C5.56 5.09 5.78 4.87 5.99 4.70C6.20 4.53 6.44 4.38 6.75 4.33C6.92 4.31 7.08 4.31 7.25 4.33C7.56 4.38 7.80 4.53 8.01 4.70C8.22 4.87 8.44 5.09 8.70 5.35L11.42 8.08L11.85 8.50L11 9.35L10.58 8.92L7.85 6.20C7.57 5.92 7.40 5.75 7.26 5.64C7.13 5.53 7.08 5.52 7.06 5.52C7.02 5.51 6.98 5.51 6.94 5.52C6.92 5.52 6.87 5.53 6.74 5.64C6.60 5.75 6.43 5.92 6.15 6.20L3.42 8.92L3 9.35L2.15 8.50Z", fill: "currentColor" }) })
+        ]
+      }
+    ),
+    open ? /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.foldBody, children }) : null
+  ] });
+}
+function MineradioAppearanceRow(props) {
+  const {
+    t,
+    applyScene,
+    setPerf,
+    setMode,
+    setTextStyle,
+    setBlur,
+    setFrost,
+    setFluidHue,
+    setFluidDepth,
+    setDispersionHue,
+    setDispersionRefract,
+    setBgBrightness,
+    setBackground,
+    setWallpaper,
+    setAutoTint,
+    setWhale,
+    setCritters,
+    setMesh,
+    setStarDensity,
+    setSpotlight,
+    setPress,
+    setAudioReact,
+    setWallpaperBlur,
+    setWallpaperFrost,
+    setWallpaperMask,
+    setWallpaperMaskBlur,
+    setWallpaperMaskOpacity,
+    setVideoBlur,
+    setVideoBrightness,
+    authorizeVideo,
+    useStore
+  } = props;
+  const enabled = useStore((s) => s.enabled);
+  const mode = useStore((s) => s.mode);
+  const textStyle = useStore((s) => s.textStyle);
+  const blur = useStore((s) => s.blur);
+  const frost = useStore((s) => s.frost);
+  const fluidHue = useStore((s) => s.fluidHue);
+  const fluidDepth = useStore((s) => s.fluidDepth);
+  const dispersionHue = useStore((s) => s.dispersionHue);
+  const dispersionRefract = useStore((s) => s.dispersionRefract);
+  const bgBrightness = useStore((s) => s.bgBrightness);
+  const dark = useStore((s) => s.dark);
+  const background = useStore((s) => s.background);
+  const whale = useStore((s) => s.whale);
+  const critters = useStore((s) => s.critters);
+  const mesh = useStore((s) => s.mesh);
+  const starDensity = useStore((s) => s.starDensity);
+  const spotlight = useStore((s) => s.spotlight);
+  const press = useStore((s) => s.press);
+  const audioReact = useStore((s) => s.audioReact);
+  const wallpaper = useStore((s) => s.wallpaper);
+  const autoTint = useStore((s) => s.autoTint);
+  const wallpaperBlur = useStore((s) => s.wallpaperBlur);
+  const wallpaperFrost = useStore((s) => s.wallpaperFrost);
+  const wallpaperMask = useStore((s) => s.wallpaperMask);
+  const wallpaperMaskBlur = useStore((s) => s.wallpaperMaskBlur);
+  const wallpaperMaskOpacity = useStore((s) => s.wallpaperMaskOpacity);
+  const videoBlur = useStore((s) => s.videoBlur);
+  const videoBrightness = useStore((s) => s.videoBrightness);
+  const perf = useStore((s) => s.perf);
+  const rainbow = useStore((s) => s.rainbow);
+  const fileRef = (0, import_react2.useRef)(null);
+  const videoRef = (0, import_react2.useRef)(null);
+  const [openLooks, setOpenLooks] = (0, import_react2.useState)(true);
+  const [openMaterial, setOpenMaterial] = (0, import_react2.useState)(false);
+  const [openBackdrop, setOpenBackdrop] = (0, import_react2.useState)(false);
+  const [openMotion, setOpenMotion] = (0, import_react2.useState)(false);
+  const isVideoWallpaper = wallpaper.startsWith("data:video/") || wallpaper.startsWith("idb:") || wallpaper.startsWith("fsa:");
+  const pickVideo = () => {
+    const openPicker = window.showOpenFilePicker;
+    if (openPicker !== void 0) {
+      void (async () => {
+        try {
+          const [handle] = await openPicker({
+            multiple: false,
+            types: [{ description: "Video", accept: { "video/*": [".mp4", ".webm", ".ogg", ".mov", ".m4v", ".mkv"] } }]
+          });
+          if (handle === void 0) return;
+          setBackground("wallpaper");
+          if (await saveVideoHandle(handle)) {
+            setWallpaper(`fsa:${handle.name}`);
+          } else {
+            const file = await handle.getFile();
+            void saveVideoBlob(file).then((id) => {
+              if (id !== "") setWallpaper(id);
+              else void fileToDataUrl(file).then(setWallpaper);
+            });
+          }
+        } catch {
+        }
+      })();
+    } else {
+      videoRef.current?.click();
+    }
+  };
+  const onChooseVideo = () => {
+    if (wallpaper.startsWith("fsa:")) {
+      void (async () => {
+        const handle = await loadVideoHandle();
+        if (handle !== null) {
+          try {
+            const permission = await handle.queryPermission({ mode: "read" });
+            if (permission === "granted") {
+              authorizeVideo();
+              return;
+            }
+            if (permission === "prompt") {
+              const next = await handle.requestPermission({ mode: "read" });
+              if (next === "granted") {
+                authorizeVideo();
+                return;
+              }
+            }
+          } catch {
+          }
+        }
+        pickVideo();
+      })();
+    } else {
+      pickVideo();
+    }
+  };
+  const bgMin = dark ? 0 : 50;
+  const bgMax = dark ? 50 : 100;
+  const bgDisplay = Math.min(bgMax, Math.max(bgMin, bgBrightness));
+  if (!enabled) return null;
+  return /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.group, children: [
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Fold, { title: t("mineradio.foldLooks"), open: openLooks, onToggle: () => {
+      setOpenLooks((v) => !v);
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.scene") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Segmented,
+          {
+            label: t("mineradio.scene"),
+            value: matchScenePreset({
+              textStyle,
+              blur,
+              frost,
+              fluidHue,
+              fluidDepth,
+              dispersionHue,
+              dispersionRefract,
+              starDensity,
+              spotlight,
+              press,
+              audioReact,
+              background,
+              rainbow
+            }) ?? "",
+            options: [
+              { id: "studio", label: t("mineradio.sceneStudio") },
+              { id: "deepsea", label: t("mineradio.sceneDeepsea") },
+              { id: "midnight", label: t("mineradio.sceneMidnight") },
+              { id: "mist", label: t("mineradio.sceneMist") },
+              { id: "rainbow", label: t("mineradio.sceneRainbow") }
+            ],
+            onSelect: applyScene
+          }
+        ) }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.perf") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Segmented,
+          {
+            label: t("mineradio.perf"),
+            value: perf,
+            options: [
+              { id: "performance", label: t("mineradio.perfPerformance") },
+              { id: "balanced", label: t("mineradio.perfBalanced") },
+              { id: "vivid", label: t("mineradio.perfVivid") }
+            ],
+            onSelect: setPerf
+          }
+        ) }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.mode") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Segmented,
+          {
+            label: t("mineradio.mode"),
+            value: mode,
+            options: [
+              { id: "mica", label: t("mineradio.modeMica") },
+              { id: "compat", label: t("mineradio.modeCompat") }
+            ],
+            onSelect: setMode
+          }
+        ) }) })
+      ] }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.textColor") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.controls, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Segmented,
+          {
+            label: t("mineradio.textColor"),
+            value: textStyle,
+            options: [
+              { id: "champagne", label: t("mineradio.textColorChampagne") },
+              { id: "neutral", label: t("mineradio.textColorNeutral") },
+              { id: "mint", label: t("mineradio.textColorMint") },
+              { id: "rose", label: t("mineradio.textColorRose") }
+            ],
+            onSelect: setTextStyle
+          }
+        ) }) })
+      ] })
+    ] }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Fold, { title: t("mineradio.foldMaterial"), open: openMaterial, onToggle: () => {
+      setOpenMaterial((v) => !v);
+    }, children: mode === "mica" && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.materialGroup") }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.blur"), value: blur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setBlur }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.frost"), value: frost, min: 0, max: 100, step: 1, unit: "%", onChange: setFrost })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Fold, { title: t("mineradio.foldBackdrop"), open: openBackdrop, onToggle: () => {
+      setOpenBackdrop((v) => !v);
+    }, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.background") }),
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.row, children: /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+          Segmented,
+          {
+            label: t("mineradio.background"),
+            value: background,
+            options: [
+              { id: "fluid", label: t("mineradio.backgroundFluid") },
+              { id: "wallpaper", label: t("mineradio.backgroundWallpaper") }
+            ],
+            onSelect: setBackground
+          }
+        ) }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(HueStrip, { label: t("mineradio.dispersionHue"), value: dispersionHue, onChange: setDispersionHue }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.dispersionRefract"), value: dispersionRefract, min: 0, max: 100, step: 1, unit: "%", onChange: setDispersionRefract }),
+        background === "fluid" && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(HueStrip, { label: t("mineradio.fluidHue"), value: fluidHue, onChange: setFluidHue }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.fluidDepth"), value: fluidDepth, min: 0, max: 100, step: 1, unit: "%", onChange: setFluidDepth })
+        ] }),
+        background === "wallpaper" && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.wallpaper") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.wallpaperPick, children: [
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                "input",
+                {
+                  ref: fileRef,
+                  type: "file",
+                  accept: "image/*",
+                  className: MineradioAppearanceRow_default.fileInput,
+                  onChange: (e) => {
+                    const file = e.target.files?.[0];
+                    if (file !== void 0) {
+                      setBackground("wallpaper");
+                      void fileToDataUrl(file).then(setWallpaper);
+                    }
+                    e.target.value = "";
+                  }
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(
+                "input",
+                {
+                  ref: videoRef,
+                  type: "file",
+                  accept: "video/mp4,video/webm,video/ogg,video/quicktime",
+                  className: MineradioAppearanceRow_default.fileInput,
+                  onChange: (e) => {
+                    const file = e.target.files?.[0];
+                    if (file !== void 0) {
+                      setBackground("wallpaper");
+                      void saveVideoBlob(file).then((id) => {
+                        if (id !== "") {
+                          setWallpaper(id);
+                        } else {
+                          void fileToDataUrl(file).then(setWallpaper);
+                        }
+                      });
+                    }
+                    e.target.value = "";
+                  }
+                }
+              ),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.pickButton, onClick: () => {
+                fileRef.current?.click();
+              }, children: t("mineradio.chooseImage") }),
+              /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.pickButton, onClick: onChooseVideo, children: t("mineradio.chooseVideo") }),
+              wallpaper !== "" && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("button", { type: "button", className: MineradioAppearanceRow_default.deleteButton, onClick: () => {
+                setWallpaper("");
+              }, children: t("mineradio.deleteWallpaper") })
+            ] })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.autoTint") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: autoTint ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": autoTint,
+                onClick: () => {
+                  setAutoTint(!autoTint);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: autoTint && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  autoTint ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.wallpaperMask") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: wallpaperMask ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": wallpaperMask,
+                onClick: () => {
+                  setWallpaperMask(!wallpaperMask);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: wallpaperMask && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  wallpaperMask ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          wallpaperMask && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.wallpaperMaskBlur"), value: wallpaperMaskBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setWallpaperMaskBlur }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.wallpaperMaskOpacity"), value: wallpaperMaskOpacity, min: 0, max: 100, step: 1, unit: "%", onChange: setWallpaperMaskOpacity })
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t("mineradio.wallpaperHint") }),
+          !isVideoWallpaper && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.wallpaperBlur"), value: wallpaperBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setWallpaperBlur }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.wallpaperFrost"), value: wallpaperFrost, min: 0, max: 100, step: 1, unit: "%", onChange: setWallpaperFrost })
+          ] }),
+          isVideoWallpaper && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(import_jsx_runtime4.Fragment, { children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.videoBlur"), value: videoBlur, min: 0, max: 40, step: 0.5, unit: "px", onChange: setVideoBlur }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.videoBrightness"), value: videoBrightness, min: 0, max: 100, step: 1, unit: "%", onChange: setVideoBrightness }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t("mineradio.videoHint") })
+          ] })
+        ] }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.bgBrightness"), value: bgDisplay, min: bgMin, max: bgMax, step: 1, unit: "%", onChange: setBgBrightness }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.knobHint, children: t(dark ? "mineradio.bgBrightnessHintDark" : "mineradio.bgBrightnessHintLight") })
+      ] })
+    ] }) }),
+    /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(Fold, { title: t("mineradio.foldMotion"), open: openMotion, onToggle: () => {
+      setOpenMotion((v) => !v);
+    }, children: [
+      /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.decorAmbient") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.whale") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: whale ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": whale,
+                onClick: () => {
+                  setWhale(!whale);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: whale && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  whale ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.critters") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: critters ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": critters,
+                onClick: () => {
+                  setCritters(!critters);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: critters && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  critters ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.mesh") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: mesh ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": mesh,
+                onClick: () => {
+                  setMesh(!mesh);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: mesh && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  mesh ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.audioReact") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: audioReact ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": audioReact,
+                onClick: () => {
+                  setAudioReact(!audioReact);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: audioReact && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  audioReact ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(Knob, { label: t("mineradio.starDensity"), value: starDensity, min: 0, max: 100, step: 1, unit: "%", onChange: setStarDensity })
+        ] })
+      ] }),
+      mode === "mica" && /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.subGroup, children: [
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("div", { className: MineradioAppearanceRow_default.subTitle, children: t("mineradio.decorHover") }),
+        /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.controls, children: [
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.spotlight") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: spotlight ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": spotlight,
+                onClick: () => {
+                  setSpotlight(!spotlight);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: spotlight && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  spotlight ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] }),
+          /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)("div", { className: MineradioAppearanceRow_default.row, children: [
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.rowLabel, children: t("mineradio.press") }),
+            /* @__PURE__ */ (0, import_jsx_runtime4.jsxs)(
+              "button",
+              {
+                type: "button",
+                className: press ? MineradioAppearanceRow_default.toggleOn : MineradioAppearanceRow_default.toggle,
+                "aria-pressed": press,
+                onClick: () => {
+                  setPress(!press);
+                },
+                children: [
+                  /* @__PURE__ */ (0, import_jsx_runtime4.jsx)("span", { className: MineradioAppearanceRow_default.check, children: press && /* @__PURE__ */ (0, import_jsx_runtime4.jsx)(IconCheckOutline16, {}) }),
+                  press ? t("mineradio.enable") : t("mineradio.disable")
+                ]
+              }
+            )
+          ] })
+        ] })
+      ] })
+    ] })
+  ] });
+}
+
+// src/client/host-store.ts
+var STORE_CANDIDATES = [
+  "@deepseek-ai/dsh-client-runtime/client",
+  "@deepseek-ai/dsh-client-runtime",
+  "@deepseek-ai/dsh-client-store"
+];
+function isRecord(value) {
+  return typeof value === "object" && value !== null;
+}
+function readDefineStore(mod) {
+  if (!isRecord(mod)) return void 0;
+  const direct = mod.defineStore;
+  if (typeof direct === "function") return direct;
+  const nested = mod.default;
+  if (isRecord(nested) && typeof nested.defineStore === "function") {
+    return nested.defineStore;
+  }
+  return void 0;
+}
+function tryLoadDefineStore(requireFn) {
+  const errors = [];
+  for (const id of STORE_CANDIDATES) {
+    try {
+      const defineStore2 = readDefineStore(requireFn(id));
+      if (defineStore2 !== void 0) return defineStore2;
+      errors.push(`${id}: loaded but has no defineStore export`);
+    } catch (error) {
+      errors.push(`${id}: ${error instanceof Error ? error.message : String(error)}`);
+    }
+  }
+  console.warn(
+    `dsh-theme-mineradio: no host store engine. Need @deepseek-ai/dsh-client-store (DSH 0.1.2-alpha.1) or @deepseek-ai/dsh-client-runtime (0.1.1-rc.2+). Tried:
+${errors.join("\n")}`
+  );
+  return void 0;
+}
+var defineStore = tryLoadDefineStore((id) => {
+  const hostRequire = globalThis.__dshRequire;
+  if (typeof hostRequire !== "function") {
+    throw new Error("dsh-theme-mineradio: host require is not bound");
+  }
+  return hostRequire(id);
+});
+
+// src/client/settings-store.ts
+function createMineradioRowStore() {
+  const define = defineStore;
+  if (define === void 0) {
+    console.warn("dsh-theme-mineradio: host store engine unavailable; row store not created, settings surfaces will be skipped");
+    return void 0;
+  }
+  return define({
+    init: () => ({
+      enabled: true,
+      mode: "mica",
+      textStyle: "champagne",
+      blur: 24,
+      frost: 14,
+      fluidHue: 44,
+      fluidDepth: 22,
+      dispersionHue: 44,
+      dispersionRefract: 60,
+      bgBrightness: 50,
+      dark: false,
+      background: "fluid",
+      wallpaper: "",
+      autoTint: true,
+      whale: true,
+      critters: true,
+      mesh: true,
+      starDensity: 60,
+      spotlight: true,
+      press: true,
+      audioReact: false,
+      wallpaperBlur: 0,
+      wallpaperFrost: 0,
+      wallpaperMask: false,
+      wallpaperMaskBlur: 24,
+      wallpaperMaskOpacity: 62,
+      videoBlur: 6,
+      videoBrightness: 48,
+      perf: "balanced",
+      rainbow: false,
+      revision: -1
+    }),
+    actions: {
+      sync: (d, next, revision) => {
+        if (revision <= d.revision) return;
+        d.enabled = next.enabled;
+        d.mode = next.mode;
+        d.textStyle = next.textStyle;
+        d.blur = next.blur;
+        d.frost = next.frost;
+        d.fluidHue = next.fluidHue;
+        d.fluidDepth = next.fluidDepth;
+        d.dispersionHue = next.dispersionHue;
+        d.dispersionRefract = next.dispersionRefract;
+        d.bgBrightness = next.bgBrightness;
+        d.dark = next.dark;
+        d.background = next.background;
+        d.wallpaper = next.wallpaper;
+        d.autoTint = next.autoTint;
+        d.whale = next.whale;
+        d.critters = next.critters;
+        d.mesh = next.mesh;
+        d.starDensity = next.starDensity;
+        d.spotlight = next.spotlight;
+        d.press = next.press;
+        d.audioReact = next.audioReact;
+        d.wallpaperBlur = next.wallpaperBlur;
+        d.wallpaperFrost = next.wallpaperFrost;
+        d.wallpaperMask = next.wallpaperMask;
+        d.wallpaperMaskBlur = next.wallpaperMaskBlur;
+        d.wallpaperMaskOpacity = next.wallpaperMaskOpacity;
+        d.videoBlur = next.videoBlur;
+        d.videoBrightness = next.videoBrightness;
+        d.perf = next.perf;
+        d.rainbow = next.rainbow;
+        d.revision = revision;
+      }
+    }
+  });
+}
+
+// src/client/locales.ts
+var NS = "settings.mineradio";
+var zh = {
+  "mineradio.title": "Mineradio \u4E3B\u9898",
+  "mineradio.description": "\u5F71\u9662\u7EA7\u79C1\u4EBA\u89C6\u89C9\u7535\u53F0\u73BB\u7483\u4E3B\u9898\u2014\u2014\u9999\u69DF\u91D1\u8F89\u5149\uFF0C\u6D41\u4F53/\u58C1\u7EB8\u53CC\u80CC\u666F\uFF0C\u6A21\u7CCA\u5EA6\u3001\u78E8\u7802\u5EA6\u3001\u8272\u8C03\u4E0E\u8F89\u5149\u90FD\u53EF\u81EA\u7531\u8C03\u8282",
+  "mineradio.enable": "\u5F00\u542F",
+  "mineradio.disable": "\u5173\u95ED",
+  "mineradio.mode": "\u6A21\u5F0F",
+  "mineradio.modeMica": "\u4E91\u6BCD\u6548\u679C",
+  "mineradio.modeCompat": "\u517C\u5BB9\u6A21\u5F0F",
+  "mineradio.textColor": "\u6587\u5B57\u989C\u8272",
+  "mineradio.textColorChampagne": "\u9999\u69DF\u91D1",
+  "mineradio.textColorNeutral": "\u4E2D\u6027",
+  "mineradio.textColorMint": "\u8584\u8377",
+  "mineradio.textColorRose": "\u73AB\u7470",
+  "mineradio.scene": "\u573A\u666F",
+  "mineradio.sceneStudio": "\u6F14\u64AD\u5BA4",
+  "mineradio.sceneDeepsea": "\u6DF1\u6D77",
+  "mineradio.sceneMidnight": "\u5348\u591C",
+  "mineradio.sceneMist": "\u96FE\u9762",
+  "mineradio.sceneRainbow": "\u5F69\u8679",
+  "mineradio.perf": "\u6027\u80FD",
+  "mineradio.perfPerformance": "\u6027\u80FD",
+  "mineradio.perfBalanced": "\u5747\u8861",
+  "mineradio.perfVivid": "\u70AB",
+  "mineradio.foldLooks": "\u5916\u89C2",
+  "mineradio.foldMaterial": "\u6750\u8D28",
+  "mineradio.foldBackdrop": "\u80CC\u666F",
+  "mineradio.foldMotion": "\u52A8\u6548",
+  "mineradio.materialGroup": "\u73BB\u7483\u6750\u8D28",
+  "mineradio.decorAmbient": "\u73AF\u5883\u88C5\u9970",
+  "mineradio.decorHover": "\u60AC\u505C\u6548\u679C",
+  "mineradio.whale": "\u7C92\u5B50\u91D1\u9CB8",
+  "mineradio.critters": "\u661F\u5C18\u7C92\u5B50",
+  "mineradio.mesh": "\u7F51\u72B6\u4EA4\u4E92",
+  "mineradio.starDensity": "\u7C92\u5B50\u5BC6\u5EA6",
+  "mineradio.spotlight": "\u9999\u69DF\u8F89\u5149",
+  "mineradio.press": "\u60AC\u505C\u4E0B\u538B",
+  "mineradio.audioReact": "\u97F3\u9891\u54CD\u5E94",
+  "mineradio.blur": "\u73BB\u7483\u6A21\u7CCA\u5EA6",
+  "mineradio.frost": "\u78E8\u7802\u5EA6",
+  "mineradio.fluidHue": "\u8272\u8C03",
+  "mineradio.fluidDepth": "\u989C\u8272\u6DF1\u6D45",
+  "mineradio.dispersionHue": "\u8272\u6563\u989C\u8272",
+  "mineradio.dispersionRefract": "\u6298\u5C04\u5F3A\u5EA6",
+  "mineradio.bgBrightness": "\u80CC\u666F\u4EAE\u5EA6",
+  "mineradio.bgBrightnessHintDark": "\u6DF1\u8272\u6A21\u5F0F\uFF1A0 \u538B\u6697\u81F3\u7EAF\u9ED1\uFF0C50 \u539F\u6837",
+  "mineradio.bgBrightnessHintLight": "\u6D45\u8272\u6A21\u5F0F\uFF1A50 \u539F\u6837\uFF0C100 \u63D0\u4EAE\u81F3\u7EAF\u767D",
+  "mineradio.background": "\u80CC\u666F",
+  "mineradio.backgroundFluid": "\u6D41\u4F53",
+  "mineradio.backgroundWallpaper": "\u58C1\u7EB8",
+  "mineradio.wallpaper": "\u58C1\u7EB8",
+  "mineradio.autoTint": "\u81EA\u52A8\u53D6\u8272",
+  "mineradio.wallpaperHint": "\u6D45\u8272\u58C1\u7EB8\u7528\u6D45\u8272\u6A21\u5F0F\uFF0C\u6DF1\u8272\u58C1\u7EB8\u7528\u6DF1\u8272\u6A21\u5F0F\u26A0\uFE0F",
+  "mineradio.chooseImage": "\u9009\u62E9\u56FE\u7247",
+  "mineradio.chooseVideo": "\u9009\u62E9\u89C6\u9891",
+  "mineradio.deleteWallpaper": "\u5220\u9664",
+  "mineradio.wallpaperBlur": "\u58C1\u7EB8\u6A21\u7CCA\u5EA6",
+  "mineradio.wallpaperFrost": "\u58C1\u7EB8\u78E8\u7802\u5EA6",
+  "mineradio.wallpaperMask": "\u78E8\u7802\u906E\u7F69",
+  "mineradio.wallpaperMaskBlur": "\u906E\u7F69\u6A21\u7CCA\u5EA6",
+  "mineradio.wallpaperMaskOpacity": "\u906E\u7F69\u900F\u660E\u5EA6",
+  "mineradio.videoBlur": "\u89C6\u9891\u6A21\u7CCA\u5EA6",
+  "mineradio.videoBrightness": "\u89C6\u9891\u4EAE\u5EA6",
+  "mineradio.videoHint": '\u26A0\uFE0F\u89C6\u9891\u4F1A\u81EA\u52A8\u538B\u6697\u4EE5\u4FDD\u8BC1\u6587\u5B57\u6E05\u6670\uFF0C\u53EF\u7528\u6A21\u7CCA\u5EA6\u548C\u4EAE\u5EA6\u8C03\u8282\uFF1B\u5237\u65B0\u540E\u672A\u81EA\u52A8\u64AD\u653E\u65F6\u70B9\u4E00\u4E0B"\u9009\u62E9\u89C6\u9891"\u5373\u53EF\u6062\u590D'
+};
+var en = {
+  "mineradio.title": "Mineradio theme",
+  "mineradio.description": "A cinematic private-visual-radio glass theme \u2014 champagne glow, fluid/wallpaper backdrop, blur, frost, hue, and glow all adjustable",
+  "mineradio.enable": "On",
+  "mineradio.disable": "Off",
+  "mineradio.mode": "Mode",
+  "mineradio.modeMica": "Mica",
+  "mineradio.modeCompat": "Compatibility",
+  "mineradio.textColor": "Text color",
+  "mineradio.textColorChampagne": "Champagne",
+  "mineradio.textColorNeutral": "Neutral",
+  "mineradio.textColorMint": "Mint",
+  "mineradio.textColorRose": "Rose",
+  "mineradio.scene": "Scene",
+  "mineradio.sceneStudio": "Studio",
+  "mineradio.sceneDeepsea": "Deep sea",
+  "mineradio.sceneMidnight": "Midnight",
+  "mineradio.sceneMist": "Mist",
+  "mineradio.sceneRainbow": "Rainbow",
+  "mineradio.perf": "Performance",
+  "mineradio.perfPerformance": "Performance",
+  "mineradio.perfBalanced": "Balanced",
+  "mineradio.perfVivid": "Vivid",
+  "mineradio.foldLooks": "Looks",
+  "mineradio.foldMaterial": "Material",
+  "mineradio.foldBackdrop": "Backdrop",
+  "mineradio.foldMotion": "Motion",
+  "mineradio.materialGroup": "Glass material",
+  "mineradio.decorAmbient": "Ambient",
+  "mineradio.decorHover": "Hover effects",
+  "mineradio.whale": "Particle whale",
+  "mineradio.critters": "Star particles",
+  "mineradio.mesh": "Interactive mesh",
+  "mineradio.starDensity": "Particle density",
+  "mineradio.spotlight": "Champagne glow",
+  "mineradio.press": "Hover tilt",
+  "mineradio.audioReact": "Audio reactive",
+  "mineradio.blur": "Glass blur",
+  "mineradio.frost": "Frost",
+  "mineradio.fluidHue": "Hue",
+  "mineradio.fluidDepth": "Color depth",
+  "mineradio.dispersionHue": "Dispersion color",
+  "mineradio.dispersionRefract": "Refraction",
+  "mineradio.bgBrightness": "Background brightness",
+  "mineradio.bgBrightnessHintDark": "Dark mode: 0 fades to pure black, 50 is unchanged",
+  "mineradio.bgBrightnessHintLight": "Light mode: 50 is unchanged, 100 brightens to pure white",
+  "mineradio.background": "Backdrop",
+  "mineradio.backgroundFluid": "Fluid",
+  "mineradio.backgroundWallpaper": "Wallpaper",
+  "mineradio.wallpaper": "Wallpaper",
+  "mineradio.autoTint": "Auto color",
+  "mineradio.wallpaperHint": "Use light mode for light wallpapers, dark mode for dark wallpapers \u26A0\uFE0F",
+  "mineradio.chooseImage": "Choose image",
+  "mineradio.chooseVideo": "Choose video",
+  "mineradio.deleteWallpaper": "Delete",
+  "mineradio.wallpaperBlur": "Wallpaper blur",
+  "mineradio.wallpaperFrost": "Wallpaper frost",
+  "mineradio.wallpaperMask": "Frost mask",
+  "mineradio.wallpaperMaskBlur": "Mask blur",
+  "mineradio.wallpaperMaskOpacity": "Mask opacity",
+  "mineradio.videoBlur": "Video blur",
+  "mineradio.videoBrightness": "Video brightness",
+  "mineradio.videoHint": '\u26A0\uFE0F The video is dimmed automatically to keep text readable \u2014 adjust blur and brightness here; if it does not play after a reload, click "Choose video" once to restore access'
+};
+
+// dshcss:<pkg>\src\client\mineradio.module.css
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify("dsh-theme-mineradio/src/client/mineradio.module.css?v=135b729b") + "]") === null) {
   const tag = document.createElement("style");
   tag.dataset.plugin = "dsh-theme-mineradio";
   tag.dataset.pluginCss = "dsh-theme-mineradio/src/client/mineradio.module.css?v=135b729b";
-  tag.textContent = `[data-dsh-aqua] body{background:var(--dsw-alias-bg-base);}[data-dsh-aqua]{--dsh-aqua-glass-card-light:linear-gradient(rgba(255 255 255 / var(--dsh-aqua-frost-white,0)),rgba(255 255 255 / var(--dsh-aqua-frost-white,0))),radial-gradient(circle at 16% 0%,rgb(255 255 255 / calc(0.22 * var(--dsh-aqua-frost,1))),transparent 34%),radial-gradient(circle at 88% 8%,rgb(154 111 44 / calc(0.10 * var(--dsh-aqua-frost,1))),transparent 36%),linear-gradient(145deg,rgb(244 210 138 / calc(0.10 * var(--dsh-aqua-frost,1))),rgb(250 246 238 / calc(0.58 * var(--dsh-aqua-frost,1))) 42%,rgb(244 240 232 / calc(0.64 * var(--dsh-aqua-frost,1))));--dsh-aqua-glass-card-dark:linear-gradient(rgba(255 255 255 / var(--dsh-aqua-frost-white,0)),rgba(255 255 255 / var(--dsh-aqua-frost-white,0))),radial-gradient(circle at 16% 0%,rgb(255 255 255 / calc(0.10 * var(--dsh-aqua-frost,1))),transparent 34%),radial-gradient(circle at 88% 8%,rgb(0 245 212 / calc(0.12 * var(--dsh-aqua-frost,1))),transparent 36%),linear-gradient(145deg,rgb(0 245 212 / calc(0.115 * var(--dsh-aqua-frost,1))),rgb(12 13 18 / calc(0.70 * var(--dsh-aqua-frost,1))) 42%,rgb(2 3 5 / calc(0.66 * var(--dsh-aqua-frost,1))));--dsh-aqua-glass-shadow-light:inset 0 0 0 1px rgb(255 255 255 / 0.20),inset 0 1px 0 rgb(255 255 255 / calc(0.55 + 0.30 * (1 - var(--dsh-aqua-spec-y,0)) / 2)),inset 0 -1px 0 rgb(255 255 255 / calc(0.05 + 0.34 * (1 + var(--dsh-aqua-spec-y,0)) / 2)),inset 1px 0 0 rgb(255 255 255 / calc(0.04 + 0.14 * (1 - var(--dsh-aqua-spec-x,0)) / 2)),inset -1px 0 0 rgb(255 255 255 / calc(0.04 + 0.14 * (1 + var(--dsh-aqua-spec-x,0)) / 2)),0 22px 64px rgb(38 26 8 / 0.16);--dsh-aqua-glass-shadow-dark:inset 0 0 0 1px rgb(255 255 255 / 0.13),inset 0 1px 0 rgb(255 255 255 / calc(0.22 + 0.20 * (1 - var(--dsh-aqua-spec-y,0)) / 2)),inset 0 -1px 0 rgb(255 255 255 / calc(0.03 + 0.20 * (1 + var(--dsh-aqua-spec-y,0)) / 2)),inset 1px 0 0 rgb(255 255 255 / calc(0.02 + 0.08 * (1 - var(--dsh-aqua-spec-x,0)) / 2)),inset -1px 0 0 rgb(255 255 255 / calc(0.02 + 0.08 * (1 + var(--dsh-aqua-spec-x,0)) / 2)),0 22px 64px rgb(0 0 0 / 0.30),0 0 34px rgb(0 245 212 / 0.052),inset 0 -24px 58px rgb(0 0 0 / 0.16);--dsh-aqua-bloom:hsla(var(--dsh-aqua-bloom-h,44),82%,66%,0.07);}[data-dsh-aqua] [data-dsh-frame]{background:transparent;}[data-dsh-aqua] [data-phase],[data-dsh-aqua] [data-dsh-details]{background:transparent;}[data-dsh-float] [data-phase='active'] header{position:relative;z-index:8;}[data-dsh-float] [class*='banner']{position:static;}[data-dsh-float] [class*='bannerWrap']{background-color:transparent;}[data-dsh-float] [data-phase='active'] [data-conversation-scroll]{margin-top:-95px;padding-top:107px;}[data-dsh-aqua] [data-phase] [class*='composerSeat'][class*='composerSeat']{background:none;}[data-dsh-aqua] [data-dsh-aqua-ambient]{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(760px 420px at 50% -8%,rgba(77, 107, 254,0.12),transparent 70%),linear-gradient(180deg,rgba(168, 188, 245,0.11) 0%,rgba(168, 188, 245,0) 38%),radial-gradient(900px 420px at 50% 108%,rgba(122,215,194,0.12),transparent 70%);}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-ambient]{background:radial-gradient(760px 420px at 50% -8%,rgba(0,245,212,0.07),transparent 70%),linear-gradient(180deg,rgba(36,66,255,0.08) 0%,rgba(36,66,255,0) 46%),radial-gradient(900px 420px at 50% 108%,rgba(77, 107, 254,0.04),transparent 70%);}[data-dsh-aqua] [data-dsh-aqua-ambient]::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,var(--dsh-aqua-brightness-white,0)),rgba(255,255,255,var(--dsh-aqua-brightness-white,0))),linear-gradient(rgba(0,0,0,var(--dsh-aqua-brightness-black,0)),rgba(0,0,0,var(--dsh-aqua-brightness-black,0)));}@media (prefers-reduced-motion:no-preference){[data-dsh-aqua] [data-dsh-aqua-ambient]{animation:dsh-aqua-breathe 9s var(--ds-ease-in-out) infinite alternate;}}@keyframes dsh-aqua-breathe{from{opacity:0.86;}to{opacity:1;}}[data-dsh-aqua] [data-dsh-aqua-fluid-canvas]{position:absolute;inset:0;width:100%;height:100%;}[data-dsh-aqua] [data-dsh-mineradio-stars]{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}[data-dsh-aqua] [data-dsh-aqua-wallpaper]{position:fixed;inset:0;z-index:-1;overflow:hidden;}[data-dsh-aqua] [data-dsh-aqua-wallpaper-img]{width:100%;height:100%;object-fit:cover;}[data-dsh-aqua] [data-dsh-aqua-wallpaper-video]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;filter:blur(var(--dsh-aqua-video-blur,0px));}[data-dsh-aqua] [data-dsh-aqua-wallpaper-img]{filter:blur(var(--dsh-aqua-wallpaper-blur,0px));}[data-dsh-aqua] [data-dsh-aqua-wallpaper]::after{content:'';position:absolute;inset:0;background:rgb(255 255 255 / var(--dsh-aqua-wallpaper-frost,0));pointer-events:none;}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper]::after{background:rgb(12 18 27 / var(--dsh-aqua-wallpaper-frost,0));}[data-dsh-aqua] [data-dsh-aqua-wallpaper][data-media='video']::after{display:block;background:rgb(255 255 255 / calc(var(--dsh-aqua-video-dim,0.36) * 1.3));}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper][data-media='video']::after{background:rgb(8 12 20 / var(--dsh-aqua-video-dim,0.36));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper-img]{filter:blur(var(--dsh-aqua-wallpaper-mask-blur,24px));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper-video]{filter:blur(var(--dsh-aqua-wallpaper-mask-blur,24px));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper]::before{content:'';position:absolute;inset:0;z-index:1;background:rgb(255 255 255 / var(--dsh-aqua-wallpaper-mask-veil,0.62));pointer-events:none;}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper]::before{background:rgb(8 12 18 / var(--dsh-aqua-wallpaper-mask-veil,0.62));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-ambient] [data-dsh-mineradio-stars]{display:none;}[data-dsh-aqua] [data-dsh-aqua-whale]{position:absolute;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:screen;opacity:0.92;}[data-dsh-aqua] [data-dsh-aqua-whale][data-scheme='light']{mix-blend-mode:multiply;}[data-dsh-aqua] [data-dsh-aqua-whale] canvas{display:block;width:100%;height:100%;}[data-dsh-aqua] [data-dsh-aqua-ambient][data-background='wallpaper'] [data-dsh-aqua-fluid-canvas]{visibility:hidden;}[data-dsh-aqua] [data-dsh-aqua-wallpaper][data-background='fluid']{display:none;}[data-dsh-aqua] [data-dsh-aqua-mesh]{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}[data-dsh-aqua] [data-dsh-aqua-ambient][data-critters='off'] [data-aqua-critter]{display:none;}[data-dsh-aqua] [data-aqua-critter]{position:absolute;color:#7ea4df;opacity:0.22;}[data-dsh-aqua] [data-aqua-critter='fish']{animation:dsh-aqua-fish-swim 12s var(--ds-ease-in-out) infinite;}[data-dsh-aqua] [data-aqua-critter='fish-left']{animation:dsh-aqua-fish-swim-left 16s var(--ds-ease-in-out) infinite;}[data-dsh-aqua] [data-aqua-critter='bubble']{color:#a9c6ef;opacity:0;animation:dsh-aqua-bubble-rise 9s ease-in infinite;}[data-dsh-aqua] [data-aqua-critter='plankton']{color:#7ea4df;animation:dsh-aqua-plankton 5s ease-in-out infinite;}@keyframes dsh-aqua-fish-swim{0%{transform:translate3d(0,0,0) rotate(-5deg);}30%{transform:translate3d(40px,-15px,0) rotate(4deg);}70%{transform:translate3d(52px,-18px,0) rotate(3deg);}100%{transform:translate3d(0,0,0) rotate(-5deg);}}@keyframes dsh-aqua-fish-swim-left{0%{transform:translate3d(0,0,0) scaleX(-1) rotate(-5deg);}30%{transform:translate3d(-34px,-12px,0) scaleX(-1) rotate(4deg);}70%{transform:translate3d(-44px,-15px,0) scaleX(-1) rotate(3deg);}100%{transform:translate3d(0,0,0) scaleX(-1) rotate(-5deg);}}@keyframes dsh-aqua-bubble-rise{0%{transform:translate3d(0,0,0);opacity:0;}10%{opacity:0.5;}100%{transform:translate3d(8px,-150px,0);opacity:0;}}@keyframes dsh-aqua-plankton{0%,100%{opacity:0.1;}50%{opacity:0.38;}}[data-dsh-float] [role='menu'],[data-dsh-float] [role='dialog'],[data-dsh-float] [role='alert'],[data-dsh-float] [data-dsh-surface]{border-radius:14px;}[data-dsh-float] [data-dsh-surface]{background:color-mix(in srgb,rgb(255 255 255) calc(62% * var(--dsh-aqua-surface-frost,1)),transparent);border:1px solid rgba(46, 67, 184,0.14);box-shadow:inset 0 1px 0 rgba(255,255,255,0.45);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] [data-dsh-surface]:hover:not(:disabled){background:color-mix(in srgb,rgb(255 255 255) calc(74% * var(--dsh-aqua-surface-frost,1)),transparent);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-surface]{background:color-mix(in srgb,rgb(42 46 56) calc(62% * var(--dsh-aqua-surface-frost,1)),transparent);border-color:rgba(255,255,255,0.08);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-surface]:hover:not(:disabled){background:color-mix(in srgb,rgb(54 58 70) calc(70% * var(--dsh-aqua-surface-frost,1)),transparent);}[data-dsh-float] [role='menuitem'],[data-dsh-float] [role='tooltip'],[data-dsh-float] [class*='pill']{border-radius:8px;}[data-dsh-float] button[class*='button']{border-radius:10px;}[data-dsh-float] [class*='iconButton'],[data-dsh-float] [class*='searchButton']{border-radius:8px;}[data-dsh-float] [data-dsh-add]{background:color-mix(in srgb,rgb(255 255 255) calc(40% * var(--dsh-aqua-frost,1)),transparent);border:1px solid rgba(46, 67, 184,0.15);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] [data-dsh-add]:hover:not(:disabled){background:color-mix(in srgb,rgb(255 255 255) calc(58% * var(--dsh-aqua-frost,1)),transparent);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-add]{background:color-mix(in srgb,rgb(42 46 56) calc(40% * var(--dsh-aqua-frost,1)),transparent);border-color:rgba(255,255,255,0.10);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-add]:hover:not(:disabled){background:color-mix(in srgb,rgb(54 58 70) calc(52% * var(--dsh-aqua-frost,1)),transparent);}[data-dsh-float] [class*='bubble']{border-radius:14px;border:1px solid rgba(46, 67, 184,0.12);background:color-mix(in srgb,rgb(255 255 255) calc(42% * var(--dsh-aqua-frost,1)),transparent);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [class*='bubble']{border-color:rgba(255,255,255,0.06);background:color-mix(in srgb,rgb(0 0 0) calc(40% * var(--dsh-aqua-frost,1)),transparent);}html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] [class*='bubble']{background:color-mix(in srgb,rgb(255 255 255) 70%,transparent);border-color:rgba(46, 67, 184,0.18);}html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] body[data-ds-dark-theme] [class*='bubble']{background:color-mix(in srgb,rgb(0 0 0) 50%,transparent);border-color:rgba(255,255,255,0.085);}[data-dsh-aqua] [data-state='running'] [data-disclosure-row]::after,[data-dsh-aqua] [data-state='running'] [class*='_row']::after{background:linear-gradient(90deg,transparent 0%,rgba(77, 107, 254,0.10) 55%,transparent 100%) !important;}[data-dsh-float] [class*='card']{border-radius:14px;}[data-dsh-float] [data-composer-card],[data-dsh-float] [data-composer-card]::after{border-radius:24px;}[data-dsh-float] [data-composer-card]{position:relative;z-index:8;background:var(--dsh-aqua-glass-card-light);border:1px solid rgba(46, 67, 184,0.22);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [data-composer-card]{background:var(--dsh-aqua-glass-card-dark);border:1px solid rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]){width:calc(var(--dsh-chat-content-width) + 32px);max-width:none;margin:0 auto 12px;padding:0;border:1px solid rgba(46, 67, 184,0.22);border-radius:24px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]){border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card]{border:none;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card]::after{display:none;}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-dsh-stats]{width:100%;max-width:none;margin:auto 0 0;min-height:24px;box-sizing:border-box;display:block;padding:2px 16px;border:none;border-top:1px solid rgba(46, 67, 184,0.15);border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]) [data-dsh-stats]{border-top-color:rgba(255,255,255,0.095);}[data-dsh-float] [data-composer-card]::after{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='black' stroke-width='2' stroke-dasharray='4 4'/%3E%3C/svg%3E");mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='black' stroke-width='2' stroke-dasharray='4 4'/%3E%3C/svg%3E");}[data-dsh-float] [class*='block']{border-radius:14px;--dsl-code-block-border-radius:14px;--dsl-diff-radius:14px;--dsl-read-radius:14px;--dsl-terminal-radius:14px;--dsl-web-radius:14px;--dsl-search-radius:14px;}[data-dsh-float] header{margin:12px 16px 0;padding:10px 16px 8px;border:1px solid rgba(46, 67, 184,0.22);border-bottom-color:transparent;border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] header::after{display:none;}[data-dsh-float] body[data-ds-dark-theme] header{border-color:rgba(0,245,212,0.22);border-bottom-color:transparent;background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-frame][data-sidebar-collapsed] header{margin-left:28px;}[data-dsh-float] [class*='sidebarCol']{position:relative;z-index:9;margin:12px;padding:10px 12px 14px;border:1px solid rgba(255,255,255,0.26);border-top-color:rgba(255,255,255,0.50);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:0 22px 64px rgb(38 26 8 / 0.16);overflow:hidden;}[data-dsh-float] [class*='sidebarCol']::before{content:'';position:absolute;inset:0;border-radius:inherit;backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);pointer-events:none;z-index:-1;}[data-dsh-float] body[data-ds-dark-theme] [class*='sidebarCol']{border-color:rgba(255,255,255,0.16);border-top-color:rgba(255,255,255,0.30);background:var(--dsh-aqua-glass-card-dark);box-shadow:0 22px 64px rgb(0 0 0 / 0.30),0 0 34px rgb(0 245 212 / 0.052),inset 0 -24px 58px rgb(0 0 0 / 0.16);}[data-dsh-float] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']{margin:12px -12px 12px 12px;padding:0;border-radius:16px;transition:margin 150ms var(--ds-ease-in-out),border-radius 150ms var(--ds-ease-in-out),transform 0.1s ease-out;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']{background:linear-gradient(168deg,rgb(0 245 212 / 0.045),rgb(12 13 18 / 0.72) 46%,rgb(2 3 5 / 0.68));border-color:rgba(255,255,255,0.10);border-top-color:rgba(255,255,255,0.22);}[data-dsh-float] [data-dsh-frame]:not([data-sidebar-collapsed]) [data-dsh-sidebar-root]{width:100% !important;}[data-dsh-float] [data-dsh-trajectory]{margin:8px 16px 12px;width:calc(100% - 32px);height:calc(100% - 20px);border:1px solid rgba(46, 67, 184,0.22);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);overflow:hidden;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-trajectory]{border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-trajectory] [role='toolbar'],[data-dsh-float] [data-dsh-trajectory] section[aria-label='Trajectory timeline']{background:transparent;}[data-dsh-float] [data-dsh-inputbar]:not([class*='hero']){padding-bottom:12px;}[data-dsh-float] [data-dsh-stats]{position:relative;z-index:8;width:calc(var(--dsh-chat-content-width) + 32px);max-width:none;margin:0 auto;padding:2px 16px;border:1px solid rgba(46, 67, 184,0.22);border-top:1px solid rgba(46, 67, 184,0.15);border-radius:0 0 24px 24px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);color:rgb(38 46 62 / 0.9);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-stats]{border-color:rgba(0,245,212,0.22);border-top-color:rgba(255,255,255,0.095);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);color:rgb(228 236 248 / 0.92);}[data-dsh-float] [data-composer-card] textarea::placeholder{color:rgb(55 64 84 / 0.5);}[data-dsh-float] body[data-ds-dark-theme] [data-composer-card] textarea::placeholder{color:rgb(205 216 234 / 0.52);}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-spot]{position:relative;isolation:isolate;}[data-dsh-aqua] [data-dsh-aqua-glow]{display:none;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-glow]{display:block;position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 0.3s ease;z-index:-1;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-spot][data-spot-on] [data-dsh-aqua-glow]{opacity:1;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-inputbar][data-dsh-aqua-spot] [data-dsh-aqua-glow]{border-radius:24px;}[data-dsh-aqua][data-dsh-float] [class*='sidebarCol']:has([role='dialog']){backdrop-filter:none;}[data-dsh-float][data-dsh-aqua-press] [data-dsh-aqua-spot]{transition:transform 0.1s ease-out;}[data-dsh-aqua] body [role='dialog']{border:1px solid rgba(46, 67, 184,0.22);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-aqua] body[data-ds-dark-theme] [role='dialog']{border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [role='treeitem'][aria-selected='true']{box-shadow:inset 2px 0 0 var(--dsw-specific-sidebar-nav-item-active-accent),0 0 16px rgba(77, 107, 254,0.16);}[data-dsh-float] button[class*='button']:hover:not(:disabled),[data-dsh-float] [role='menuitem']:hover:not(:disabled){box-shadow:0 0 12px rgba(77, 107, 254,0.18),inset 0 0 0 1px rgba(255,255,255,0.085);}[data-dsh-float] [role='menu']{background:color-mix(in srgb,rgb(255 255 255) calc(62% * var(--dsh-aqua-frost,1)),transparent);backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [role='menu']{background:color-mix(in srgb,rgb(28 32 42) calc(68% * var(--dsh-aqua-frost,1)),transparent);}[data-dsh-aqua] [data-dsh-aqua-fade]{position:fixed;left:0;right:0;height:13px;z-index:7;pointer-events:none;backdrop-filter:blur(5px);background:rgba(255,255,255,0.2);}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-fade]{background:rgba(0,0,0,0.15);}[data-dsh-aqua] [data-dsh-aqua-fade='top']{top:0;-webkit-mask-image:linear-gradient(180deg,black 0%,transparent 100%);mask-image:linear-gradient(180deg,black 0%,transparent 100%);}[data-dsh-aqua] [data-dsh-aqua-fade='bottom']{bottom:0;-webkit-mask-image:linear-gradient(0deg,black 0%,transparent 100%);mask-image:linear-gradient(0deg,black 0%,transparent 100%);}[data-dsh-aqua]:focus-visible{outline:2px solid rgba(46, 67, 184,0.75);outline-offset:1px;}[data-dsh-aqua]::selection{background:rgba(46, 67, 184,0.35);}[data-dsh-aqua] select option,[data-dsh-aqua] select optgroup{background-color:#FFFFFF;color:#1c2334;}[data-dsh-aqua] body[data-ds-dark-theme] select option,[data-dsh-aqua] body[data-ds-dark-theme] select optgroup{background-color:#0f1420;color:#eceff7;}[data-dsh-float] [role='dialog'] h2{font-family:'Space Grotesk Variable','Noto Serif SC','Songti SC','STSong','SimSun',serif;font-weight:600;letter-spacing:0.02em;}[data-dsh-float] [role='treeitem']{font-family:'Space Grotesk Variable','Noto Serif SC','Songti SC','STSong','SimSun',serif;font-weight:500;}[data-dsh-float] [data-phase='hero']{animation:dsh-aqua-hero-in 0.32s var(--ds-ease-in-out);}[data-dsh-float] [data-phase='active']{animation:dsh-aqua-active-in 0.3s var(--ds-ease-in-out);}[data-dsh-float] [data-testid^='view-']{animation:dsh-aqua-view-in 0.26s var(--ds-ease-in-out);}[data-dsh-float] [class*='userRow']{animation:dsh-aqua-rise 0.28s var(--ds-ease-in-out) both;}[data-dsh-float] [data-tool]{animation:dsh-aqua-rise 0.3s var(--ds-ease-in-out) both;}[data-dsh-float] [role='dialog']{animation:dsh-aqua-dialog-in 0.24s var(--ds-ease-in-out);}@keyframes dsh-aqua-hero-in{from{opacity:0;}}@keyframes dsh-aqua-active-in{from{opacity:0;}}@keyframes dsh-aqua-view-in{from{opacity:0;}}@keyframes dsh-aqua-rise{from{opacity:0;transform:translateY(6px);}}@keyframes dsh-aqua-dialog-in{from{opacity:0;transform:translateY(8px) scale(0.985);}}[data-dsh-float][data-dsh-dispersion] [data-composer-card],[data-dsh-float][data-dsh-dispersion] header,[data-dsh-float][data-dsh-dispersion] [data-dsh-trajectory],[data-dsh-float][data-dsh-dispersion] [data-dsh-stats],[data-dsh-float][data-dsh-dispersion] [data-dsh-inputbar]:has([data-dsh-stats]){backdrop-filter:blur(var(--dsh-aqua-blur,6px)) url(#mineradio-glass-dispersion) saturate(1.22) brightness(1.04);}[data-dsh-float][data-dsh-dispersion] [class*='sidebarCol']::before{backdrop-filter:blur(var(--dsh-aqua-blur,6px)) url(#mineradio-glass-dispersion-tall) saturate(1.22) brightness(1.04);}[data-dsh-float][data-dsh-dispersion] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']::before{backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-compat] [role='menu'],[data-dsh-compat] [role='tooltip'],[data-dsh-compat] [class*='card'],[data-dsh-compat] [class*='bubble'],[data-dsh-compat] [class*='panel'],[data-dsh-compat] [class*='popover'],[data-dsh-compat] [class*='dropdown']{backdrop-filter:blur(var(--dsh-aqua-blur,6px));}[data-dsh-aqua] [data-dsh-panel-host] [class*='panel' i]:not([class*='Body' i]){backdrop-filter:blur(var(--dsh-aqua-blur,6px)) saturate(1.22) brightness(1.04);}[data-dsh-aqua] [data-dsh-panel-host] [class*='_pane']:not([class*='panel']):not([class*='Content']):not([class*='Tab']){background:transparent;}@media (prefers-reduced-motion:reduce){[data-dsh-float] [data-phase='hero'],[data-dsh-float] [data-phase='active'],[data-dsh-float] [data-testid^='view-'],[data-dsh-float] [class*='userRow'],[data-dsh-float] [data-tool],[data-dsh-float] [role='dialog'],[data-dsh-aqua] [data-dsh-aqua-ambient],[data-dsh-aqua] [data-aqua-critter]{animation:none;}[data-dsh-aqua] [data-aqua-critter='bubble']{opacity:0;}}`;
+  tag.textContent = `[data-dsh-aqua] body{background:var(--dsw-alias-bg-base);}[data-dsh-aqua]{--dsh-aqua-glass-card-light:linear-gradient(rgba(255 255 255 / var(--dsh-aqua-frost-white,0)),rgba(255 255 255 / var(--dsh-aqua-frost-white,0))),radial-gradient(circle at 16% 0%,rgb(255 255 255 / calc(0.38 * var(--dsh-aqua-frost,1))),transparent 34%),radial-gradient(circle at 88% 8%,rgb(154 111 44 / calc(0.16 * var(--dsh-aqua-frost,1))),transparent 36%),linear-gradient(145deg,rgb(244 210 138 / calc(0.16 * var(--dsh-aqua-frost,1))),rgb(255 252 246 / calc(0.78 * var(--dsh-aqua-frost,1))) 42%,rgb(250 246 238 / calc(0.82 * var(--dsh-aqua-frost,1))));--dsh-aqua-glass-card-dark:linear-gradient(rgba(255 255 255 / var(--dsh-aqua-frost-white,0)),rgba(255 255 255 / var(--dsh-aqua-frost-white,0))),radial-gradient(circle at 16% 0%,rgb(255 255 255 / calc(0.10 * var(--dsh-aqua-frost,1))),transparent 34%),radial-gradient(circle at 88% 8%,rgb(0 245 212 / calc(0.12 * var(--dsh-aqua-frost,1))),transparent 36%),linear-gradient(145deg,rgb(0 245 212 / calc(0.115 * var(--dsh-aqua-frost,1))),rgb(12 13 18 / calc(0.70 * var(--dsh-aqua-frost,1))) 42%,rgb(2 3 5 / calc(0.66 * var(--dsh-aqua-frost,1))));--dsh-aqua-glass-shadow-light:inset 0 0 0 1px rgb(255 255 255 / 0.42),inset 0 1px 0 rgb(255 255 255 / calc(0.70 + 0.22 * (1 - var(--dsh-aqua-spec-y,0)) / 2)),inset 0 -1px 0 rgb(154 111 44 / calc(0.10 + 0.16 * (1 + var(--dsh-aqua-spec-y,0)) / 2)),inset 1px 0 0 rgb(255 255 255 / calc(0.10 + 0.16 * (1 - var(--dsh-aqua-spec-x,0)) / 2)),inset -1px 0 0 rgb(154 111 44 / calc(0.06 + 0.10 * (1 + var(--dsh-aqua-spec-x,0)) / 2)),0 18px 44px rgb(38 26 8 / 0.12);--dsh-aqua-glass-shadow-dark:inset 0 0 0 1px rgb(255 255 255 / 0.13),inset 0 1px 0 rgb(255 255 255 / calc(0.22 + 0.20 * (1 - var(--dsh-aqua-spec-y,0)) / 2)),inset 0 -1px 0 rgb(255 255 255 / calc(0.03 + 0.20 * (1 + var(--dsh-aqua-spec-y,0)) / 2)),inset 1px 0 0 rgb(255 255 255 / calc(0.02 + 0.08 * (1 - var(--dsh-aqua-spec-x,0)) / 2)),inset -1px 0 0 rgb(255 255 255 / calc(0.02 + 0.08 * (1 + var(--dsh-aqua-spec-x,0)) / 2)),0 22px 64px rgb(0 0 0 / 0.30),0 0 34px rgb(0 245 212 / 0.052),inset 0 -24px 58px rgb(0 0 0 / 0.16);--dsh-aqua-bloom:hsla(var(--dsh-aqua-bloom-h,44),82%,66%,0.07);}[data-dsh-aqua] [data-dsh-frame]{background:transparent;}[data-dsh-aqua] [data-phase],[data-dsh-aqua] [data-dsh-details]{background:transparent;}[data-dsh-float] [data-phase='active'] header{position:relative;z-index:8;}[data-dsh-float] [class*='banner']{position:static;}[data-dsh-float] [class*='bannerWrap']{background-color:transparent;}[data-dsh-float] [data-phase='active'] [data-conversation-scroll]{margin-top:-95px;padding-top:107px;}[data-dsh-aqua] [data-phase] [class*='composerSeat'][class*='composerSeat']{background:none;}[data-dsh-aqua] [data-dsh-aqua-ambient]{position:fixed;inset:0;z-index:-1;pointer-events:none;overflow:hidden;background:radial-gradient(760px 420px at 50% -8%,rgba(244,210,138,0.12),transparent 70%),linear-gradient(180deg,rgba(214,196,160,0.11) 0%,rgba(214,196,160,0) 38%),radial-gradient(900px 420px at 50% 108%,rgba(122,215,194,0.12),transparent 70%);}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-ambient]{background:radial-gradient(760px 420px at 50% -8%,rgba(0,245,212,0.07),transparent 70%),linear-gradient(180deg,rgba(36,66,255,0.08) 0%,rgba(36,66,255,0) 46%),radial-gradient(900px 420px at 50% 108%,rgba(244,210,138,0.04),transparent 70%);}[data-dsh-aqua] [data-dsh-aqua-ambient]::after{content:'';position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,var(--dsh-aqua-brightness-white,0)),rgba(255,255,255,var(--dsh-aqua-brightness-white,0))),linear-gradient(rgba(0,0,0,var(--dsh-aqua-brightness-black,0)),rgba(0,0,0,var(--dsh-aqua-brightness-black,0)));}@media (prefers-reduced-motion:no-preference){[data-dsh-aqua] [data-dsh-aqua-ambient]{animation:dsh-aqua-breathe 9s var(--ds-ease-in-out) infinite alternate;}}@keyframes dsh-aqua-breathe{from{opacity:0.86;}to{opacity:1;}}[data-dsh-aqua] [data-dsh-aqua-fluid-canvas]{position:absolute;inset:0;width:100%;height:100%;}[data-dsh-aqua] [data-dsh-mineradio-stars]{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}[data-dsh-aqua] [data-dsh-aqua-wallpaper]{position:fixed;inset:0;z-index:-1;overflow:hidden;}[data-dsh-aqua] [data-dsh-aqua-wallpaper-img]{width:100%;height:100%;object-fit:cover;}[data-dsh-aqua] [data-dsh-aqua-wallpaper-video]{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;border:0;pointer-events:none;filter:blur(var(--dsh-aqua-video-blur,0px));}[data-dsh-aqua] [data-dsh-aqua-wallpaper-img]{filter:blur(var(--dsh-aqua-wallpaper-blur,0px));}[data-dsh-aqua] [data-dsh-aqua-wallpaper]::after{content:'';position:absolute;inset:0;background:rgb(255 255 255 / var(--dsh-aqua-wallpaper-frost,0));pointer-events:none;}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper]::after{background:rgb(12 18 27 / var(--dsh-aqua-wallpaper-frost,0));}[data-dsh-aqua] [data-dsh-aqua-wallpaper][data-media='video']::after{display:block;background:rgb(255 255 255 / calc(var(--dsh-aqua-video-dim,0.36) * 1.3));}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper][data-media='video']::after{background:rgb(8 12 20 / var(--dsh-aqua-video-dim,0.36));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper-img]{filter:blur(var(--dsh-aqua-wallpaper-mask-blur,24px));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper-video]{filter:blur(var(--dsh-aqua-wallpaper-mask-blur,24px));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-wallpaper]::before{content:'';position:absolute;inset:0;z-index:1;background:rgb(255 255 255 / var(--dsh-aqua-wallpaper-mask-veil,0.62));pointer-events:none;}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] body[data-ds-dark-theme] [data-dsh-aqua-wallpaper]::before{background:rgb(8 12 18 / var(--dsh-aqua-wallpaper-mask-veil,0.62));}[data-dsh-aqua][data-dsh-aqua-wallpaper-mask] [data-dsh-aqua-ambient] [data-dsh-mineradio-stars]{display:none;}[data-dsh-aqua] [data-dsh-aqua-whale]{position:absolute;transform:translate(-50%,-50%);pointer-events:none;mix-blend-mode:screen;opacity:0.92;}[data-dsh-aqua] [data-dsh-aqua-whale][data-scheme='light']{mix-blend-mode:multiply;}[data-dsh-aqua] [data-dsh-aqua-whale] canvas{display:block;width:100%;height:100%;}[data-dsh-aqua] [data-dsh-aqua-ambient][data-background='wallpaper'] [data-dsh-aqua-fluid-canvas]{visibility:hidden;}[data-dsh-aqua] [data-dsh-aqua-wallpaper][data-background='fluid']{display:none;}[data-dsh-aqua] [data-dsh-aqua-mesh]{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;}[data-dsh-aqua] [data-dsh-aqua-ambient][data-critters='off'] [data-aqua-critter]{display:none;}[data-dsh-aqua] [data-aqua-critter]{position:absolute;color:#7ea4df;opacity:0.22;}[data-dsh-aqua] [data-aqua-critter='fish']{animation:dsh-aqua-fish-swim 12s var(--ds-ease-in-out) infinite;}[data-dsh-aqua] [data-aqua-critter='fish-left']{animation:dsh-aqua-fish-swim-left 16s var(--ds-ease-in-out) infinite;}[data-dsh-aqua] [data-aqua-critter='bubble']{color:#a9c6ef;opacity:0;animation:dsh-aqua-bubble-rise 9s ease-in infinite;}[data-dsh-aqua] [data-aqua-critter='plankton']{color:#7ea4df;animation:dsh-aqua-plankton 5s ease-in-out infinite;}@keyframes dsh-aqua-fish-swim{0%{transform:translate3d(0,0,0) rotate(-5deg);}30%{transform:translate3d(40px,-15px,0) rotate(4deg);}70%{transform:translate3d(52px,-18px,0) rotate(3deg);}100%{transform:translate3d(0,0,0) rotate(-5deg);}}@keyframes dsh-aqua-fish-swim-left{0%{transform:translate3d(0,0,0) scaleX(-1) rotate(-5deg);}30%{transform:translate3d(-34px,-12px,0) scaleX(-1) rotate(4deg);}70%{transform:translate3d(-44px,-15px,0) scaleX(-1) rotate(3deg);}100%{transform:translate3d(0,0,0) scaleX(-1) rotate(-5deg);}}@keyframes dsh-aqua-bubble-rise{0%{transform:translate3d(0,0,0);opacity:0;}10%{opacity:0.5;}100%{transform:translate3d(8px,-150px,0);opacity:0;}}@keyframes dsh-aqua-plankton{0%,100%{opacity:0.1;}50%{opacity:0.38;}}[data-dsh-float] [role='menu'],[data-dsh-float] [role='dialog'],[data-dsh-float] [role='alert'],[data-dsh-float] [data-dsh-surface]{border-radius:14px;}[data-dsh-float] [data-dsh-surface]{background:color-mix(in srgb,rgb(255 255 255) calc(62% * var(--dsh-aqua-surface-frost,1)),transparent);border:1px solid rgba(122,86,28,0.26);box-shadow:inset 0 1px 0 rgba(255,255,255,0.45);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] [data-dsh-surface]:hover:not(:disabled){background:color-mix(in srgb,rgb(255 255 255) calc(74% * var(--dsh-aqua-surface-frost,1)),transparent);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-surface]{background:color-mix(in srgb,rgb(42 46 56) calc(62% * var(--dsh-aqua-surface-frost,1)),transparent);border-color:rgba(255,255,255,0.08);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-surface]:hover:not(:disabled){background:color-mix(in srgb,rgb(54 58 70) calc(70% * var(--dsh-aqua-surface-frost,1)),transparent);}[data-dsh-float] [role='menuitem'],[data-dsh-float] [role='tooltip'],[data-dsh-float] [class*='pill']{border-radius:8px;}[data-dsh-float] [role='tooltip']{background:color-mix(in srgb,var(--dsh-aqua-glass-card-light) 72%,transparent);border:1px solid rgba(122,86,28,0.28);box-shadow:var(--dsh-aqua-glass-shadow-light);color:var(--dsw-alias-label-primary);padding:4px 10px;backdrop-filter:blur(12px) saturate(1.18) brightness(1.05);}[data-dsh-float] body[data-ds-dark-theme] [role='tooltip']{background:color-mix(in srgb,var(--dsh-aqua-glass-card-dark) 66%,transparent);border-color:rgba(0,245,212,0.20);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] body > [class*='_card']{background:var(--dsh-aqua-glass-card-light);border:1px solid rgba(122,86,28,0.30);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] > [class*='_card']{background:var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.20);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] button[class*='button']{border-radius:10px;}[data-dsh-float] [class*='iconButton'],[data-dsh-float] [class*='searchButton']{border-radius:8px;}[data-dsh-float] [data-dsh-add]{background:color-mix(in srgb,rgb(255 255 255) calc(40% * var(--dsh-aqua-frost,1)),transparent);border:1px solid rgba(122,86,28,0.26);box-shadow:inset 0 1px 0 rgba(255,255,255,0.5);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] [data-dsh-add]:hover:not(:disabled){background:color-mix(in srgb,rgb(255 255 255) calc(58% * var(--dsh-aqua-frost,1)),transparent);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-add]{background:color-mix(in srgb,rgb(42 46 56) calc(40% * var(--dsh-aqua-frost,1)),transparent);border-color:rgba(255,255,255,0.10);box-shadow:inset 0 1px 0 rgba(255,255,255,0.08);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-add]:hover:not(:disabled){background:color-mix(in srgb,rgb(54 58 70) calc(52% * var(--dsh-aqua-frost,1)),transparent);}[data-dsh-float] [class*='bubble']{border-radius:14px;border:1px solid rgba(122,86,28,0.22);background:color-mix(in srgb,rgb(255 255 255) calc(62% * var(--dsh-aqua-frost,1)),transparent);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [class*='bubble']{border-color:rgba(255,255,255,0.06);background:color-mix(in srgb,rgb(0 0 0) calc(40% * var(--dsh-aqua-frost,1)),transparent);}html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] [class*='bubble']{background:color-mix(in srgb,rgb(255 255 255) 70%,transparent);border-color:rgba(122,86,28,0.28);}html[data-dsh-float][data-dsh-aqua-wallpaper][data-dsh-aqua-media='video'] body[data-ds-dark-theme] [class*='bubble']{background:color-mix(in srgb,rgb(0 0 0) 50%,transparent);border-color:rgba(255,255,255,0.085);}[data-dsh-aqua] [data-state='running'] [data-disclosure-row]::after,[data-dsh-aqua] [data-state='running'] [class*='_row']::after{background:linear-gradient(90deg,transparent 0%,rgba(244,210,138,0.10) 55%,transparent 100%) !important;}[data-dsh-float] [class*='card']{border-radius:14px;}[data-dsh-float] [data-composer-card],[data-dsh-float] [data-composer-card]::after{border-radius:24px;}[data-dsh-float] [data-composer-card]{position:relative;z-index:8;background:var(--dsh-aqua-glass-card-light);border:1px solid rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);}[data-dsh-float] [data-composer-card]::before{content:'';position:absolute;inset:0;border-radius:inherit;backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);pointer-events:none;z-index:-1;}[data-dsh-float] body[data-ds-dark-theme] [data-composer-card]{background:var(--dsh-aqua-glass-card-dark);border:1px solid rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]){position:relative;z-index:8;width:calc(var(--dsh-chat-content-width) + 32px);max-width:none;margin:0 auto 12px;padding:0;border:1px solid rgba(122,86,28,0.34);border-radius:24px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats])::before{content:'';position:absolute;inset:0;border-radius:inherit;backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);pointer-events:none;z-index:-1;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]){border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card]{border:none;border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card]::before,[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-composer-card]::after{display:none;}[data-dsh-float] [data-dsh-inputbar]:has([data-dsh-stats]) [data-dsh-stats]{width:100%;max-width:none;margin:auto 0 0;min-height:24px;box-sizing:border-box;display:block;padding:2px 16px;border:none;border-top:1px solid rgba(122,86,28,0.24);border-radius:0;background:transparent;box-shadow:none;backdrop-filter:none;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-inputbar]:has([data-dsh-stats]) [data-dsh-stats]{border-top-color:rgba(255,255,255,0.095);}[data-dsh-float] [data-composer-card]::after{-webkit-mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='black' stroke-width='2' stroke-dasharray='4 4'/%3E%3C/svg%3E");mask:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg'%3E%3Crect width='100%25' height='100%25' fill='none' rx='24' ry='24' stroke='black' stroke-width='2' stroke-dasharray='4 4'/%3E%3C/svg%3E");}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar][data-dsh-on-air] [data-composer-card]{animation:dsh-mineradio-on-air 3.6s ease-in-out infinite;}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar][data-dsh-on-air]:has([data-dsh-stats]){animation:dsh-mineradio-on-air 3.6s ease-in-out infinite;}[data-dsh-aqua][data-dsh-float] [data-dsh-inputbar][data-dsh-on-air]:has([data-dsh-stats]) [data-composer-card]{animation:none;}@keyframes dsh-mineradio-on-air{0%,100%{box-shadow:var(--dsh-aqua-glass-shadow-dark,0 22px 64px rgb(0 0 0 / 0.30)),0 0 0 1px rgb(244 210 138 / 0.10),0 0 18px rgb(244 210 138 / 0.08);}50%{box-shadow:var(--dsh-aqua-glass-shadow-dark,0 22px 64px rgb(0 0 0 / 0.30)),0 0 0 1px rgb(244 210 138 / 0.34),0 0 28px rgb(244 210 138 / 0.22);}}html:not(:has(body[data-ds-dark-theme])) [data-dsh-aqua][data-dsh-float] [data-dsh-inputbar][data-dsh-on-air] [data-composer-card],html:not(:has(body[data-ds-dark-theme])) [data-dsh-aqua][data-dsh-float] [data-dsh-inputbar][data-dsh-on-air]:has([data-dsh-stats]){animation-name:dsh-mineradio-on-air-light;}@keyframes dsh-mineradio-on-air-light{0%,100%{box-shadow:var(--dsh-aqua-glass-shadow-light,0 18px 44px rgb(38 26 8 / 0.12)),0 0 0 1px rgb(122 86 28 / 0.16),0 0 16px rgb(154 111 44 / 0.10);}50%{box-shadow:var(--dsh-aqua-glass-shadow-light,0 18px 44px rgb(38 26 8 / 0.12)),0 0 0 1px rgb(122 86 28 / 0.40),0 0 24px rgb(154 111 44 / 0.22);}}[data-dsh-aqua] [data-dsh-wordmark]{display:inline-flex;align-items:center;gap:8px;}[data-dsh-aqua] [data-dsh-station-tuner]{font:600 10.5px/1 ui-monospace,'Cascadia Mono',Consolas,monospace;letter-spacing:0.08em;color:rgb(244 210 138 / 0.78);padding:3px 7px 2px;border:1px solid rgb(244 210 138 / 0.22);border-radius:999px;background:rgb(244 210 138 / 0.06);text-shadow:0 0 12px rgb(244 210 138 / 0.35);}html:not(:has(body[data-ds-dark-theme])) [data-dsh-aqua] [data-dsh-station-tuner]{color:rgb(122 86 28 / 0.85);border-color:rgb(122 86 28 / 0.30);background:rgb(154 111 44 / 0.08);text-shadow:none;}[data-dsh-aqua] [data-dsh-station-tuner][data-dsh-tuning]{animation:dsh-mineradio-tuning 700ms steps(2,jump-none) infinite;}@keyframes dsh-mineradio-tuning{0%,100%{opacity:1;}50%{opacity:0.5;}}[data-dsh-float] [class*='block']{border-radius:14px;--dsl-code-block-border-radius:14px;--dsl-diff-radius:14px;--dsl-read-radius:14px;--dsl-terminal-radius:14px;--dsl-web-radius:14px;--dsl-search-radius:14px;}[data-dsh-float] header{margin:12px 16px 0;padding:10px 16px 8px;border:1px solid rgba(122,86,28,0.34);border-bottom-color:transparent;border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] header::after{display:none;}[data-dsh-float] body[data-ds-dark-theme] header{border-color:rgba(0,245,212,0.22);border-bottom-color:transparent;background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-frame][data-sidebar-collapsed] header{margin-left:28px;}[data-dsh-float] [class*='sidebarCol']{position:relative;z-index:9;margin:12px;padding:10px 12px 14px;border:1px solid rgba(255,255,255,0.26);border-top-color:rgba(255,255,255,0.50);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:0 22px 64px rgb(38 26 8 / 0.16);overflow:hidden;}[data-dsh-float] [class*='sidebarCol']::before{content:'';position:absolute;inset:0;border-radius:inherit;backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);pointer-events:none;z-index:-1;}[data-dsh-float] body[data-ds-dark-theme] [class*='sidebarCol']{border-color:rgba(255,255,255,0.16);border-top-color:rgba(255,255,255,0.30);background:var(--dsh-aqua-glass-card-dark);box-shadow:0 22px 64px rgb(0 0 0 / 0.30),0 0 34px rgb(0 245 212 / 0.052),inset 0 -24px 58px rgb(0 0 0 / 0.16);}[data-dsh-float] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']{margin:12px -12px 12px 12px;padding:0;border-radius:16px;transition:margin 150ms var(--ds-ease-in-out),border-radius 150ms var(--ds-ease-in-out),transform 0.1s ease-out;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']{background:linear-gradient(168deg,rgb(0 245 212 / 0.045),rgb(12 13 18 / 0.72) 46%,rgb(2 3 5 / 0.68));border-color:rgba(255,255,255,0.10);border-top-color:rgba(255,255,255,0.22);}[data-dsh-float] [data-dsh-frame]:not([data-sidebar-collapsed]) [data-dsh-sidebar-root]{width:100% !important;}[data-dsh-float] [data-dsh-trajectory]{margin:8px 16px 12px;width:calc(100% - 32px);height:calc(100% - 20px);border:1px solid rgba(122,86,28,0.34);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);overflow:hidden;}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-trajectory]{border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-dsh-trajectory] [role='toolbar'],[data-dsh-float] [data-dsh-trajectory] section[aria-label='Trajectory timeline']{background:transparent;}[data-dsh-float] [data-dsh-inputbar]:not([class*='hero']){padding-bottom:12px;}[data-dsh-float] [data-dsh-stats]{position:relative;z-index:8;width:calc(var(--dsh-chat-content-width) + 32px);max-width:none;margin:0 auto;padding:2px 16px;border:1px solid rgba(122,86,28,0.34);border-top:1px solid rgba(122,86,28,0.24);border-radius:0 0 24px 24px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);color:rgb(38 46 62 / 0.9);}[data-dsh-float] body[data-ds-dark-theme] [data-dsh-stats]{border-color:rgba(0,245,212,0.22);border-top-color:rgba(255,255,255,0.095);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);color:rgb(228 236 248 / 0.92);}[data-dsh-float] [data-composer-card] textarea::placeholder{color:rgb(55 64 84 / 0.5);}[data-dsh-float] body[data-ds-dark-theme] [data-composer-card] textarea::placeholder{color:rgb(205 216 234 / 0.52);}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-spot]{position:relative;isolation:isolate;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-inputbar][data-dsh-aqua-spot]{isolation:auto;z-index:8;}[data-dsh-aqua] [data-dsh-aqua-glow]{display:none;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-glow]{display:block;position:absolute;inset:0;border-radius:inherit;pointer-events:none;opacity:0;transition:opacity 0.3s ease;z-index:-1;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-aqua-spot][data-spot-on] [data-dsh-aqua-glow]{opacity:1;}[data-dsh-aqua][data-dsh-aqua-spotlight] [data-dsh-inputbar][data-dsh-aqua-spot] [data-dsh-aqua-glow]{border-radius:24px;}[data-dsh-aqua][data-dsh-float] [class*='sidebarCol']:has([role='dialog']){backdrop-filter:none;}[data-dsh-float][data-dsh-aqua-press] [data-dsh-aqua-spot]{transition:transform 0.1s ease-out;}[data-dsh-aqua] body [role='dialog']{border:1px solid rgba(122,86,28,0.34);border-radius:20px;background:var(--dsh-aqua-glass-card-light);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-aqua] body[data-ds-dark-theme] [role='dialog']{border-color:rgba(0,245,212,0.22);background:var(--dsh-aqua-glass-card-dark);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-aqua] body [data-slot-sidebar='dsh-tauri-ui']{background:var(--dsh-aqua-glass-card-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-aqua] body[data-ds-dark-theme] [data-slot-sidebar='dsh-tauri-ui']{background:var(--dsh-aqua-glass-card-dark);}[data-dsh-aqua] [class*='dsh-tauri-session-toolbar']{background:transparent;border-color:var(--dsw-alias-border-l2);}[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-search'],[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-menu-select']{background:var(--dsw-alias-bg-layer-3);border:1px solid var(--dsw-alias-border-l2);color:var(--dsw-alias-label-primary);}[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-search'] input,[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-search'] input::placeholder{color:var(--dsw-alias-label-primary);opacity:1;}[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-menu-select'] span,[data-dsh-aqua] [class*='dsh-tauri-session-toolbar'] [class*='dsh-tauri-session-menu-select'] svg{color:var(--dsw-alias-label-secondary);}[data-dsh-float] [role='treeitem'][aria-selected='true']{box-shadow:inset 2px 0 0 var(--dsw-specific-sidebar-nav-item-active-accent),0 0 16px rgba(244,210,138,0.16);}[data-dsh-float] button[class*='button']:hover:not(:disabled),[data-dsh-float] [role='menuitem']:hover:not(:disabled),[data-dsh-float] [role='option']:hover:not(:disabled){box-shadow:0 0 12px rgba(244,210,138,0.18),inset 0 0 0 1px rgba(255,255,255,0.085);}[data-dsh-float] [role='menu'],[data-dsh-float] [role='tree'][class*='menu'],[data-dsh-float] [role='listbox'][class*='menu'],[data-dsh-float] [data-trigger-menu],[data-dsh-float] [class*='_root']:has(> button[aria-expanded]) > ul[class*='_menu'],[data-dsh-float] [class*='_card']:has(> [role='listbox']),[data-dsh-float] [data-cordis-panel]{background:var(--dsh-aqua-glass-card-light);border:1px solid rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [role='menu'],[data-dsh-float] body[data-ds-dark-theme] [role='tree'][class*='menu'],[data-dsh-float] body[data-ds-dark-theme] [role='listbox'][class*='menu'],[data-dsh-float] body[data-ds-dark-theme] [data-trigger-menu],[data-dsh-float] body[data-ds-dark-theme] [class*='_root']:has(> button[aria-expanded]) > ul[class*='_menu'],[data-dsh-float] body[data-ds-dark-theme] [class*='_card']:has(> [role='listbox']),[data-dsh-float] body[data-ds-dark-theme] [data-cordis-panel]{background:var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [role='menu'] [class*='groupTitle'],[data-dsh-float] [role='listbox'][class*='menu'] [class*='groupTitle'],[data-dsh-float] [data-trigger-menu] [class*='groupTitle']{background:transparent;color:var(--dsw-alias-label-secondary);}[data-dsh-float] [class*='_root']:has(> [class*='_body'] > button[class*='_header'][aria-expanded]),[data-dsh-float] [class*='_dock'] > [class*='_panel']:has(> [class*='_header']),[data-dsh-float] [class*='_dock'] > [class*='_bar']{background:var(--dsh-aqua-glass-card-light);border-color:rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] body[data-ds-dark-theme] [class*='_root']:has(> [class*='_body'] > button[class*='_header'][aria-expanded]),[data-dsh-float] body[data-ds-dark-theme] [class*='_dock'] > [class*='_panel']:has(> [class*='_header']),[data-dsh-float] body[data-ds-dark-theme] [class*='_dock'] > [class*='_bar']{background:var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-queue-dock] > [class*='_panel']{background:var(--dsh-aqua-glass-card-light);border-color:rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-float] [data-queue-dock] > [class*='_panel']::after{border-color:transparent;}[data-dsh-float] body[data-ds-dark-theme] [data-queue-dock] > [class*='_panel']{background:var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [data-goal-bar] [class*='objectiveInput']{background:transparent;}[data-dsh-aqua] [data-dsh-aqua-fade]{position:fixed;left:0;right:0;height:13px;z-index:7;pointer-events:none;backdrop-filter:blur(5px);background:rgba(255,255,255,0.2);}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-aqua-fade]{background:rgba(0,0,0,0.15);}[data-dsh-aqua] [data-dsh-aqua-fade='top']{top:0;-webkit-mask-image:linear-gradient(180deg,black 0%,transparent 100%);mask-image:linear-gradient(180deg,black 0%,transparent 100%);}[data-dsh-aqua] [data-dsh-aqua-fade='bottom']{bottom:0;-webkit-mask-image:linear-gradient(0deg,black 0%,transparent 100%);mask-image:linear-gradient(0deg,black 0%,transparent 100%);}[data-dsh-aqua]:focus-visible{outline:2px solid rgba(154,111,44,0.75);outline-offset:1px;}[data-dsh-aqua]::selection{background:rgba(154,111,44,0.35);}[data-dsh-aqua] select option,[data-dsh-aqua] select optgroup{background-color:#FFFFFF;color:#2A241A;}[data-dsh-aqua] body[data-ds-dark-theme] select option,[data-dsh-aqua] body[data-ds-dark-theme] select optgroup{background-color:#16181D;color:#F2F0EA;}[data-dsh-aqua] [role='dialog'] select,[data-dsh-aqua] [data-slot-sidebar='dsh-tauri-ui'] select{background-color:transparent;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%237A7468' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),var(--dsh-aqua-glass-card-light);background-position:right 12px center,0 0;background-repeat:no-repeat,no-repeat;background-size:12px 12px,auto;border-color:rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);color:var(--dsw-alias-label-primary);}[data-dsh-aqua] body[data-ds-dark-theme] [role='dialog'] select,[data-dsh-aqua] body[data-ds-dark-theme] [data-slot-sidebar='dsh-tauri-ui'] select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.mineradio_w3.mineradio_org/2000/svg' width='12' height='12' viewBox='0 0 12 12' fill='none'%3E%3Cpath d='M3 4.5L6 7.5L9 4.5' stroke='%23CBC4B8' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E"),var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-float] [role='dialog'] h2{font-family:'Space Grotesk Variable','Noto Serif SC','Songti SC','STSong','SimSun',serif;font-weight:600;letter-spacing:0.02em;}[data-dsh-float] [role='treeitem']{font-family:'Space Grotesk Variable','Noto Serif SC','Songti SC','STSong','SimSun',serif;font-weight:500;}[data-dsh-float] [data-phase='hero']{animation:dsh-aqua-hero-in 0.32s var(--ds-ease-in-out);}[data-dsh-float] [data-phase='active']{animation:dsh-aqua-active-in 0.3s var(--ds-ease-in-out);}[data-dsh-float] [data-testid^='view-']{animation:dsh-aqua-view-in 0.26s var(--ds-ease-in-out);}[data-dsh-float] [class*='userRow']{animation:dsh-aqua-rise 0.28s var(--ds-ease-in-out) both;}[data-dsh-float] [data-tool]{animation:dsh-aqua-rise 0.3s var(--ds-ease-in-out) both;}[data-dsh-float] [role='dialog']{animation:dsh-aqua-dialog-in 0.24s var(--ds-ease-in-out);}@keyframes dsh-aqua-hero-in{from{opacity:0;}}@keyframes dsh-aqua-active-in{from{opacity:0;}}@keyframes dsh-aqua-view-in{from{opacity:0;}}@keyframes dsh-aqua-rise{from{opacity:0;transform:translateY(6px);}}@keyframes dsh-aqua-dialog-in{from{opacity:0;transform:translateY(8px) scale(0.985);}}[data-dsh-float][data-dsh-dispersion] [data-composer-card]::before,[data-dsh-float][data-dsh-dispersion] header,[data-dsh-float][data-dsh-dispersion] [data-dsh-trajectory],[data-dsh-float][data-dsh-dispersion] [data-dsh-stats],[data-dsh-float][data-dsh-dispersion] [data-dsh-inputbar]:has([data-dsh-stats])::before{backdrop-filter:blur(var(--dsh-aqua-blur,22px)) url(#mineradio-glass-dispersion) saturate(1.22) brightness(1.04);}[data-dsh-float][data-dsh-dispersion] [class*='sidebarCol']::before{backdrop-filter:blur(var(--dsh-aqua-blur,22px)) url(#mineradio-glass-dispersion-tall) saturate(1.22) brightness(1.04);}[data-dsh-float][data-dsh-dispersion] [data-dsh-frame][data-sidebar-collapsed] [class*='sidebarCol']::before{backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-compat] [role='menu'],[data-dsh-compat] [role='tooltip'],[data-dsh-compat] [class*='card'],[data-dsh-compat] [class*='bubble'],[data-dsh-compat] [class*='panel'],[data-dsh-compat] [class*='popover'],[data-dsh-compat] [class*='dropdown']{backdrop-filter:blur(var(--dsh-aqua-blur,22px));}[data-dsh-aqua] [data-dsh-panel-host] [class*='panel' i]:not([class*='Body' i]):not([class*='Resize' i]):not([class*='Tab' i]){background:var(--dsh-aqua-glass-card-light);border-color:rgba(122,86,28,0.34);box-shadow:var(--dsh-aqua-glass-shadow-light);backdrop-filter:blur(var(--dsh-aqua-blur,22px)) saturate(1.22) brightness(1.04);}[data-dsh-aqua] body[data-ds-dark-theme] [data-dsh-panel-host] [class*='panel' i]:not([class*='Body' i]):not([class*='Resize' i]):not([class*='Tab' i]){background:var(--dsh-aqua-glass-card-dark);border-color:rgba(0,245,212,0.22);box-shadow:var(--dsh-aqua-glass-shadow-dark);}[data-dsh-aqua] [data-dsh-panel-host] [class*='tabBar']{background:transparent;}[data-dsh-aqua] [data-dsh-panel-host] [class*='_pane']:not([class*='panel']):not([class*='Content']):not([class*='Tab']){background:transparent;}[data-dsh-aqua] [data-dsh-panel-host] [class*='terminalWrap']{background:transparent;}[data-dsh-aqua] [data-dsh-panel-host] [class*='xterm-viewport'],[data-dsh-aqua] [data-dsh-panel-host] [class*='xterm-screen']{background-color:transparent !important;}@media (prefers-reduced-motion:reduce){[data-dsh-float] [data-phase='hero'],[data-dsh-float] [data-phase='active'],[data-dsh-float] [data-testid^='view-'],[data-dsh-float] [class*='userRow'],[data-dsh-float] [data-tool],[data-dsh-float] [role='dialog'],[data-dsh-aqua] [data-dsh-aqua-ambient],[data-dsh-aqua] [data-aqua-critter],[data-dsh-aqua] [data-dsh-inputbar][data-dsh-on-air],[data-dsh-aqua] [data-dsh-inputbar][data-dsh-on-air] [data-composer-card],[data-dsh-aqua] [data-dsh-station-tuner][data-dsh-tuning]{animation:none;}[data-dsh-aqua] [data-aqua-critter='bubble']{opacity:0;}}`;
   document.head.appendChild(tag);
 }
 
-// dshcss:Mineradio-DSH-Theme\src\client\fonts.module.css
+// dshcss:<pkg>\src\client\fonts.module.css
 if (typeof document !== "undefined" && document.querySelector("style[data-plugin-css=" + JSON.stringify("dsh-theme-mineradio/src/client/fonts.module.css?v=8a003375") + "]") === null) {
   const tag = document.createElement("style");
   tag.dataset.plugin = "dsh-theme-mineradio";
@@ -4375,6 +4999,12 @@ function apply(ctx) {
   const layer = new MineradioLayer(ctx);
   const pluginStore = createMineradioRowStore();
   const appearanceStore = createMineradioRowStore();
+  if (pluginStore === void 0 || appearanceStore === void 0) {
+    console.warn("dsh-theme-mineradio: host store engine unavailable; theme layer applied without the settings surfaces");
+    return;
+  }
+  const pluginRow = pluginStore;
+  const appearanceRow = appearanceStore;
   let pluginBound;
   let appearanceBound;
   let revision = 0;
@@ -4408,7 +5038,9 @@ function apply(ctx) {
       wallpaperMaskBlur: s.wallpaperMaskBlur,
       wallpaperMaskOpacity: s.wallpaperMaskOpacity,
       videoBlur: s.videoBlur,
-      videoBrightness: s.videoBrightness
+      videoBrightness: s.videoBrightness,
+      perf: s.perf,
+      rainbow: s.rainbow
     };
   };
   const sync = () => {
@@ -4434,6 +5066,14 @@ function apply(ctx) {
     appearanceBound = actions;
     sync();
     return {
+      applyScene: (scene) => {
+        layer.applyScene(scene);
+        sync();
+      },
+      setPerf: (perf) => {
+        layer.setPerf(perf);
+        sync();
+      },
       setMode: (mode) => {
         layer.setMode(mode);
         sync();
@@ -4546,8 +5186,7 @@ function apply(ctx) {
   ctx.slots.inject("settings.plugin.item", () => ctx.slots.register({
     name: "settings.plugin.item",
     key: "mineradio",
-    order: 5,
-    store: pluginStore,
+    store: pluginRow,
     locale: NS,
     inject: pluginInjected
   }, MineradioPluginCard));
@@ -4555,12 +5194,15 @@ function apply(ctx) {
     name: "settings.general.item",
     id: "mineradio",
     order: 11,
-    store: appearanceStore,
+    store: appearanceRow,
     locale: NS,
     inject: appearanceInjected
-  }, MineradioAppearanceRow), { key: "mineradio" });
+  }, MineradioAppearanceRow));
 }
 
-    return module.exports;
+      return module.exports;
+    } finally {
+      globalThis.__dshRequire = previousRequire;
+    }
   }
 });
