@@ -16,11 +16,11 @@
 
 ## 发布（网络到不了 github.com 时走 Contents API，实测可用）
 ```powershell
-$gh="C:\Program Files\GitHub CLI\gh.exe"; $repo="sun-9264/dsh-desktop"; $d="C:\Users\simpl\Desktop\1111\dsh-desktop"
+$gh="gh"; $repo="sun-9264/dsh-desktop"; $d=(Get-Location).Path   # 在 dsh-desktop 目录下执行
 # 1) 只建公开仓库（不带 --source=./--push，避免 git push 超时）
 & $gh repo create dsh-desktop --public
 # 2) Contents API 逐个上传源码文件（绕开 github.com）
-$files=@("main.js","launcher.cjs","desktop-preload.js","setup-guide.html","setup-preload.js","settings.html","settings-preload.js","dom.html","icon.ico","package.json","README.md","THIRD-PARTY-NOTICES.md","theme/lib/client.js","theme/lib/index.js")   # theme/plugins 逐个补全
+$files=@("main.js","launcher.cjs","desktop-preload.js","setup-guide.html","setup-preload.js","settings.html","settings-preload.js","icon.ico","package.json","README.md","THIRD-PARTY-NOTICES.md","theme/lib/client.js","theme/lib/index.js")   # theme/plugins 逐个补全
 foreach($f in $files){
   $b64=[Convert]::ToBase64String([IO.File]::ReadAllBytes((Join-Path $d ($f -replace '/','\'))))
   & $gh api --method PUT "repos/$repo/contents/$f" -f "message=init: $f" -f "content=$b64" -f "branch=main" | Out-Null
