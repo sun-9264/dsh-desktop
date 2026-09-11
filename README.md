@@ -30,8 +30,8 @@ dsh-desktop/
 ├─ main.js          Electron 主进程（窗口 + 启动 DSH + 环境检测 + 自动装配蓝主题）
 ├─ setup-guide.html 无 Node.js 时的中文安装引导页
 ├─ icon.ico         DeepSeek 鲸娘图标
-├─ theme/           内置蓝色主题（dsh-theme-mineradio 改色版）
-├─ mineradio/       蓝色主题源码（香槟金→DeepSeek 蓝 + 对比度优化）
+├─ theme/           内置主题（dsh-theme-mineradio，已改为 DeepSeek 蓝主题）
+├─ plugins/         内置插件（余额显示 / 用量统计 / 桌面设置）
 └─ release/DeepSeek Harness.exe   构建产物（单文件）
 ```
 
