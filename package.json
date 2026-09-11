@@ -1,6 +1,6 @@
 {
   "name": "dsh-desktop",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "DSH 桌面版 — 社区自制、非官方的 DeepSeek Harness 桌面启动器（与 DeepSeek 官方无关）",
   "main": "main.js",
   "author": "simple_sun 和 胖🐋",
