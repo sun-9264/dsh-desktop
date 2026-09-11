@@ -16,6 +16,8 @@ let dshProc = null;
 let mainWin = null;   // 主窗口引用（托盘恢复用）
 let tray = null;       // 系统托盘
 let isQuitting = false; // 真正退出时置 true，跳过关窗拦截
+let dshWebUrl = null;
+let dshWebUrlWaiters = [];
 
 // —— 统一配置存取（userData/settings.json）：关窗偏好 + 开机自启 + 记住窗口大小 ——
 function settingsPath() { return path.join(app.getPath('userData'), 'settings.json'); }
@@ -49,6 +51,87 @@ function isPortOpen(port, host) {
 }
 function sleep(ms) { return new Promise(function (r) { setTimeout(r, ms); }); }
 
+// —— 3080 端口占用识别：仅允许安全接管 DSH/node，不碰未知进程 ——
+function getWindowsProcessInfo(pid) {
+  var info = { pid: String(pid), name: '', commandLine: '' };
+  try {
+    var ps = 'Get-CimInstance Win32_Process -Filter "ProcessId=' + String(pid) + '" | Select-Object Name,CommandLine | ConvertTo-Json -Compress';
+    var out = String(execFileSync('powershell.exe', ['-NoProfile', '-NonInteractive', '-Command', ps], { encoding: 'utf8', windowsHide: true, timeout: 5000 }) || '').replace(/^\uFEFF/, '').trim();
+    if (out) {
+      var obj = JSON.parse(out);
+      info.name = String(obj.Name || '').trim();
+      info.commandLine = String(obj.CommandLine || '').trim();
+    }
+  } catch (e) {}
+  if (!info.name) {
+    try {
+      var tl = String(execFileSync('tasklist', ['/FI', 'PID eq ' + String(pid), '/FO', 'CSV', '/NH'], { encoding: 'utf8', windowsHide: true, timeout: 5000 }) || '');
+      var tm = tl.match(/^"([^"]+)"/);
+      if (tm) info.name = tm[1];
+    } catch (e) {}
+  }
+  if (!info.commandLine) {
+    try {
+      var wm = String(execFileSync('wmic', ['process', 'where', 'ProcessId=' + String(pid), 'get', 'CommandLine', '/value'], { encoding: 'utf8', windowsHide: true, timeout: 5000 }) || '');
+      var wl = wm.split(/\r?\n/);
+      for (var i = 0; i < wl.length; i++) {
+        if (/^CommandLine=/i.test(wl[i])) { info.commandLine = wl[i].slice(wl[i].indexOf('=') + 1).trim(); break; }
+      }
+    } catch (e) {}
+  }
+  return info;
+}
+
+function isLikelyDshProcess(info) {
+  var cmd = String((info && info.commandLine) || '').toLowerCase();
+  var packageMarker = /@deepseek-ai[\\/]dsh/.test(cmd);
+  var dshCliWithWebProfile = /(?:^|\s)dsh(?:\.js|\.cmd|\.exe)?(?:\s|$)/.test(cmd) && /(?:^|\s)--profile(?:\s+|=)web(?:\s|$)/.test(cmd);
+  if (packageMarker || dshCliWithWebProfile) return true;
+  return false;
+}
+
+function findListeningPids(port) {
+  var pids = [];
+  if (process.platform !== 'win32') return pids;
+  try {
+    var out = String(execFileSync('netstat', ['-ano'], { encoding: 'utf8', windowsHide: true, timeout: 5000 }) || '');
+    var lines = out.split(/\r?\n/);
+    for (var i = 0; i < lines.length; i++) {
+      if (lines[i].indexOf(':' + port) < 0) continue;
+      var m = lines[i].match(/LISTENING\s+(\d+)\s*$/i);
+      if (m && pids.indexOf(m[1]) < 0) pids.push(m[1]);
+    }
+  } catch (e) {}
+  return pids;
+}
+
+async function stopUnmanagedDshOnPort() {
+  var pids = findListeningPids(PORT);
+  if (!pids.length) {
+    console.error('[dsh] 3080 已监听但无法确认占用进程，取消自动接管');
+    return false;
+  }
+  var targets = [];
+  for (var i = 0; i < pids.length; i++) {
+    var info = getWindowsProcessInfo(pids[i]);
+    if (!isLikelyDshProcess(info)) {
+      console.error('[dsh] 3080 被非 DSH/node 进程占用，PID=' + pids[i] + '，进程=' + (info.name || '未知') + '，取消自动接管');
+      return false;
+    }
+    targets.push(pids[i]);
+  }
+  console.log('[dsh] 检测到未管理的 DSH/node 占用 3080，释放端口后由桌面壳接管');
+  for (var j = 0; j < targets.length; j++) {
+    try { execFileSync('taskkill', ['/F', '/PID', targets[j]], { windowsHide: true, stdio: 'ignore', timeout: 5000 }); } catch (e) {}
+  }
+  var deadline = Date.now() + 5000;
+  while (Date.now() < deadline) {
+    if (!(await isPortOpen(PORT, '127.0.0.1'))) return true;
+    await sleep(200);
+  }
+  return !(await isPortOpen(PORT, '127.0.0.1'));
+}
+
 // —— 检测本机是否有 node / npm（朋友机器无环境时引导下载）——
 function hasNode() {
   return new Promise(function (resolve) {
@@ -67,16 +150,33 @@ function hasNpm() {
   });
 }
 
-// —— 把打包在 asar 里的主题解压到 userData 真实目录（junction 需要真实路径）——
-// —— 从 asar 把内置插件解压到 userData 真实目录 ——
+// —— 读取插件版本（package.json 的 version；读不到返回 null）——
+function readPluginVersion(dir) {
+  try {
+    var p = path.join(dir, 'package.json');
+    if (!fs.existsSync(p)) return null;
+    var v = JSON.parse(fs.readFileSync(p, 'utf8')).version;
+    return (typeof v === 'string' && v) ? v : null;
+  } catch (e) { return null; }
+}
+
+// —— 把打包在 asar 里的插件解压到 userData 真实目录（junction 需要真实路径）——
+// 只有版本一致才跳过；版本不同（或目标缺失/损坏）就整目录覆盖重建。
+// 旧版这里是「package.json 存在就 return」，导致升级后仍沿用旧插件，
+// 而旧插件可能引用已从引擎移除的模块（整页 Failed to load plugins）。
 function extractBundledPlugin(pluginDir, pluginName) {
   try {
     var src = path.join(app.getAppPath(), pluginDir);
     var dest = path.join(app.getPath('userData'), 'plugins', pluginName);
-    var marker = path.join(dest, 'package.json');
-    if (fs.existsSync(marker)) return dest;
+    var srcVer = readPluginVersion(src);
+    var destVer = readPluginVersion(dest);
+    if (srcVer !== null && srcVer === destVer) return dest;
+    if (fs.existsSync(dest)) {
+      try { fs.rmSync(dest, { recursive: true, force: true }); } catch (e) { console.error('[plugin] rm failed', pluginName, e); }
+    }
     fs.mkdirSync(dest, { recursive: true });
     copyDir(src, dest);
+    console.log('[plugin] refreshed ' + pluginName + ': ' + (destVer || 'none') + ' -> ' + (srcVer || 'none'));
     return dest;
   } catch (e) { console.error('[plugin] extract failed', pluginName, e); return null; }
 }
@@ -109,15 +209,27 @@ function ensurePluginInstalled(pluginDir, pluginName) {
     profilePkg.dsh = profilePkg.dsh || {};
     profilePkg.dsh.profile = profilePkg.dsh.profile || {};
     profilePkg.dsh.profile.bundles = profilePkg.dsh.profile.bundles || [];
-    if (!profilePkg.dependencies[pluginName]) profilePkg.dependencies[pluginName] = 'link:' + pluginDir;
+    // 依赖项与 junction 都必须指向本次解压出来的目录：旧版只在「不存在」时才写，
+    // 于是历史遗留的旧路径 / 旧插件永远不会被纠正。
+    var wantLink = 'link:' + pluginDir;
+    if (profilePkg.dependencies[pluginName] !== wantLink) profilePkg.dependencies[pluginName] = wantLink;
     if (profilePkg.dsh.profile.bundles.indexOf(pluginName) === -1) profilePkg.dsh.profile.bundles.push(pluginName);
     fs.writeFileSync(profilePkgPath, JSON.stringify(profilePkg, null, 2) + '\n', 'utf8');
     var nodes = path.join(profileDir, 'node_modules');
     var linkPath = path.join(nodes, pluginName);
-    if (!fs.existsSync(linkPath)) {
-      // scoped 包名（含 /）需要先建中间目录，否则 symlink 到多层路径失败
-      fs.mkdirSync(path.dirname(linkPath), { recursive: true });
+    // scoped 包名（含 /）需要先建中间目录，否则 symlink 到多层路径失败
+    fs.mkdirSync(path.dirname(linkPath), { recursive: true });
+    var linkTarget = null, wantTarget = null;
+    try { linkTarget = fs.realpathSync(linkPath); } catch (e) { linkTarget = null; }
+    try { wantTarget = fs.realpathSync(pluginDir); } catch (e) { wantTarget = null; }
+    if (linkTarget === null || wantTarget === null || linkTarget !== wantTarget) {
+      try {
+        // 只删链接本身：是 junction/symlink 用 unlink，真实目录才递归删
+        if (fs.lstatSync(linkPath).isSymbolicLink()) fs.unlinkSync(linkPath);
+        else fs.rmSync(linkPath, { recursive: true, force: true });
+      } catch (e) { /* 不存在则无需删除 */ }
       fs.symlinkSync(pluginDir, linkPath, 'junction');
+      console.log('[plugin] relinked ' + pluginName + ' -> ' + pluginDir);
     }
     return true;
   } catch (e) { console.error('[plugin] install failed', e); return false; }
@@ -176,6 +288,63 @@ function findNpxCli(nodePath) {
   return '';
 }
 
+// —— 捕获 DSH 输出中的带 token Web 地址（普通日志不输出 token）——
+function stripAnsi(text) {
+  return String(text || '').replace(/\x1b\[[0-?]*[ -\/]*[@-~]/g, '');
+}
+
+function publishDshWebUrl(url) {
+  if (!url || dshWebUrl === url) return;
+  dshWebUrl = url;
+  console.log('[dsh] Web 鉴权地址已就绪（token 已隐藏）');
+  var waiters = dshWebUrlWaiters.slice();
+  dshWebUrlWaiters = [];
+  for (var i = 0; i < waiters.length; i++) {
+    try { waiters[i](url); } catch (e) { console.error('[dsh] 应用 Web 鉴权地址失败'); }
+  }
+}
+
+function onDshWebUrl(callback) {
+  if (dshWebUrl) {
+    try { callback(dshWebUrl); } catch (e) { console.error('[dsh] 应用 Web 鉴权地址失败'); }
+    return function () {};
+  }
+  dshWebUrlWaiters.push(callback);
+  return function () {
+    var idx = dshWebUrlWaiters.indexOf(callback);
+    if (idx >= 0) dshWebUrlWaiters.splice(idx, 1);
+  };
+}
+
+function parseDshWebOutputLine(line) {
+  var match = stripAnsi(line).match(/dsh\s+web:\s*(https?:\/\/127\.0\.0\.1:3080\/\?token=[^\s"'<>]+)/i);
+  if (match) publishDshWebUrl(match[1]);
+}
+
+function attachDshOutput(child) {
+  function createLineReader() {
+    var buffer = '';
+    return {
+      push: function (chunk) {
+        buffer += chunk.toString('utf8');
+        var lines = buffer.split(/\r\n|\n|\r/);
+        buffer = lines.pop();
+        for (var i = 0; i < lines.length; i++) parseDshWebOutputLine(lines[i]);
+      },
+      flush: function () {
+        if (!buffer) return;
+        parseDshWebOutputLine(buffer);
+        buffer = '';
+      }
+    };
+  }
+  var stdoutReader = createLineReader();
+  var stderrReader = createLineReader();
+  if (child.stdout) child.stdout.on('data', function (chunk) { stdoutReader.push(chunk); });
+  if (child.stderr) child.stderr.on('data', function (chunk) { stderrReader.push(chunk); });
+  child.on('close', function () { stdoutReader.flush(); stderrReader.flush(); });
+}
+
 function startDsh(nodePath, npxCli, registry) {
   return new Promise(function (resolve) {
     try {
@@ -186,11 +355,18 @@ function startDsh(nodePath, npxCli, registry) {
       var env = Object.assign({}, process.env, { npm_config_registry: registry });
       var child = spawn(nodePath, args, {
         cwd: os.homedir(), env: env, windowsHide: true,
-        stdio: ['ignore', 'ignore', 'ignore']
+        stdio: ['ignore', 'pipe', 'pipe']
       });
       dshProc = child;
-      child.on('error', function () { resolve(false); });
-      child.on('exit', function () { if (child === dshProc) dshProc = null; });
+      attachDshOutput(child);
+      child.on('error', function (err) {
+        console.error('[dsh] 子进程启动失败:', err && err.stack ? err.stack : err);
+        resolve(false);
+      });
+      child.on('exit', function (code, signal) {
+        console.error('[dsh] 子进程退出:', 'pid=' + String(child.pid || ''), 'code=' + String(code), 'signal=' + String(signal));
+        if (child === dshProc) dshProc = null;
+      });
       setTimeout(function () { resolve(true); }, 2500);
     } catch (e) { resolve(false); }
   });
@@ -218,9 +394,25 @@ function readCachedEngineVersion() {
 
 function checkEngineUpdate() {
   return new Promise(function (resolve) {
+    var settled = false;
+    var controller = typeof AbortController === 'function' ? new AbortController() : null;
+    var timer = null;
+    function finish(ok) {
+      if (settled) return;
+      settled = true;
+      if (timer) clearTimeout(timer);
+      resolve(ok);
+    }
+    // 硬超时：即使 fetch/AbortController 未按预期结束，也不阻塞 DSH 启动。
+    timer = setTimeout(function () {
+      console.error('[update] 更新检查超时，继续启动 DSH');
+      if (controller) { try { controller.abort(); } catch (e) {} }
+      finish(false);
+    }, 6000);
     engineInfo.cached = readCachedEngineVersion();
     try {
-      fetch('https://registry.npmjs.org/@deepseek-ai/dsh')
+      var options = controller ? { signal: controller.signal } : {};
+      fetch('https://registry.npmjs.org/@deepseek-ai/dsh', options)
         .then(function (r) { return r.json(); })
         .then(function (j) {
           engineInfo.latest = (j && j['dist-tags']) ? j['dist-tags'].latest : '';
@@ -228,19 +420,25 @@ function checkEngineUpdate() {
           if (engineInfo.cached && engineInfo.latest && engineInfo.latest !== engineInfo.cached) {
             engineInfo.updated = true;
           }
-          resolve(true);
+          finish(true);
         })
-        .catch(function () { resolve(false); }); // 离线：跳过更新检查
-    } catch (e) { resolve(false); }
+        .catch(function (err) {
+          if (!settled) console.error('[update] 更新检查失败，继续启动 DSH:', err && err.message ? err.message : err);
+          finish(false); // 离线/受限网络：跳过更新检查，继续启动
+        });
+    } catch (e) {
+      console.error('[update] 更新检查异常，继续启动 DSH:', e && e.message ? e.message : e);
+      finish(false);
+    }
   });
 }
-
 
 function startDshShell(cmdline, registry) {
   return new Promise(function (resolve) {
     try {
-      var child = spawn(cmdline, { cwd: os.homedir(), env: Object.assign({}, process.env, { npm_config_registry: registry }), windowsHide: true, shell: true, stdio: ['ignore','ignore','ignore'] });
+      var child = spawn(cmdline, { cwd: os.homedir(), env: Object.assign({}, process.env, { npm_config_registry: registry }), windowsHide: true, shell: true, stdio: ['ignore','pipe','pipe'] });
       dshProc = child;
+      attachDshOutput(child);
       child.on('error', function () { resolve(false); });
       child.on('exit', function () { if (child === dshProc) dshProc = null; });
       setTimeout(function () { resolve(true); }, 2000);
@@ -249,7 +447,12 @@ function startDshShell(cmdline, registry) {
 }
 
 async function ensureServer() {
-  if (await isPortOpen(PORT, '127.0.0.1')) return 'ready';
+  if (await isPortOpen(PORT, '127.0.0.1')) {
+    if (dshWebUrl) return 'ready';
+    console.log('[dsh] 3080 已监听但尚无 Web token，检查端口占用进程');
+    var released = await stopUnmanagedDshOnPort();
+    if (!released) return 'failed';
+  }
   var okNode = await hasNode();
   if (!okNode) return 'no-node';
   await checkEngineUpdate();  // 跟随引擎自动更新检测
@@ -322,6 +525,13 @@ function applyAutoLaunch() {
   } catch (e) { return false; }
 }
 
+function loadDshWindowUrl(win, url) {
+  try {
+    var ret = win.loadURL(url);
+    if (ret && typeof ret.catch === 'function') ret.catch(function () { console.error('[dsh] Web 页面加载失败（鉴权地址已隐藏）'); });
+  } catch (e) { console.error('[dsh] Web 页面加载失败（鉴权地址已隐藏）'); }
+}
+
 function createWindow() {
   var cfg = loadSettings();
   // 记住窗口大小：若开启且有上次尺寸，用上次，否则用自适应默认尺寸
@@ -365,13 +575,22 @@ function createWindow() {
     ].join('\n');
     win.webContents.insertCSS(css).catch(function(){});
     if (engineInfo.updated) {
-                  var bannerVersion = engineInfo.latest || '';
-      var bannerJs = "(function(){var b=document.createElement('div');b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:999999;background:#2e43b8;color:#fff;padding:8px 20px;font-size:13px;text-align:center;font-family:sans-serif;';b.textContent='🔁 DeepSeek Harness 引擎已自动更新到 v' + %%VER%% ;document.body.appendChild(b);})()";
+      var bannerVersion = engineInfo.latest || '';
+      // 横幅 + 可关闭：✕ 关闭后记住该版本（localStorage），同一版本不再打扰；
+      // 引擎下次更新（版本变化）时横幅会重新出现。
+      var bannerJs = "(function(){try{var KEY='dsh-desktop-engine-banner-dismissed';var V=%%VER%%;if(!V)return;if(localStorage.getItem(KEY)===V)return;var b=document.createElement('div');b.style.cssText='position:fixed;top:0;left:0;right:0;z-index:999999;background:#2e43b8;color:#fff;padding:8px 44px 8px 20px;font-size:13px;text-align:center;font-family:sans-serif;box-sizing:border-box;';b.textContent='\uD83D\uDD01 DeepSeek Harness 引擎已自动更新到 v'+V;var x=document.createElement('button');x.type='button';x.setAttribute('aria-label','关闭提示');x.title='关闭';x.textContent='\\u2715';x.style.cssText='position:absolute;top:0;right:0;height:100%;width:40px;padding:0;border:0;background:transparent;color:#fff;font-size:15px;line-height:1;cursor:pointer;opacity:.85;';x.onmouseenter=function(){x.style.opacity='1';x.style.background='rgba(255,255,255,.16)';};x.onmouseleave=function(){x.style.opacity='.85';x.style.background='transparent';};x.onclick=function(){try{localStorage.setItem(KEY,V);}catch(e){}if(b.parentNode)b.parentNode.removeChild(b);};b.appendChild(x);document.body.appendChild(b);}catch(e){}})()";
       bannerJs = bannerJs.replace("%%VER%%", JSON.stringify(bannerVersion));
       win.webContents.executeJavaScript(bannerJs).catch(function(){});
     }
   });
-  win.loadURL(WEB_URL);
+  var usedFallbackUrl = !dshWebUrl;
+  loadDshWindowUrl(win, dshWebUrl || WEB_URL);
+  if (usedFallbackUrl) {
+    var removeDshWebUrlListener = onDshWebUrl(function (url) {
+      if (!win.isDestroyed()) loadDshWindowUrl(win, url);
+    });
+    win.once('closed', removeDshWebUrlListener);
+  }
   mainWin = win;
 
   // —— 关窗确认：最小化到托盘 / 完全退出，可勾选下次默认 ——
@@ -517,20 +736,17 @@ app.on('window-all-closed', function () { if (tray) { /* 有托盘：后台运�
 
 // —— 完全退出时彻底关闭 DSH：杀外层进程 + 按 3080 端口反查杀掉真正的 DSH 服务进程 ——
 function killDshProcesses() {
-  // ① 杀掉 main.js 记录的启动进程（外层 npx-cli，若还在）
   if (dshProc) { try { dshProc.kill(); } catch (e) {} dshProc = null; }
-  // ② 按 3080 端口反查 DSH 服务进程并同步强杀（用 execFileSync 保证 quit 前执行完，不留孤儿进程占端口）
   try {
-    var out = execFileSync('netstat', ['-ano'], { encoding: 'utf8', windowsHide: true });
-    var lines = String(out).split(/\r?\n/);
-    var pids = {};
-    for (var i = 0; i < lines.length; i++) {
-      var l = lines[i];
-      if (l.indexOf(':' + PORT) < 0) continue;
-      var m = l.match(/LISTENING\s+(\d+)\s*$/i);
-      if (m) pids[m[1]] = true;
+    var pids = findListeningPids(PORT);
+    for (var i = 0; i < pids.length; i++) {
+      var info = getWindowsProcessInfo(pids[i]);
+      if (!isLikelyDshProcess(info)) {
+        console.error('[dsh] 退出时跳过非 DSH/node 的 3080 占用进程，PID=' + pids[i]);
+        continue;
+      }
+      try { execFileSync('taskkill', ['/F', '/PID', pids[i]], { windowsHide: true, stdio: 'ignore', timeout: 5000 }); } catch (e) {}
     }
-    for (var pid in pids) { try { execFileSync('taskkill', ['/F', '/PID', pid], { windowsHide: true, stdio: 'ignore' }); } catch (e) {} }
   } catch (e) {}
 }
 
