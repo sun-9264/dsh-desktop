@@ -8,3 +8,6 @@ mineradio/
 usage-stats-dl/
 icondl/
 *.tgz
+release-*/
+_tmp_*
+*_extract/
